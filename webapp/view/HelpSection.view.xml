@@ -1,0 +1,18 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="generated.app.controller.HelpSection" xmlns:m="sap.m" xmlns:core="sap.ui.core">
+    <m:Page showHeader="false" title="Responsive Page Title" showFooter="false" showNavButton="false">
+        <m:content>
+            <m:Title text="Como efetuar uma Reserva?" titleStyle="H1" width="95%" textAlign="Center" visible="true"/>
+            <core:Icon src="sap-icon://decline" size="30px" color="red" height="30px" width="30px" activeColor="red" visible="true" press="_onIconPress1"/>
+            <m:HBox alignItems="Center" direction="Row" fitContainer="true" width="auto" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
+                <m:items>
+                    <m:Image src="/webapp/resources/help1.png" height="768px" width="768px" densityAware="false"/>
+                </m:items>
+                <m:layoutData/>
+            </m:HBox>
+        </m:content>
+        <m:footer/>
+        <m:headerContent/>
+        <m:subHeader/>
+        <m:customHeader/>
+    </m:Page>
+</mvc:View>
