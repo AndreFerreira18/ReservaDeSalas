@@ -5,7 +5,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
     ], function(BaseController, MessageBox, Utilities, History) {
     "use strict";
 
-    return BaseController.extend("generated.app.controller.HelpSection", {
+    return BaseController.extend("odkasfactory.reservasalas.controller.HelpSection", {
     handleRouteMatched: function (oEvent) {
             		
 		var oParams = {}; 

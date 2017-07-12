@@ -1,4 +1,4 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="generated.app.controller.Footer" xmlns:m="sap.m" xmlns:layout1="sap.ui.commons.layout">
+<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="odkasfactory.reservasalas.controller.Footer" xmlns:m="sap.m" xmlns:layout1="sap.ui.commons.layout">
     <m:Page showHeader="false" title="Page Title" showFooter="false" showNavButton="false" enableScrolling="false">
         <m:content>
             <layout1:AbsoluteLayout horizontalScrolling="Hidden" verticalScrolling="Auto">

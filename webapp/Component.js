@@ -1,8 +1,8 @@
 sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
-	"generated/app/model/models",
-    	"generated/app/localService/mockserver"
+	"odkasfactory/reservasalas/model/models",
+    	"odkasfactory/reservasalas/localService/mockserver"
     ], function(UIComponent, Device, models, server) {
     	"use strict";
         
@@ -15,7 +15,7 @@ sap.ui.define([
 	
 	};
 
-	return UIComponent.extend("generated.app.Component", {
+	return UIComponent.extend("odkasfactory.reservasalas.Component", {
 
 		metadata: {
 			manifest: "json"

@@ -1,11 +1,16 @@
-sap.ui.define(["sap/ui/core/mvc/Controller",
+sap.ui.define([
+	"sap/ui/core/mvc/Controller",
     "sap/m/MessageBox",
     "./utilities",
     "sap/ui/core/routing/History"
-    ], function(BaseController, MessageBox, Utilities, History) {
+    ], function(Controller) {
     "use strict";
 
-    return BaseController.extend("generated.app.controller.InitialModal", {
+
+	return Controller.extend("odkasfactory.reservasalas.controller.InitialModal", {
+
+    	
+    	
     handleRouteMatched: function (oEvent) {
             		
 		var oParams = {}; 
@@ -21,18 +26,18 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 		
 		
         },
-_onIconPress: function (oEvent) {
+	_onIconPress: function (oEvent) {
             		
-		var oBindingContext = oEvent.getSource().getBindingContext(); 
+		// var oBindingContext = oEvent.getSource().getBindingContext(); 
 		
-		return new ES6Promise.Promise(function(fnResolve, fnReject) {
+		// return new ES6Promise.Promise(function(fnResolve, fnReject) {
 		
-		    this.doNavigate("HelpSection", oBindingContext, fnResolve, ""
-		    );
-		}.bind(this)).catch(function (err) { if (err !== undefined) { MessageBox.error(err.message); }});
+		//     this.doNavigate("HelpSection", oBindingContext, fnResolve, ""
+		//     );
+		// }.bind(this)).catch(function (err) { if (err !== undefined) { MessageBox.error(err.message); }});
 		
         },
-doNavigate: function (sRouteName, oBindingContext, fnPromiseResolve, sViaRelation) {
+	doNavigate: function (sRouteName, oBindingContext, fnPromiseResolve, sViaRelation) {
             		
 		var sPath = (oBindingContext) ? oBindingContext.getPath() : null;
 		var oModel = (oBindingContext) ? oBindingContext.getModel() : null;
@@ -87,13 +92,17 @@ doNavigate: function (sRouteName, oBindingContext, fnPromiseResolve, sViaRelatio
 		    fnPromiseResolve();
 		}
         },
-onInit: function () {
+	onInit: function () {
             		
         this.mBindingOptions = {};
-        this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-        this.oRouter.getTarget("InitialModal").attachDisplay(jQuery.proxy(this.handleRouteMatched, this));
+        // this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+        // this.oRouter.getTarget("InitialModal").attachDisplay(jQuery.proxy(this.handleRouteMatched, this));
 
 
         }
+        
+        
 });
-}, /* bExport= */true);
+
+
+});

@@ -1,5 +1,5 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="generated.app.controller.InitialModal" xmlns:m="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:layout="sap.ui.layout">
-    <m:Page showHeader="false" title="Responsive Page Title" showFooter="false" showNavButton="false">
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:layout="sap.ui.layout" height="1280px" controllerName="odkasfactory.reservasalas.controller.InitialModal">
+    <m:Page class="modalPage" showHeader="false" title="Responsive Page Title" showFooter="false" showNavButton="false">
         <m:content>
             <m:Label text="" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
             <m:Title text="Bem vindo à Reserva de Salas" titleStyle="H2" width="100%" textAlign="Center" visible="true"/>
@@ -15,17 +15,16 @@
             </m:HBox>
             <form:Form width="100%" editable="true" visible="true">
                 <form:title>
-                    <core:Title text="Preencha os seguintes campos" level="H4"/>
+                    <core:Title text="Preencha os seguintes campos: " level="H4"/>
                 </form:title>
                 <form:formContainers>
                     <form:FormContainer visible="true">
                         <form:formElements>
                             <form:FormElement visible="true">
                                 <form:label>
-                                    <m:Label text="Tipo de Reunião" design="Bold" width="100%" required="true" textAlign="Begin" textDirection="Inherit"/>
+                                    <m:Label text="Tipo de Reunião" design="Bold" width="100%" required="true" textAlign="Left" textDirection="Inherit"/>
                                 </form:label>
-                                <form:fields>
-                                    <m:ComboBox placeholder="Seleccione um tipo de reunião" editable="true" enabled="true" visible="true" width="auto" valueState="None" maxWidth="100%">
+                                <form:fields><m:ComboBox placeholder="Seleccione um tipo de reunião" editable="true" enabled="true" visible="true" width="auto" valueState="None" maxWidth="50%">
                                         <m:items>
                                             <core:Item text="Formação" enabled="true"/>
                                             <core:Item text="Interna" enabled="true"/>
@@ -36,18 +35,18 @@
                             </form:FormElement>
                             <form:FormElement visible="true">
                                 <form:label>
-                                    <m:Label text="Seleção de Datas e Horas (Início)" design="Bold" width="100%" required="true" textAlign="Begin" textDirection="Inherit"/>
+                                    <m:Label text="Início" design="Bold" width="100%" required="true" textAlign="Left" textDirection="Inherit"/>
                                 </form:label>
                                 <form:fields>
-                                    <m:DateTimeInput placeholder="DD/MM/YYYY, HH:mm" type="DateTime" enabled="true" visible="true" width="auto"/>
+                                    <m:DateTimeInput placeholder="DD/MM/YYYY, HH:mm" type="DateTime" enabled="true" visible="true" maxWidth="50%"/>
                                 </form:fields>
                             </form:FormElement>
                             <form:FormElement visible="true">
                                 <form:label>
-                                    <m:Label text="Seleção de Datas e Horas (Fim)" design="Bold" width="100%" required="true" textAlign="Begin" textDirection="Inherit"/>
+                                    <m:Label text="Fim" design="Bold" width="100%" required="true" textAlign="Begin" textDirection="Inherit"/>
                                 </form:label>
                                 <form:fields>
-                                    <m:DateTimeInput placeholder="DD/MM/YYYY, HH:mm" type="DateTime" enabled="true" visible="true" width="auto"/>
+                                    <m:DateTimeInput placeholder="DD/MM/YYYY, HH:mm" type="DateTime" enabled="true" visible="true" maxWidth="50%"/>
                                 </form:fields>
                             </form:FormElement>
                             <form:FormElement visible="true">
@@ -55,9 +54,9 @@
                                     <m:Label text="" design="Bold" width="0" required="false" textAlign="Begin" textDirection="Inherit"/>
                                 </form:label>
                                 <form:fields>
-                                    <m:RadioButton selected="false" text="Manhã" editable="true" enabled="true" visible="true" width="auto" valueState="None"/>
-                                    <m:RadioButton selected="false" text="Tarde" editable="true" enabled="true" visible="true" width="auto" valueState="None"/>
-                                    <m:RadioButton selected="false" text="Dia" editable="true" enabled="true" visible="true" width="auto" valueState="None"/>
+                                    <m:RadioButton class="radioBtns" selected="false" text="Manhã" editable="true" enabled="true" visible="true" width="auto" valueState="None"/>
+                                    <m:RadioButton class="radioBtns" selected="false" text="Tarde" editable="true" enabled="true" visible="true" width="auto" valueState="None"/>
+                                    <m:RadioButton class="radioBtns" selected="false" text="Dia" editable="true" enabled="true" visible="true" width="auto" valueState="None"/>
                                 </form:fields>
                             </form:FormElement>
                             <form:FormElement visible="true">
@@ -95,17 +94,16 @@
                     <form:ResponsiveGridLayout adjustLabelSpan="false" columnsL="2" labelSpanL="3" columnsM="1" labelSpanM="2" labelSpanS="12"/>
                 </form:layout>
             </form:Form>
-            <layout:Grid defaultIndent="L1 M0 S0" defaultSpan="L2 M4 S12" position="Center" width="100%" containerQuery="true" hSpacing="1" vSpacing="1">
+            <layout:Grid defaultIndent="L1 M0 S0" defaultSpan="" width="100%" vSpacing="0" position="Center" containerQuery="true">
                 <layout:content>
                     <m:ToggleButton pressed="true" text="Laser" icon="sap-icon://target-group" iconFirst="true" width="auto" enabled="true" visible="true"/>
                     <m:ToggleButton pressed="true" text="Microfone" icon="sap-icon://microphone" iconFirst="true" width="auto" enabled="true" visible="true"/>
                     <m:ToggleButton pressed="true" text="Flipchart" icon="sap-icon://sys-monitor" iconFirst="true" width="auto" enabled="true" visible="true"/>
-                    <m:ToggleButton pressed="true" text="Material de Escritório" icon="sap-icon://edit" iconFirst="true" width="auto" enabled="true" visible="true"/>
+                    <m:ToggleButton class="resourceBtn" pressed="true" text="Material de Escritório" icon="sap-icon://edit" iconFirst="true" width="auto" enabled="true" visible="true"/>
                     <m:ToggleButton pressed="true" text="Projetor" icon="sap-icon://projector" iconFirst="true" width="auto" enabled="true" visible="true"/>
                 </layout:content>
             </layout:Grid>
-            <m:Label text="" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
-            <m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
+            <m:HBox class="cSaveBtn" alignItems="Center" direction="Row" fitContainer="false" width="100%" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
                 <m:items>
                     <m:Button text="Guardar" type="Emphasized" icon="sap-icon://save" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
                 </m:items>

@@ -1,4 +1,4 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="generated.app.controller.Main" xmlns:m="sap.m">
+<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="odkasfactory.reservasalas.controller.Main" xmlns:m="sap.m">
     <m:Page showHeader="true" title="Responsive Page Title" showFooter="true" showNavButton="false">
         <m:content>
             <m:VBox alignItems="Start" direction="Column" fitContainer="false" width="316px" height="792px" justifyContent="Start" renderType="Div" visible="true" displayInline="false">

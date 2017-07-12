@@ -8,21 +8,21 @@
         <title>RoomWizard</title>
 
 		<script id="sap-ui-bootstrap"
-			src="/resources/sap-ui-core.js"
+			src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
 			data-sap-ui-libs="sap.m"
 			data-sap-ui-theme="sap_bluecrystal"
 			
             data-sap-ui-xx-supportedLanguages="en"
             data-sap-ui-xx-bindingSyntax="complex"
 			data-sap-ui-compatVersion="edge" 
-			data-sap-ui-resourceroots='{"generated.app": "../"}'>
+			data-sap-ui-resourceroots='{"odkasfactory.reservasalas": "../"}'>
 		</script>
 
 		<script>
 			sap.ui.getCore().attachInit(function() {
 				jQuery.sap.require("sap.ui.fl.FakeLrepConnector");
 				sap.ui.fl.FakeLrepConnector.enableFakeConnector("fakeLRep.json");
-				var sNamespase = "generated.app";
+				var sNamespase = "odkasfactory.reservasalas";
 				sNamespase = sNamespase.replace(".", "/");
 				sap.ui.require([
 					sNamespase + "/localService/mockserver"
@@ -33,7 +33,7 @@
 					new sap.m.Shell({
 						app: new sap.ui.core.ComponentContainer({
 							height : "100%",
-							name : "generated.app"
+							name : "odkasfactory.reservasalas"
 						})
 					}).placeAt("content");
 				});

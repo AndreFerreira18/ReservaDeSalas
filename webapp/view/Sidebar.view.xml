@@ -1,4 +1,4 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:layout1="sap.ui.commons.layout" controllerName="generated.app.controller.Sidebar">
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:layout1="sap.ui.commons.layout" controllerName="odkasfactory.reservasalas.controller.Sidebar">
     <m:Page showHeader="false" title="Page Title" showFooter="false" showNavButton="false" enableScrolling="false">
         <m:content>
             <layout1:AbsoluteLayout horizontalScrolling="Hidden" verticalScrolling="Auto">
@@ -85,7 +85,7 @@
                                     </m:HBox>
                                     <m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
                                         <m:items>
-                                            <m:Image src="/webapp/resources/logo.png" height="150px" width="200px" densityAware="false"/>
+                                            <m:Image src="/webapp/images/logo.png" height="150px" width="200px" densityAware="false"/>
                                         </m:items>
                                         <m:layoutData/>
                                     </m:HBox>

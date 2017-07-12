@@ -2,10 +2,10 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
     "sap/m/MessageBox",
     "./utilities",
     "sap/ui/core/routing/History"
-    ], function(BaseController, MessageBox, Utilities, History) {
+    ], function(BaseController) {
     "use strict";
 
-    return BaseController.extend("generated.app.controller.Sidebar", {
+    return BaseController.extend("odkasfactory.reservasalas.controller.Sidebar", {
     handleRouteMatched: function (oEvent) {
             		
 		var oParams = {}; 

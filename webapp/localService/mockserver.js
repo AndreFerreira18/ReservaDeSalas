@@ -884,7 +884,7 @@ sap.ui.define([
 
 
 	var oMockServer,
-		_sAppModulePath = "generated.app/";
+		_sAppModulePath = "odkasfactory.reservasalas/";
 	return {
 
 		/**

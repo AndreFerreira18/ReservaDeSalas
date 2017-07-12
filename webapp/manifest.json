@@ -1,203 +1,190 @@
-{ "_version": "1.1.0",
-  "sap.app": {
-    "_version": "1.2.0",
-    "id": "generate.app",
-    "type": "application",
-    "i18n": "i18n/i18n.properties",
-    "applicationVersion": {
-      "version": "1.0.0"
-    },
-    "dataSources":{
-      
-       "main": {
-          "uri": "/here/goes/your/serviceUrl/",
-          "type": "OData",
-          "settings": {
-            "odataVersion": "2.0",
-            "localUri": "localService/metadata.xml"
-          }
-        }
-      
-    },
-      "title": "{{appTitle}}",
-      "description": "{{appDescription}}",
-      "ach": "ach",
-      "resources": "resources.json",
-      "sourceTemplate": {
-        "id": "ui5template.basicSAPUI5ApplicationProject",
-        "version": "1.32.0"
-      }
-  },
-  "sap.ui": {
-    "_version": "1.2.0",
-    "technology": "UI5",
-    "icons": {
-      "icon": "",
-      "favIcon": "",
-      "phone": "",
-      "phone@2": "",
-      "tablet": "",
-      "tablet@2": ""
-    },
-    "deviceTypes": {
-      "desktop": true,
-      "tablet": true,
-      "phone": true
-    },
-     "supportedThemes": [
-        "sap_bluecrystal"
-     ]
-  },
-  "sap.ui5": {
-    "_version": "1.1.0",
-    "rootView": {
-      "viewName": "generated.app.view.InitialModal",
-      "type": "XML"
-    },
-    "dependencies": {
-      "minUI5Version": "1.32.0",
-      "libs": {
-        "sap.ui.core": {},
-        "sap.m": {},
-        "sap.ui.layout": {}
-      }
-    },
-    "contentDensities": {
-      "compact": true,
-      "cozy": true
-    },
-    "models": {
-        "i18n": {
-          "type": "sap.ui.model.resource.ResourceModel",
-          "uri": "i18n/i18n.properties"
-        },
-        
-          "":{
-          "dataSource": "main",
-          "type": "sap.ui.model.odata.v2.ODataModel",
-          "settings": {
-            "loadMetadataAsync": false,
-            "json": true,
-            "bJSON": true,
-            "defaultBindingMode": "TwoWay",
-            "useBatch": true,
-            "refreshAfterChange": false,
-            "disableHeadRequestForToken": true
-           }
-          }
-          
-      },
-      "resources": {
-        "css": []
-      },
-      "routing": {
-          "config": {
-            "routerClass": "sap.m.routing.Router",
-            "viewType": "XML",
-            "viewPath": "generated.app.view",
-            "controlId": "App",
-            "clearTarget": false,
-            "controlAggregation": "pages",
-            "bypassed": {
-              "target": [
-                   "InitialModal"
-              ]
-            }
-          },
-          "targets": {
-            
-            "InitialModal": {
-            "controlAggregation": "pages",
-            "viewName": "InitialModal",
-            "viewId": "InitialModal",
-            "viewLevel": 1,
-            "transition": "slide"
-            },
-            
-            "HelpSection": {
-            "controlAggregation": "pages",
-            "viewName": "HelpSection",
-            "viewId": "HelpSection",
-            "viewLevel": 2,
-            "transition": "slide"
-            },
-            
-            "Main": {
-            "controlAggregation": "pages",
-            "viewName": "Main",
-            "viewId": "Main",
-            "viewLevel": 1,
-            "transition": "slide"
-            },
-            
-            "Footer": {
-            "controlAggregation": "pages",
-            "viewName": "Footer",
-            "viewId": "Footer",
-            "viewLevel": 1,
-            "transition": "slide"
-            },
-            
-            "Sidebar": {
-            "controlAggregation": "pages",
-            "viewName": "Sidebar",
-            "viewId": "Sidebar",
-            "viewLevel": 1,
-            "transition": "slide"
-            }
-            
-          },
-         "routes": [
-              
-              {
-                "pattern": "InitialModal/:context:",
-                "name": "InitialModal",
-                "target": [
-                  "InitialModal"
-                  ]
-              },
-              
-              {
-                "pattern": "",
-                "name": "default",
-                "target": [
-                  "InitialModal"
-                  ]
-              },
-              
-              {
-                "pattern": "HelpSection/:context:",
-                "name": "HelpSection",
-                "target": [
-                  "HelpSection"
-                  ]
-              },
-              
-              {
-                "pattern": "Main/:context:",
-                "name": "Main",
-                "target": [
-                  "Main"
-                  ]
-              },
-              
-              {
-                "pattern": "Footer/:context:",
-                "name": "Footer",
-                "target": [
-                  "Footer"
-                  ]
-              },
-              
-              {
-                "pattern": "Sidebar/:context:",
-                "name": "Sidebar",
-                "target": [
-                  "Sidebar"
-                  ]
-              }
-              
-          ]
-      }
-    }
-  }
+{
+	"_version": "1.1.0",
+	"sap.app": {
+		"_version": "1.2.0",
+		"id": "odkasfactory.reservasalas",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"dataSources": {
+			"main": {
+				"uri": "/here/goes/your/serviceUrl/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0",
+					"localUri": "localService/metadata.xml"
+				}
+			}
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"ach": "ach",
+		"resources": "resources.json",
+		"sourceTemplate": {
+			"id": "ui5template.basicSAPUI5ApplicationProject",
+			"version": "1.32.0"
+		}
+	},
+	"sap.ui": {
+		"_version": "1.2.0",
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_bluecrystal"
+		]
+	},
+	"sap.ui5": {
+		"_version": "1.1.0",
+		"rootView": {
+			"viewName": "odkasfactory.reservasalas.view.InitialModal",
+			"type": "XML"
+		},
+		"dependencies": {
+			"minUI5Version": "1.32.0",
+			"libs": {
+				"sap.m": {},
+				"sap.ui.commons": {
+					"minVersion": ""
+				},
+				"sap.ui.core": {},
+				"sap.ui.layout": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"uri": "i18n/i18n.properties"
+			},
+			"": {
+				"dataSource": "main",
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"loadMetadataAsync": false,
+					"json": true,
+					"bJSON": true,
+					"defaultBindingMode": "TwoWay",
+					"useBatch": true,
+					"refreshAfterChange": false,
+					"disableHeadRequestForToken": true
+				}
+			}
+		},
+		"resources": {
+			"css": []
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "odkasfactory.reservasalas.view",
+				"controlId": "App",
+				"clearTarget": false,
+				"controlAggregation": "pages",
+				"bypassed": {
+					"target": [
+						"InitialModal"
+					]
+				}
+			},
+			"targets": {
+				"InitialModal": {
+					"controlAggregation": "pages",
+					"viewName": "InitialModal",
+					"viewId": "InitialModal",
+					"viewLevel": 1,
+					"transition": "slide"
+				},
+				"HelpSection": {
+					"controlAggregation": "pages",
+					"viewName": "HelpSection",
+					"viewId": "HelpSection",
+					"viewLevel": 2,
+					"transition": "slide"
+				},
+				"Main": {
+					"controlAggregation": "pages",
+					"viewName": "Main",
+					"viewId": "Main",
+					"viewLevel": 1,
+					"transition": "slide"
+				},
+				"Footer": {
+					"controlAggregation": "pages",
+					"viewName": "Footer",
+					"viewId": "Footer",
+					"viewLevel": 1,
+					"transition": "slide"
+				},
+				"Sidebar": {
+					"controlAggregation": "pages",
+					"viewName": "Sidebar",
+					"viewId": "Sidebar",
+					"viewLevel": 1,
+					"transition": "slide"
+				}
+			},
+			"routes": [
+				{
+					"pattern": "InitialModal/:context:",
+					"name": "InitialModal",
+					"target": [
+						"InitialModal"
+					]
+				},
+				{
+					"pattern": "",
+					"name": "default",
+					"target": [
+						"InitialModal"
+					]
+				},
+				{
+					"pattern": "HelpSection/:context:",
+					"name": "HelpSection",
+					"target": [
+						"HelpSection"
+					]
+				},
+				{
+					"pattern": "Main/:context:",
+					"name": "Main",
+					"target": [
+						"Main"
+					]
+				},
+				{
+					"pattern": "Footer/:context:",
+					"name": "Footer",
+					"target": [
+						"Footer"
+					]
+				},
+				{
+					"pattern": "Sidebar/:context:",
+					"name": "Sidebar",
+					"target": [
+						"Sidebar"
+					]
+				}
+			]
+		}
+	}
+}
