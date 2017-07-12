@@ -1,4 +1,4 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:layout="sap.ui.layout" height="1280px" controllerName="odkasfactory.reservasalas.controller.InitialModal">
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:layout="sap.ui.layout" height="860px" controllerName="odkasfactory.reservasalas.controller.InitialModal">
     <m:Page class="modalPage" showHeader="false" title="Responsive Page Title" showFooter="false" showNavButton="false">
         <m:content>
             <m:Label text="" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
@@ -22,9 +22,9 @@
                         <form:formElements>
                             <form:FormElement visible="true">
                                 <form:label>
-                                    <m:Label text="Tipo de Reunião" design="Bold" width="100%" required="true" textAlign="Left" textDirection="Inherit"/>
+                                    <m:Label class="formLabel" text="Tipo de Reunião:" width="100%" required="true" textAlign="Left" textDirection="Inherit" design="Bold"/>
                                 </form:label>
-                                <form:fields><m:ComboBox placeholder="Seleccione um tipo de reunião" editable="true" enabled="true" visible="true" width="auto" valueState="None" maxWidth="50%">
+                                <form:fields><m:ComboBox placeholder="Seleccione um tipo de reunião" editable="true" enabled="true" visible="true" width="auto" valueState="None">
                                         <m:items>
                                             <core:Item text="Formação" enabled="true"/>
                                             <core:Item text="Interna" enabled="true"/>
@@ -35,7 +35,7 @@
                             </form:FormElement>
                             <form:FormElement visible="true">
                                 <form:label>
-                                    <m:Label text="Início" design="Bold" width="100%" required="true" textAlign="Left" textDirection="Inherit"/>
+                                    <m:Label class="formLabel" text="Início:" design="Bold" width="100%" required="true" textAlign="Left" textDirection="Inherit"/>
                                 </form:label>
                                 <form:fields>
                                     <m:DateTimeInput placeholder="DD/MM/YYYY, HH:mm" type="DateTime" enabled="true" visible="true" maxWidth="50%"/>
@@ -43,16 +43,13 @@
                             </form:FormElement>
                             <form:FormElement visible="true">
                                 <form:label>
-                                    <m:Label text="Fim" design="Bold" width="100%" required="true" textAlign="Begin" textDirection="Inherit"/>
+                                    <m:Label class="formLabel" text="Fim:" design="Bold" width="100%" required="true" textAlign="Begin" textDirection="Inherit"/>
                                 </form:label>
                                 <form:fields>
                                     <m:DateTimeInput placeholder="DD/MM/YYYY, HH:mm" type="DateTime" enabled="true" visible="true" maxWidth="50%"/>
                                 </form:fields>
                             </form:FormElement>
                             <form:FormElement visible="true">
-                                <form:label>
-                                    <m:Label text="" design="Bold" width="0" required="false" textAlign="Begin" textDirection="Inherit"/>
-                                </form:label>
                                 <form:fields>
                                     <m:RadioButton class="radioBtns" selected="false" text="Manhã" editable="true" enabled="true" visible="true" width="auto" valueState="None"/>
                                     <m:RadioButton class="radioBtns" selected="false" text="Tarde" editable="true" enabled="true" visible="true" width="auto" valueState="None"/>
@@ -61,7 +58,7 @@
                             </form:FormElement>
                             <form:FormElement visible="true">
                                 <form:label>
-                                    <m:Label text="Nº de Participantes" design="Bold" width="100%" required="true" textAlign="Begin" textDirection="Inherit"/>
+                                    <m:Label class="formLabel" text="Nº de Participantes:" design="Bold" width="100%" required="true" textAlign="Begin" textDirection="Inherit"/>
                                 </form:label>
                                 <form:fields>
                                     <m:Input value="" placeholder="Insira o número de participantes esperado" type="Number" description="" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false"/>
@@ -69,7 +66,7 @@
                             </form:FormElement>
                             <form:FormElement visible="true">
                                 <form:label>
-                                    <m:Label text="Piso Preferencial" design="Bold" width="100%" required="true" textAlign="Begin" textDirection="Inherit"/>
+                                    <m:Label class="formLabel" text="Piso Preferencial:" design="Bold" width="100%" required="true" textAlign="Begin" textDirection="Inherit"/>
                                 </form:label>
                                 <form:fields>
                                     <m:ComboBox placeholder="Seleccione um piso preferencial" editable="true" enabled="true" visible="true" width="auto" valueState="None" maxWidth="100%">
@@ -94,13 +91,13 @@
                     <form:ResponsiveGridLayout adjustLabelSpan="false" columnsL="2" labelSpanL="3" columnsM="1" labelSpanM="2" labelSpanS="12"/>
                 </form:layout>
             </form:Form>
-            <layout:Grid defaultIndent="L1 M0 S0" defaultSpan="" width="100%" vSpacing="0" position="Center" containerQuery="true">
+            <layout:Grid defaultIndent="L2 M0 S0" defaultSpan="L1 M4 S12" width="100%" vSpacing="0" position="Center" containerQuery="true">
                 <layout:content>
-                    <m:ToggleButton pressed="true" text="Laser" icon="sap-icon://target-group" iconFirst="true" width="auto" enabled="true" visible="true"/>
-                    <m:ToggleButton pressed="true" text="Microfone" icon="sap-icon://microphone" iconFirst="true" width="auto" enabled="true" visible="true"/>
-                    <m:ToggleButton pressed="true" text="Flipchart" icon="sap-icon://sys-monitor" iconFirst="true" width="auto" enabled="true" visible="true"/>
-                    <m:ToggleButton class="resourceBtn" pressed="true" text="Material de Escritório" icon="sap-icon://edit" iconFirst="true" width="auto" enabled="true" visible="true"/>
-                    <m:ToggleButton pressed="true" text="Projetor" icon="sap-icon://projector" iconFirst="true" width="auto" enabled="true" visible="true"/>
+                    <m:ToggleButton class="resourceBtn" pressed="true" text="Laser" icon="sap-icon://target-group" iconFirst="true" enabled="true" visible="true" width="185px"/>
+                    <m:ToggleButton class="resourceBtn" pressed="true" text="Microfone" icon="sap-icon://microphone" iconFirst="true" enabled="true" visible="true" width="185px"/>
+                    <m:ToggleButton class="resourceBtn" pressed="true" text="Flipchart" icon="sap-icon://sys-monitor" iconFirst="true" enabled="true" visible="true" width="185px"/>
+                    <m:ToggleButton class="resourceBtn" pressed="true" text="Material de Escritório" icon="sap-icon://edit" iconFirst="true" enabled="true" visible="true" width="185px"/>
+                    <m:ToggleButton class="resourceBtn" pressed="true" text="Projetor" icon="sap-icon://projector" iconFirst="true" enabled="true" visible="true" width="185px"/>
                 </layout:content>
             </layout:Grid>
             <m:HBox class="cSaveBtn" alignItems="Center" direction="Row" fitContainer="false" width="100%" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">

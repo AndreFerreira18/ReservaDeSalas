@@ -1,9 +1,36 @@
+/*SAP overwritten styling */
+
 .sapUiBody {
     background-color: #fffae6 !important;
     background-image: unset !important;
 }
 
-.modalPage {
+#__xmlview0 .sapUiFormElementLbl {
+    padding: 0 !important;
+    width: 100% !important;
+}
+
+#__xmlview0 .sapUiRespGridSpanL9 {
+    width: 75% !important;
+}
+
+#__xmlview0 .sapUiRespGridSpanL4 {
+    width: 100%;
+}
+
+@media (min-width: 630px) {
+    #__xmlview0 .sapUiFormElementLbl {
+        width: 25% !important;
+    }
+    #__xmlview0 .sapUiRespGridSpanL4 {
+        width: 33.33% !important;
+    }
+}
+
+
+/* Custom Styling */
+
+#__xmlview0 .modalPage {
     max-width: 95%;
     max-height: 90%;
     margin: 5% auto;
@@ -12,23 +39,37 @@
     box-shadow: 0 -1px 3px #888888;
 }
 
-@media (min-width: 768px){
-	.modalPage {
-		max-width: 600px;
-	}
+@media (min-width: 768px) {
+    #__xmlview0 .modalPage {
+        max-width: 610px;
+    }
 }
 
-
-#__grid0,
-.cSaveBtn {
+#__xmlview0 #__grid0,
+#__xmlview0 .cSaveBtn {
     background-color: rgba(255, 255, 255, 0.8) !important;
 }
 
-.cSaveBtn {
+#__xmlview0 #__grid0 {
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #cccccc;
+}
+
+#__xmlview0 .cSaveBtn {
     padding: 10px 0;
 }
 
-.radioBtns {
-	display: inline-block;
-	width: 33.33%;
+#__xmlview0 .radioBtns {
+    display: inline-block;
+    width: 33.33%;
+}
+
+#__xmlview0 .formLabel {
+    padding: 15px 0;
+    width: 96px;
+}
+
+#__xmlview0 .resourceBtn {
+    width: 182px !important;
 }
