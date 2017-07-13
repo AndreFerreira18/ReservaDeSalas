@@ -24,7 +24,7 @@
 	"sap.ui5": {
 		"_version": "1.2.0",
 		"rootView": {
-			"viewName": "odkasfactory.reservasalas.view.App",
+			"viewName": "odkasfactory.reservasalas.view.Main",
 			"type": "XML"
 		},
 		"autoPrefixId": true,
@@ -62,7 +62,11 @@
 				"transition": "slide"
 			},
 			"routes": [{
-				"pattern": "",
+				"pattern": "Main",
+				"name": "main",
+				"target": "main"
+			},	{
+				"pattern": "InitialModal",
 				"name": "initialModal",
 				"target": "initialModal"
 			}, {
@@ -71,13 +75,17 @@
 				"target": "helpSection"
 			}],
 			"targets": {
+				"main" : {
+					"viewName": "Main",
+					"viewLevel": 1
+				},
 				"initialModal": {
 					"viewName": "InitialModal",
-					"viewLevel": 1
+					"viewLevel": 2
 				},
 				"helpSection": {
 					"viewName": "HelpSection",
-					"viewLevel": 2
+					"viewLevel": 3
 				}
 			}
 		}
