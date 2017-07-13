@@ -9,7 +9,7 @@
                 <m:items>
                     <core:Icon src="sap-icon://feeder-arrow" size="34px" color="" height="60px" width="48px" visible="true"/>
                     <m:Title text="Seleção Inicial" titleStyle="H1" width="100%" textAlign="Center" visible="true"/>
-                    <core:Icon src="sap-icon://sys-help-2" size="34px" color="#4d94ff" height="60px" width="48px" visible="true" press="_onIconPress"/>
+                    <core:Icon src="sap-icon://sys-help-2" size="34px" color="#4d94ff" height="60px" width="48px" visible="true" press="onIconPress"/>
                 </m:items>
                 <m:layoutData/>
             </m:HBox>
