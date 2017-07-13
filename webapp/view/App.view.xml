@@ -1,4 +1,4 @@
-<View xmlns="sap.m">
+<View xmlns="sap.m" controllerName="odkasfactory.reservasalas.controller.App">
 	<App id="rootControl">
 	</App>
 </View>

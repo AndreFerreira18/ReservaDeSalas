@@ -17,7 +17,7 @@ sap.ui.define([
 		},
 
 		onIconPress: function(oEvent) {
-			this.getOwnerComponent().getRouter().navTo("helpSection");
+			// this.getOwnerComponent().getRouter().navTo("helpSection");
 			// var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			// this.oRouter.
 			// this.getOwnerComponent().getRouter().navTo("HelpSection");

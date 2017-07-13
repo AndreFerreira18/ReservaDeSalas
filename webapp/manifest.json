@@ -55,11 +55,12 @@
 		"routing": {
 			"config": {
 				"routerClass": "sap.m.routing.Router",
-				"viewPath": "odkasfactory.reservasalas",
+				"viewPath": "odkasfactory.reservasalas.view",
 				"controlId": "rootControl",
 				"controlAggregation": "pages",
 				"viewType": "XML",
-				"transition": "slide"
+				"transition": "slide",
+				"clearTarget": false
 			},
 			"routes": [{
 				"pattern": "",

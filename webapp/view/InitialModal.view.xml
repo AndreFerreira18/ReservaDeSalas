@@ -1,4 +1,4 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:layout="sap.ui.layout" height="860px" controllerName="odkasfactory.reservasalas.controller.InitialModal">
+<mvc:View viewName="initialModal" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:layout="sap.ui.layout" height="860px" controllerName="odkasfactory.reservasalas.controller.InitialModal">
     <m:Page class="modalPage" showHeader="false" title="Responsive Page Title" showFooter="false" showNavButton="false">
         <m:content>
             <m:Label text="" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
