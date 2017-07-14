@@ -18,6 +18,7 @@
     width: 100%;
 }
 
+/*retirar para o ecran main*/
 @media (min-width: 630px) {
     #__xmlview0 .sapUiFormElementLbl {
         width: 25% !important;

@@ -1,7 +1,7 @@
-@import url("initialModal.css");
+@import url("main.css");
+/*@import url("initialModal.css");*/
 
 html, body {
 	width: 100%;
 	height: 100%;
 }
-

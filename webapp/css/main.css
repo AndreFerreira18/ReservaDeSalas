@@ -1,0 +1,58 @@
+/* Custom Styling */
+
+#__xmlview0{
+	background-color: #FFFFFF !important;
+}
+
+/*sidebar*/
+
+#__xmlview0 #__panel0, #__container0--Grid {
+    background-color: #fffae6 !important;
+    background-image: unset !important;
+}
+
+
+/*floor selector*/
+
+#__xmlview0 .triangle {
+    margin-bottom: -7px;
+}
+
+#__xmlview0 .rectangle {
+    margin-top: -2px;
+}
+
+#__xmlview0 .list-group-item {
+    font-size: 1.75rem;
+    cursor: pointer;
+    border: solid 1px #000000;
+    margin-bottom: -3px;
+    margin-top: -3px;
+}
+
+
+/*rever isto não está dinamico*/
+
+#__xmlview0 #__vbox1 #__data15 {
+    width: 90%;
+}
+
+#__xmlview0 #__vbox1 #__data16 {
+    width: 90%;
+}
+
+#__xmlview0 #__vbox1 #__data17 {
+    width: 90%;
+}
+
+#__xmlview0 #__vbox1 #__data18 {
+    width: 90%;
+}
+
+#__xmlview0 #__vbox1 #__data19 {
+    width: 90%;
+}
+
+#__xmlview0 #__vbox1 #__data20 {
+    width: 90%;
+}

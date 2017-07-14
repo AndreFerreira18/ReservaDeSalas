@@ -5,7 +5,8 @@
 			<layout:Grid defaultIndent="L0 M0 S0" defaultSpan="L3 M6 S12" position="Center" width="100%" containerQuery="false" hSpacing="0"
 				vSpacing="0">
 				<layout:content>
-					<m:Panel height="auto" width="100%" headerText="Filtros" expandable="true" expanded="true" expandAnimation="true" backgroundDesign="Solid">
+					<m:Panel height="auto" width="auto" headerText="Filtros" expandable="true" expanded="true" expandAnimation="true" backgroundDesign="Transparent"
+						class="sapUiSmallMarginTopBottom">
 						<m:content>
 							<m:VBox alignItems="Center" direction="Column" fitContainer="true" width="100%" height="100%" justifyContent="Start" renderType="Div"
 								visible="true" displayInline="false">
@@ -29,6 +30,7 @@
 																</m:items>
 															</m:ComboBox>
 														</form:fields>
+														<form:FormLayout></form:FormLayout>
 													</form:FormElement>
 													<form:FormElement visible="true">
 														<form:label>
@@ -103,22 +105,22 @@
 						</m:content>
 						<m:layoutData><layout:GridData span="L3 M5 S12"/></m:layoutData>
 					</m:Panel>
-					<m:VBox alignItems="Center" direction="Column" fitContainer="true" width="100%" height="100%" justifyContent="Start" renderType="Div"
-						visible="true" displayInline="false">
+					<m:VBox alignItems="Center" direction="Column" fitContainer="true" width="auto" height="auto" justifyContent="Center" renderType="Div"
+						visible="true" displayInline="true" class="sapUiResponsiveMargin">
 						<m:items>
-							<m:Image src="/webapp/images/triangle.png" height="50px" width="100%" densityAware="false"/>
-							<m:Text text="5º Andar" width="100%" maxLines="1" wrapping="true" textAlign="Center" textDirection="Inherit"/>
-							<m:Text text="4º Andar" width="100%" maxLines="1" wrapping="true" textAlign="Center" textDirection="Inherit"/>
-							<m:Text text="3º Andar" width="100%" maxLines="1" wrapping="true" textAlign="Center" textDirection="Inherit"/>
-							<m:Text text="2º Andar" width="100%" maxLines="1" wrapping="true" textAlign="Center" textDirection="Inherit"/>
-							<m:Text text="1º Andar" width="100%" maxLines="1" wrapping="true" textAlign="Center" textDirection="RTL"/>
-							<m:Text text="Res-do-Chão" width="100%" maxLines="1" wrapping="true" textAlign="Center" textDirection="Inherit"/>
-							<m:Image src="/webapp/images/rectangle.jpg" height="30px" width="100%" densityAware="false"/>
+							<m:Image src="/webapp/images/triangle.png" class="sapUiNoContentPadding triangle" height="50px" width="100%" densityAware="false"/>
+							<m:Text class="list-group-item sapUiNoContentPadding" text="5º Andar" width="100%" height="100%"  maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+							<m:Text class="list-group-item sapUiNoContentPadding" text="4º Andar" width="100%" height="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+							<m:Text class="list-group-item sapUiNoContentPadding" text="3º Andar" width="100%" height="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+							<m:Text class="list-group-item sapUiNoContentPadding" text="2º Andar" width="100%" height="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+							<m:Text class="list-group-item sapUiNoContentPadding" text="1º Andar" width="100%" height="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+							<m:Text class="list-group-item sapUiNoContentPadding" text="Res-do-Chão" width="100%" height="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+							<m:Image src="/webapp/images/rectangle.png" class="sapUiNoContentPadding rectangle" height="30px" width="100%" densityAware="false"/>
 						</m:items>
 						<m:layoutData><layout:GridData span="L3 M7 S12"/></m:layoutData>
 					</m:VBox>
 					<m:IconTabBar expandable="true" expanded="true" applyContentPadding="false" backgroundDesign="Solid" upperCase="false" visible="true"
-						selectedKey="Ok" width="100%">
+						selectedKey="Ok" width="auto" height="auto" class="sapUiResponsiveMargin ">
 						<m:items>
 							<m:IconTabFilter iconColor="Default" text="Sala 3.1" count="" design="Vertical" showAll="false" textDirection="Inherit" enabled="true"
 								visible="true" iconDensityAware="false">
@@ -1874,8 +1876,8 @@
 						</m:items>
 						<m:layoutData><layout:GridData span="L6 M7 S12"/></m:layoutData>
 					</m:IconTabBar>
-					<m:Table width="100%" noDataText="Não existem reservas." mode="None" showSeparators="All" growing="true" growingThreshold="20"
-						growingScrollToLoad="true">
+					<m:Table width="auto" height="auto" noDataText="Não existem reservas." mode="None" showSeparators="All" growing="true" growingThreshold="20"
+						growingScrollToLoad="true" class="sapUiResponsiveMargin ">
 						<m:infoToolbar>
 							<m:Toolbar width="100%" height="auto" design="Auto" visible="false" enabled="true">
 								<m:content>
