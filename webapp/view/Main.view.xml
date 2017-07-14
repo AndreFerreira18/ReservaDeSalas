@@ -1,13 +1,13 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="odkasfactory.reservasalas.controller.Main" xmlns:m="sap.m"
-	xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" width="100%" height="100%">
+<mvc:View controllerName="odkasfactory.reservasalas.controller.Main" xmlns:mvc="sap.ui.core.mvc" xmlns:layout="sap.ui.layout"
+	xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:m="sap.m" width="100%" height="100%">
 	<m:Page showHeader="true" title="Escolha das Datas" showFooter="false" showNavButton="false">
 		<m:content>
-			<layout:Grid defaultIndent="L0 M0 S0" defaultSpan="L4 M6 S12" position="Center" width="100%" containerQuery="false" hSpacing="0" vSpacing="1">
+			<layout:Grid defaultIndent="L0 M0 S0" defaultSpan="L3 M6 S12" position="Center" width="100%" containerQuery="false" hSpacing="0"
+				vSpacing="0">
 				<layout:content>
-					<m:Panel span="L3 M5 S12" height="auto" width="100%" headerText="Filtros" expandable="true" expanded="true" expandAnimation="true"
-						backgroundDesign="Solid">
+					<m:Panel height="auto" width="100%" headerText="Filtros" expandable="true" expanded="true" expandAnimation="true" backgroundDesign="Solid">
 						<m:content>
-							<m:VBox alignItems="Stretch" direction="Column" fitContainer="false" width="300px" height="100%" justifyContent="Start" renderType="Div"
+							<m:VBox alignItems="Center" direction="Column" fitContainer="true" width="100%" height="100%" justifyContent="Start" renderType="Div"
 								visible="true" displayInline="false">
 								<m:items>
 									<form:Form width="100%" editable="true" visible="true">
@@ -101,10 +101,11 @@
 								<m:layoutData/>
 							</m:VBox>
 						</m:content>
+						<m:layoutData><layout:GridData span="L3 M5 S12"/></m:layoutData>
 					</m:Panel>
-					<layout:Grid span="L3 M7 S12" defaultIndent="L0 M0 S0" defaultSpan="L12 M12 S12" position="Center" width="80%" containerQuery="true"
-						hSpacing="1" vSpacing="1">
-						<layout:content>
+					<m:VBox alignItems="Center" direction="Column" fitContainer="true" width="100%" height="100%" justifyContent="Start" renderType="Div"
+						visible="true" displayInline="false">
+						<m:items>
 							<m:Image src="/webapp/images/triangle.png" height="50px" width="100%" densityAware="false"/>
 							<m:Text text="5º Andar" width="100%" maxLines="1" wrapping="true" textAlign="Center" textDirection="Inherit"/>
 							<m:Text text="4º Andar" width="100%" maxLines="1" wrapping="true" textAlign="Center" textDirection="Inherit"/>
@@ -113,10 +114,11 @@
 							<m:Text text="1º Andar" width="100%" maxLines="1" wrapping="true" textAlign="Center" textDirection="RTL"/>
 							<m:Text text="Res-do-Chão" width="100%" maxLines="1" wrapping="true" textAlign="Center" textDirection="Inherit"/>
 							<m:Image src="/webapp/images/rectangle.jpg" height="30px" width="100%" densityAware="false"/>
-						</layout:content>
-					</layout:Grid>
-					<m:IconTabBar span="L6 M7 S12" expandable="true" expanded="true" applyContentPadding="false" backgroundDesign="Solid" upperCase="false"
-						visible="true" selectedKey="Ok">
+						</m:items>
+						<m:layoutData><layout:GridData span="L3 M7 S12"/></m:layoutData>
+					</m:VBox>
+					<m:IconTabBar expandable="true" expanded="true" applyContentPadding="false" backgroundDesign="Solid" upperCase="false" visible="true"
+						selectedKey="Ok" width="100%">
 						<m:items>
 							<m:IconTabFilter iconColor="Default" text="Sala 3.1" count="" design="Vertical" showAll="false" textDirection="Inherit" enabled="true"
 								visible="true" iconDensityAware="false">
@@ -1870,10 +1872,10 @@
 								</m:content>
 							</m:IconTabFilter>
 						</m:items>
-						<m:content/>
+						<m:layoutData><layout:GridData span="L6 M7 S12"/></m:layoutData>
 					</m:IconTabBar>
-					<m:Table span="L9 M7 S12" width="405.328125px" noDataText="Não existem reservas." mode="None" showSeparators="All" growing="true"
-						growingThreshold="20" growingScrollToLoad="true">
+					<m:Table width="100%" noDataText="Não existem reservas." mode="None" showSeparators="All" growing="true" growingThreshold="20"
+						growingScrollToLoad="true">
 						<m:infoToolbar>
 							<m:Toolbar width="100%" height="auto" design="Auto" visible="false" enabled="true">
 								<m:content>
@@ -1978,6 +1980,7 @@
 								</m:cells>
 							</m:ColumnListItem>
 						</m:items>
+						<m:layoutData><layout:GridData span="L9 M7 S12"/></m:layoutData>
 					</m:Table>
 				</layout:content>
 			</layout:Grid>
