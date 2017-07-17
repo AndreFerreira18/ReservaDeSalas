@@ -1,21 +1,49 @@
 /* Custom Styling */
 
-#__xmlview0{
-	background-color: #FFFFFF !important;
+#__xmlview0 {
+    background-color: #FFFFFF !important;
 }
+
 
 /*sidebar*/
 
-#__xmlview0 #__panel0, #__container0--Grid {
+#__xmlview0 #__panel0,
+#__container0--Grid {
     background-color: #fffae6 !important;
     background-image: unset !important;
 }
 
 
+.sapMToggleBtnPressed, 
+:not(.sapMBtnDisabled)>.sapMBtnInner.sapMBtnActive , 
+span.sapMBtnInner .sapMToggleBtnPressed .sapMBtnIcon,
+span.sapMBtnInner .sapMToggleBtnPressed .sapMBtnTransparent>.sapMBtnIcon, 
+.sapMToggleBtnPressed.sapMBtnTransparent>.sapMBtnIcon {
+    background-color: #ffd24d !important;
+    border: solid 1px #000000 !important;
+    color: #000000 !important;
+}
+
+.sapMBtnActive{
+	outline-color: #000000 !important;
+}
+
+.sapMBtnIcon {
+    color: #000000 !important; 
+}
+
+span.sapMBtnInner.sapMBtnEmphasized{
+	background-image: none;
+    background-color: #ffd24d !important;
+    border: solid 1px #000000 !important;
+    color: #000000 !important;
+    text-shadow: none !important;
+}
+
 /*floor selector*/
 
 #__xmlview0 .triangle {
-    margin-bottom: -7px;
+    margin-bottom: -2px;
 }
 
 #__xmlview0 .rectangle {
