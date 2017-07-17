@@ -101,7 +101,7 @@
 					<form:ResponsiveGridLayout adjustLabelSpan="false" columnsL="2" labelSpanL="3" columnsM="1" labelSpanM="2" labelSpanS="12"/>
 				</form:layout>
 			</form:Form>
-			<layout:Grid defaultIndent="L2 M0 S0" defaultSpan="L1 M4 S12" width="100%" vSpacing="0" position="Center" containerQuery="true">
+			<layout:Grid id="modal_resources" defaultIndent="L2 M0 S0" defaultSpan="L1 M4 S12" width="100%" vSpacing="0" position="Center" containerQuery="true">
 				<layout:content>
 					<m:ToggleButton class="resourceBtn" text="Laser" icon="sap-icon://target-group" iconFirst="true" enabled="true"
 						visible="true" width="185px"/>

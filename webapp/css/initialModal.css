@@ -89,3 +89,12 @@
     width: 181px !important;
 }
 
+.resources {
+        text-align: center;
+    }
+
+@media (min-width: 650px) {
+    .resources {
+        text-align: unset;
+    }
+}

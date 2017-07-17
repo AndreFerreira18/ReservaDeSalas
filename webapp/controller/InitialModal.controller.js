@@ -63,7 +63,7 @@ sap.ui.define([
 
 			//participants
 			this.participants = sap.ui.getCore().byId(this.createId("modal_participants")).getValue();
-			if(this.participants === "" || this.participants === "0"){
+			if (this.participants === "" || this.participants === "0") {
 				sap.ui.getCore().byId(this.createId("modal_participants")).setValueState(sap.ui.core.ValueState.Error);
 				data = {};
 				return;
@@ -71,43 +71,93 @@ sap.ui.define([
 				sap.ui.getCore().byId(this.createId("modal_participants")).setValueState(sap.ui.core.ValueState.None);
 				data.participants = parseInt(this.participants);
 			}
-			
+
 			//floor
 			this.floor = sap.ui.getCore().byId(this.createId("modal_floor")).getSelectedItem().getText();
 			data.floor = this.floor;
+
+			//resources
+			this.resources = sap.ui.getCore().byId(this.createId("modal_resources")).mAggregations.content;
+			data.resources = this._checkSelectedResources(this.resources);
 
 		},
 
 		_setDateTimeDefault: function() {
 			var self = this;
 			this.startDate = sap.ui.getCore().byId(this.createId("modal_startDate"));
+			this.endDate = sap.ui.getCore().byId(this.createId("modal_endDate"));
+			//create date and time selection popup with correct time intervals for Start Date.
 			this.startDate._createPopupContent = function() {
+				self.startDate = sap.ui.getCore().byId(self.createId("modal_startDate"));
 				sap.m.DateTimePicker.prototype._createPopupContent.apply(this, arguments);
 				self.startDate._oSliders.setMinutesStep(30);
 				self.startDate._oSliders.setSecondsStep(60);
+				sap.ui.getCore().byId(self.createId("modal_periodSelection")).setSelectedIndex(4); //set selection to empty if user manually changes date or time
 			};
-
-			this.endDate = sap.ui.getCore().byId(this.createId("modal_endDate"));
+			//create date and time selection popup with correct time intervals for End Date.
 			this.endDate._createPopupContent = function() {
+				self.endDate = sap.ui.getCore().byId(self.createId("modal_endDate"));
 				sap.m.DateTimePicker.prototype._createPopupContent.apply(this, arguments);
 				self.endDate._oSliders.setMinutesStep(30);
 				self.endDate._oSliders.setSecondsStep(60);
+				sap.ui.getCore().byId(self.createId("modal_periodSelection")).setSelectedIndex(4); //set selection to empty if user manually changes date or time
 			};
 
 		},
 
 		onAfterRendering: function() {
+			var self = this;
+			//set Radio Button Group selection to null
 			this.periodSelection = sap.ui.getCore().byId(this.createId("modal_periodSelection"));
 			this.periodSelection.setSelectedIndex(4);
 			
+			//define event for when selection changes (Moorning, Afternoon or Day);
+			sap.ui.getCore().byId(this.createId("modal_periodSelection")).attachSelect(function() {
+				var startDate = sap.ui.getCore().byId(self.createId("modal_startDate"));
+				var endDate = sap.ui.getCore().byId(self.createId("modal_endDate"));
+				var sDate = startDate.getValue().split(',')[0];
+				var infos = this.getSelectedButton().getText();
+
+				switch (infos) {
+					case "Manhã":
+						startDate.setValue(sDate + ', 08:00');
+						endDate.setValue(sDate + ', 13:00');
+						break;
+
+					case "Tarde":
+						startDate.setValue(sDate + ', 14:00');
+						endDate.setValue(sDate + ', 20:00');
+						break;
+					case "Dia":
+						startDate.setValue(sDate + ', 08:00');
+						endDate.setValue(sDate + ', 20:00');
+						break;
+				}
+			});
+			
+			//align Resource buttons
+			sap.ui.getCore().byId(this.createId("modal_resources")).addStyleClass("resources");
+
 		},
-		
-		validateParticipants: function(oControlEvent){
-			if(oControlEvent.getParameters().value === '' || oControlEvent.getParameters().value === '0') {
+
+		validateParticipants: function(oControlEvent) {
+			if (oControlEvent.getParameters().value === '' || oControlEvent.getParameters().value === '0') {
 				sap.ui.getCore().byId(this.createId("modal_participants")).setValueState(sap.ui.core.ValueState.Error);
 			} else {
 				sap.ui.getCore().byId(this.createId("modal_participants")).setValueState(sap.ui.core.ValueState.None);
 			}
+		},
+
+		_checkSelectedResources: function(buttonsArray) {
+			var aux = [],
+				i,
+				length = buttonsArray.length;
+			for (i = 0; i < length; i++) {
+				if (buttonsArray[i].getPressed()) {
+					aux.push(buttonsArray[i].getText());
+				}
+			}
+			return aux;
 		}
 
 		// handleRouteMatched: function(oEvent) {
