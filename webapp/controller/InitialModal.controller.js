@@ -27,6 +27,11 @@ sap.ui.define([
 		},
 
 		onIconPress: function() {
+
+			var app = sap.ui.getCore().byId("rootControl");
+			var help = app.getPage("HelpSection");
+
+			app.to(help, "flip");
 			// this.getOwnerComponent().getRouter().navTo("helpSection");
 			// var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			// this.oRouter.
@@ -45,62 +50,62 @@ sap.ui.define([
 			var data = {};
 
 			//meeting Type
-			this.meetingType = sap.ui.getCore().byId(this.createId("modal_meetingType")).getSelectedItem().getText();
+			this.meetingType = this.getView().byId("modal_meetingType").getSelectedItem().getText();
 			if (this.meetingType) {
 				data.meeting = this.meetingType;
 			}
 
 			//start Date
-			this.startDate = sap.ui.getCore().byId(this.createId("modal_startDate")).getValue();
+			this.startDate = this.getView().byId("modal_startDate").getValue();
 			data.startDate = this.startDate;
 			//end Date
-			this.endDate = sap.ui.getCore().byId(this.createId("modal_endDate")).getValue();
+			this.endDate = this.getView().byId("modal_endDate").getValue();
 			data.endDate = this.endDate;
 
 			//Time of Day
-			this.periodSelection = sap.ui.getCore().byId(this.createId("modal_periodSelection")).getSelectedButton();
+			this.periodSelection = this.getView().byId("modal_periodSelection").getSelectedButton();
 			data.selection = this.periodSelection ? this.periodSelection.getText() : "";
 
 			//participants
-			this.participants = sap.ui.getCore().byId(this.createId("modal_participants")).getValue();
+			this.participants = this.getView().byId("modal_participants").getValue();
 			if (this.participants === "" || this.participants === "0") {
-				sap.ui.getCore().byId(this.createId("modal_participants")).setValueState(sap.ui.core.ValueState.Error);
+				this.getView().byId("modal_participants").setValueState(sap.ui.core.ValueState.Error);
 				data = {};
 				return;
 			} else {
-				sap.ui.getCore().byId(this.createId("modal_participants")).setValueState(sap.ui.core.ValueState.None);
+				this.getView().byId("modal_participants").setValueState(sap.ui.core.ValueState.None);
 				data.participants = parseInt(this.participants);
 			}
 
 			//floor
-			this.floor = sap.ui.getCore().byId(this.createId("modal_floor")).getSelectedItem().getText();
+			this.floor = this.getView().byId("modal_floor").getSelectedItem().getText();
 			data.floor = this.floor;
 
 			//resources
-			this.resources = sap.ui.getCore().byId(this.createId("modal_resources")).mAggregations.content;
+			this.resources = this.getView().byId("modal_resources").mAggregations.content;
 			data.resources = this._checkSelectedResources(this.resources);
 
 		},
 
 		_setDateTimeDefault: function() {
 			var self = this;
-			this.startDate = sap.ui.getCore().byId(this.createId("modal_startDate"));
-			this.endDate = sap.ui.getCore().byId(this.createId("modal_endDate"));
+			this.startDate = this.getView().byId("modal_startDate");
+			this.endDate = this.getView().byId("modal_endDate");
 			//create date and time selection popup with correct time intervals for Start Date.
 			this.startDate._createPopupContent = function() {
-				self.startDate = sap.ui.getCore().byId(self.createId("modal_startDate"));
+				self.startDate = self.getView().byId("modal_startDate");
 				sap.m.DateTimePicker.prototype._createPopupContent.apply(this, arguments);
 				self.startDate._oSliders.setMinutesStep(30);
 				self.startDate._oSliders.setSecondsStep(60);
-				sap.ui.getCore().byId(self.createId("modal_periodSelection")).setSelectedIndex(4); //set selection to empty if user manually changes date or time
+				self.getView().byId("modal_periodSelection").setSelectedIndex(4); //set selection to empty if user manually changes date or time
 			};
 			//create date and time selection popup with correct time intervals for End Date.
 			this.endDate._createPopupContent = function() {
-				self.endDate = sap.ui.getCore().byId(self.createId("modal_endDate"));
+				self.endDate = self.getView().byId("modal_endDate");
 				sap.m.DateTimePicker.prototype._createPopupContent.apply(this, arguments);
 				self.endDate._oSliders.setMinutesStep(30);
 				self.endDate._oSliders.setSecondsStep(60);
-				sap.ui.getCore().byId(self.createId("modal_periodSelection")).setSelectedIndex(4); //set selection to empty if user manually changes date or time
+				self.getView().byId("modal_periodSelection").setSelectedIndex(4); //set selection to empty if user manually changes date or time
 			};
 
 		},
@@ -108,13 +113,13 @@ sap.ui.define([
 		onAfterRendering: function() {
 			var self = this;
 			//set Radio Button Group selection to null
-			this.periodSelection = sap.ui.getCore().byId(this.createId("modal_periodSelection"));
+			this.periodSelection = this.getView().byId("modal_periodSelection");
 			this.periodSelection.setSelectedIndex(4);
-			
+
 			//define event for when selection changes (Moorning, Afternoon or Day);
-			sap.ui.getCore().byId(this.createId("modal_periodSelection")).attachSelect(function() {
-				var startDate = sap.ui.getCore().byId(self.createId("modal_startDate"));
-				var endDate = sap.ui.getCore().byId(self.createId("modal_endDate"));
+			this.getView().byId("modal_periodSelection").attachSelect(function() {
+				var startDate = self.getView().byId("modal_startDate");
+				var endDate = self.getView().byId("modal_endDate");
 				var sDate = startDate.getValue().split(',')[0];
 				var infos = this.getSelectedButton().getText();
 
@@ -134,17 +139,23 @@ sap.ui.define([
 						break;
 				}
 			});
-			
-			//align Resource buttons
-			sap.ui.getCore().byId(this.createId("modal_resources")).addStyleClass("resources");
 
+			//align Resource buttons
+			this.getView().byId("modal_resources").addStyleClass("resources");
 		},
 
 		validateParticipants: function(oControlEvent) {
+			var participantsInput = this.getView().byId("modal_participants");
 			if (oControlEvent.getParameters().value === '' || oControlEvent.getParameters().value === '0') {
-				sap.ui.getCore().byId(this.createId("modal_participants")).setValueState(sap.ui.core.ValueState.Error);
+				participantsInput.setValueState(sap.ui.core.ValueState.Error);
 			} else {
-				sap.ui.getCore().byId(this.createId("modal_participants")).setValueState(sap.ui.core.ValueState.None);
+				participantsInput.setValueState(sap.ui.core.ValueState.None);
+			}
+
+			if (participantsInput.getValue().length > participantsInput.getMaxLength()) {
+				var text = participantsInput.getValue().slice(0, participantsInput.getMaxLength());
+				participantsInput.setValue("");
+				participantsInput.setValue(text);
 			}
 		},
 

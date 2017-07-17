@@ -1,13 +1,11 @@
-<mvc:View viewName="initialModal" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form"
-	xmlns:layout="sap.ui.layout" height="860px" controllerName="odkasfactory.reservasalas.controller.InitialModal">
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:layout="sap.ui.layout" viewName="initialModal" height="860px" controllerName="odkasfactory.reservasalas.controller.InitialModal">
 	<m:Page class="modalPage" showHeader="false" title="Responsive Page Title" showFooter="false" showNavButton="false">
 		<m:content>
 			<m:Label text="" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
 			<m:Title text="Bem vindo à Reserva de Salas" titleStyle="H2" width="100%" textAlign="Center" visible="true"/>
 			<m:Title text="Edifício Sede - Sonangol EP" titleStyle="H3" width="100%" textAlign="Center" visible="true"/>
 			<m:Label text="" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
-			<m:HBox alignItems="Center" direction="Row" fitContainer="true" width="auto" height="auto" justifyContent="SpaceBetween" renderType="Div"
-				visible="true" displayInline="false">
+			<m:HBox alignItems="Center" direction="Row" fitContainer="true" width="auto" height="auto" justifyContent="SpaceBetween" renderType="Div" visible="true" displayInline="false">
 				<m:items>
 					<core:Icon src="sap-icon://feeder-arrow" size="34px" color="" height="60px" width="48px" visible="true"/>
 					<m:Title text="Seleção Inicial" titleStyle="H1" width="100%" textAlign="Center" visible="true"/>
@@ -27,8 +25,7 @@
 									<m:Label class="formLabel" text="Tipo de Reunião:" width="100%" required="true" textAlign="Left" textDirection="Inherit" design="Bold"/>
 								</form:label>
 								<form:fields>
-									<m:Select id="modal_meetingType" placeholder="Seleccione um tipo de reunião" editable="true" enabled="true" visible="true" width="auto"
-										valueState="None">
+									<m:Select id="modal_meetingType" placeholder="Seleccione um tipo de reunião" editable="true" enabled="true" visible="true" width="auto" valueState="None">
 										<m:items>
 											<core:Item text="Formação" key="formacao" enabled="true"/>
 											<core:Item text="Interna" key="interna" enabled="true"/>
@@ -57,9 +54,9 @@
 								<form:fields>
 									<m:RadioButtonGroup id="modal_periodSelection" columns="3" width="100%" class="sapUiMediuMarginBottom">
 										<m:buttons>
-											<m:RadioButton class="radioBtns"  text="Manhã" editable="true" enabled="true" visible="true" valueState="None"/>
-											<m:RadioButton class="radioBtns"  text="Tarde" editable="true" enabled="true" visible="true" valueState="None"/>
-											<m:RadioButton class="radioBtns"  text="Dia" editable="true" enabled="true" visible="true"  valueState="None"/>
+											<m:RadioButton class="radioBtns" text="Manhã" editable="true" enabled="true" visible="true" valueState="None"/>
+											<m:RadioButton class="radioBtns" text="Tarde" editable="true" enabled="true" visible="true" valueState="None"/>
+											<m:RadioButton class="radioBtns" text="Dia" editable="true" enabled="true" visible="true" valueState="None"/>
 										</m:buttons>
 									</m:RadioButtonGroup>
 								</form:fields>
@@ -69,8 +66,7 @@
 									<m:Label class="formLabel" text="Nº de Participantes:" design="Bold" width="100%" required="true" textAlign="Begin" textDirection="Inherit"/>
 								</form:label>
 								<form:fields>
-									<m:Input id="modal_participants" liveChange="validateParticipants" placeholder="Insira o número de participantes esperado" type="Number" description="" showValueHelp="false" enabled="true"
-										visible="true" width="auto" valueHelpOnly="false"/>
+									<m:Input id="modal_participants" liveChange="validateParticipants" placeholder="Insira o número de participantes esperado" type="Number" visible="true" width="auto" valueLiveUpdate="true" valueHelpOnly="true" maxLength="3"/>
 								</form:fields>
 							</form:FormElement>
 							<form:FormElement visible="true">
@@ -78,8 +74,7 @@
 									<m:Label class="formLabel" text="Piso Preferencial:" design="Bold" width="100%" required="true" textAlign="Begin" textDirection="Inherit"/>
 								</form:label>
 								<form:fields>
-									<m:Select id="modal_floor" placeholder="Seleccione um piso preferencial" editable="true" enabled="true" visible="true" width="auto" valueState="None"
-										maxWidth="100%">
+									<m:Select id="modal_floor" placeholder="Seleccione um piso preferencial" editable="true" enabled="true" visible="true" width="auto" valueState="None" maxWidth="100%">
 										<m:items>
 											<core:Item text="Rés-do-Chão" enabled="true"/>
 											<core:Item text="1º Andar" enabled="true"/>
@@ -103,23 +98,16 @@
 			</form:Form>
 			<layout:Grid id="modal_resources" defaultIndent="L2 M0 S0" defaultSpan="L1 M4 S12" width="100%" vSpacing="0" position="Center" containerQuery="true">
 				<layout:content>
-					<m:ToggleButton class="resourceBtn" text="Laser" icon="sap-icon://target-group" iconFirst="true" enabled="true"
-						visible="true" width="185px"/>
-					<m:ToggleButton class="resourceBtn" text="Microfone" icon="sap-icon://microphone" iconFirst="true" enabled="true"
-						visible="true" width="185px"/>
-					<m:ToggleButton class="resourceBtn" text="Flipchart" icon="sap-icon://sys-monitor" iconFirst="true" enabled="true"
-						visible="true" width="185px"/>
-					<m:ToggleButton class="resourceBtn" text="Material de Escritório" icon="sap-icon://edit" iconFirst="true" enabled="true"
-						visible="true" width="185px"/>
-					<m:ToggleButton class="resourceBtn" text="Projetor" icon="sap-icon://projector" iconFirst="true" enabled="true"
-						visible="true" width="185px"/>
+					<m:ToggleButton class="resourceBtn" text="Laser" icon="sap-icon://target-group" iconFirst="true" enabled="true" visible="true" width="185px"/>
+					<m:ToggleButton class="resourceBtn" text="Microfone" icon="sap-icon://microphone" iconFirst="true" enabled="true" visible="true" width="185px"/>
+					<m:ToggleButton class="resourceBtn" text="Flipchart" icon="sap-icon://sys-monitor" iconFirst="true" enabled="true" visible="true" width="185px"/>
+					<m:ToggleButton class="resourceBtn" text="Material de Escritório" icon="sap-icon://edit" iconFirst="true" enabled="true" visible="true" width="185px"/>
+					<m:ToggleButton class="resourceBtn" text="Projetor" icon="sap-icon://projector" iconFirst="true" enabled="true" visible="true" width="185px"/>
 				</layout:content>
 			</layout:Grid>
-			<m:HBox class="cSaveBtn" alignItems="Center" direction="Row" fitContainer="false" width="100%" height="auto" justifyContent="Center"
-				renderType="Div" visible="true" displayInline="false">
+			<m:HBox class="cSaveBtn" alignItems="Center" direction="Row" fitContainer="false" width="100%" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
 				<m:items>
-					<m:Button press="onSavePress" text="Guardar" type="Emphasized" icon="sap-icon://save" iconFirst="true" width="auto" enabled="true"
-						visible="true" iconDensityAware="false"/>
+					<m:Button press="onSavePress" text="Guardar" type="Emphasized" icon="sap-icon://save" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
 				</m:items>
 				<m:layoutData/>
 			</m:HBox>

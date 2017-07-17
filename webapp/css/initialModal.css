@@ -23,32 +23,18 @@
     outline: unset;
 }
 
-@media (min-width: 630px) {
-    #__xmlview0 .sapUiFormElementLbl {
-        width: 25% !important;
-    }
-    #__xmlview0 .sapUiRespGridSpanL4 {
-        width: 33.33% !important;
-    }
-}
-
-
 /* Custom Styling */
 
 #__xmlview0 .modalPage {
     max-width: 95%;
-    max-height: 84%;
+    max-height: 98%;
     margin: 8% auto;
     background-color: #FFFFFF;
     border: groove 1px #000000;
     box-shadow: 0 -1px 3px #888888;
 }
 
-@media (min-width: 768px) {
-    #__xmlview0 .modalPage {
-        max-width: 610px;
-    }
-}
+
 
 #__xmlview0 #__grid0,
 #__xmlview0 .cSaveBtn {
@@ -70,12 +56,6 @@
     width: auto;
 }
 
-@media (min-width: 420px) {
-    #__xmlview0 .radioBtns {
-        width: 32%;
-    }
-}
-
 #__xmlview0 .radioBtns:focus:before {
     border: unset;
 }
@@ -89,12 +69,41 @@
     width: 181px !important;
 }
 
+#__xmlview0 .resourceBtn .sapMBtnText {
+	padding-right: 0;
+}
+
 .resources {
-        text-align: center;
+    text-align: center;
+}
+
+@media (min-width: 420px) {
+    #__xmlview0 .radioBtns {
+        width: 32%;
     }
+}
+
+@media (min-width: 630px) {
+    #__xmlview0 .sapUiFormElementLbl {
+        width: 25% !important;
+    }
+    #__xmlview0 .sapUiRespGridSpanL4 {
+        width: 33.33% !important;
+    }
+    
+    #__xmlview0 .modalPage {
+        max-height: 84%;
+    }
+}
 
 @media (min-width: 650px) {
     .resources {
         text-align: unset;
+    }
+}
+
+@media (min-width: 768px) {
+    #__xmlview0 .modalPage {
+        max-width: 610px;
     }
 }
