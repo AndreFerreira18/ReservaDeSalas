@@ -6,17 +6,27 @@ sap.ui.define([
 ], function(Controller) {
 	"use strict";
 
+	this.meetingType = null;
+	this.startDate = null;
+	this.endDate = null;
+	this.periodSelection = null;
+	this.participants = null;
+	this.floor = null;
+	this.resources = {};
+
 	return Controller.extend("odkasfactory.reservasalas.controller.InitialModal", {
 
 		onInit: function() {
+
 			// this.mBindingOptions = {};
 			// this.oRouter = UIComponent.getRouterFor(this);
 			// this.oRouter.getTarget("InitialModal").attachDisplay(jQuery.proxy(this.handleRouteMatched, this));
 			// var sUrl = "#" + this.getOwnerComponent().getRouter().getURL("helpSection");
 			// this.byId("link").setHref(sUrl);
+			this._setDateTimeDefault();
 		},
 
-		onIconPress: function(oEvent) {
+		onIconPress: function() {
 			// this.getOwnerComponent().getRouter().navTo("helpSection");
 			// var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			// this.oRouter.
@@ -29,6 +39,75 @@ sap.ui.define([
 			//     );
 			// }.bind(this)).catch(function (err) { if (err !== undefined) { MessageBox.error(err.message); }});
 
+		},
+
+		onSavePress: function() {
+			var data = {};
+
+			//meeting Type
+			this.meetingType = sap.ui.getCore().byId(this.createId("modal_meetingType")).getSelectedItem().getText();
+			if (this.meetingType) {
+				data.meeting = this.meetingType;
+			}
+
+			//start Date
+			this.startDate = sap.ui.getCore().byId(this.createId("modal_startDate")).getValue();
+			data.startDate = this.startDate;
+			//end Date
+			this.endDate = sap.ui.getCore().byId(this.createId("modal_endDate")).getValue();
+			data.endDate = this.endDate;
+
+			//Time of Day
+			this.periodSelection = sap.ui.getCore().byId(this.createId("modal_periodSelection")).getSelectedButton();
+			data.selection = this.periodSelection ? this.periodSelection.getText() : "";
+
+			//participants
+			this.participants = sap.ui.getCore().byId(this.createId("modal_participants")).getValue();
+			if(this.participants === "" || this.participants === "0"){
+				sap.ui.getCore().byId(this.createId("modal_participants")).setValueState(sap.ui.core.ValueState.Error);
+				data = {};
+				return;
+			} else {
+				sap.ui.getCore().byId(this.createId("modal_participants")).setValueState(sap.ui.core.ValueState.None);
+				data.participants = parseInt(this.participants);
+			}
+			
+			//floor
+			this.floor = sap.ui.getCore().byId(this.createId("modal_floor")).getSelectedItem().getText();
+			data.floor = this.floor;
+
+		},
+
+		_setDateTimeDefault: function() {
+			var self = this;
+			this.startDate = sap.ui.getCore().byId(this.createId("modal_startDate"));
+			this.startDate._createPopupContent = function() {
+				sap.m.DateTimePicker.prototype._createPopupContent.apply(this, arguments);
+				self.startDate._oSliders.setMinutesStep(30);
+				self.startDate._oSliders.setSecondsStep(60);
+			};
+
+			this.endDate = sap.ui.getCore().byId(this.createId("modal_endDate"));
+			this.endDate._createPopupContent = function() {
+				sap.m.DateTimePicker.prototype._createPopupContent.apply(this, arguments);
+				self.endDate._oSliders.setMinutesStep(30);
+				self.endDate._oSliders.setSecondsStep(60);
+			};
+
+		},
+
+		onAfterRendering: function() {
+			this.periodSelection = sap.ui.getCore().byId(this.createId("modal_periodSelection"));
+			this.periodSelection.setSelectedIndex(4);
+			
+		},
+		
+		validateParticipants: function(oControlEvent){
+			if(oControlEvent.getParameters().value === '' || oControlEvent.getParameters().value === '0') {
+				sap.ui.getCore().byId(this.createId("modal_participants")).setValueState(sap.ui.core.ValueState.Error);
+			} else {
+				sap.ui.getCore().byId(this.createId("modal_participants")).setValueState(sap.ui.core.ValueState.None);
+			}
 		}
 
 		// handleRouteMatched: function(oEvent) {

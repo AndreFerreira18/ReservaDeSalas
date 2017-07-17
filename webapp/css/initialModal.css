@@ -19,8 +19,8 @@
     text-align: center;
 }
 
-#__xmlview0 .sapUiIcon{
-		outline: unset;
+#__xmlview0 .sapUiIcon {
+    outline: unset;
 }
 
 @media (min-width: 630px) {
@@ -66,8 +66,14 @@
 }
 
 #__xmlview0 .radioBtns {
-    display: inline-block;
-    width: 33.33%;
+    text-align: left;
+    width: auto;
+}
+
+@media (min-width: 420px) {
+    #__xmlview0 .radioBtns {
+        width: 32%;
+    }
 }
 
 #__xmlview0 .radioBtns:focus:before {
@@ -80,5 +86,6 @@
 }
 
 #__xmlview0 .resourceBtn {
-    width: 182px !important;
+    width: 181px !important;
 }
+
