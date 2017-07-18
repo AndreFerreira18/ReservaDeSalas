@@ -52,10 +52,11 @@ span.sapMBtnInner.sapMBtnEmphasized {
 
 #__xmlview0 .floors {
     text-align: center;
+    /*min-width: 85% !important;*/
 }
 
-#__xmlview0 .sapMFlexItem {
-    min-width: 85% !important;
+#__xmlview0 .sapMFlexBoxBGTransparent.sapMFlexBoxScroll.sapMFlexItem.sapMFlexItemAlignAuto {
+  min-width: 85% !important;
 }
 
 #__xmlview0 .sapMSelectListItemBaseSelected {

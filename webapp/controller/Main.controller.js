@@ -13,10 +13,10 @@ sap.ui.define([
 	this.minVisibleFloor = null;
 	this.maxVisibleFloor = null;
 
-	$("#floorList").load(function() {
-		alert("Image loaded");
-		this._refreshShownFloors();
-	});
+	// $("#floorList").load(function() {
+	// 	alert("Image loaded");
+	// 	this._refreshShownFloors();
+	// });
 
 	return BaseController.extend("odkasfactory.reservasalas.controller.Main", {
 		// onAfterRendering: function() {
@@ -52,30 +52,32 @@ sap.ui.define([
 			this.minVisibleFloor = 2;
 			this.maxVisibleFloor = 5;
 			var self = this;
-			var vBox = this.getView().byId("floorSelector");
-			var oModel = new sap.ui.model.json.JSONModel("/webapp/mockdata/floors.json");
+			var vBox = this.getView().byId("floorList");
+			var oModel = new JSONModel();
 			oModel.attachEventOnce("requestCompleted",function() {
 				vBox.setModel(oModel);
-				vBox = self._refreshShownFloors(vBox);
+				vBox = self._refreshShownFloors(vBox); // not working
 				return console.log("Request Completed");
-			});
-			//vBox.setModel(oModel);
+			}).loadData("/webapp/mockdata/floors.json");
 			
 
 			// this.mBindingOptions = {};
 			// this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			// this.oRouter.getTarget("Main").attachDisplay(jQuery.proxy(this.handleRouteMatched, this));
 		},
-		_refreshShownFloors: function() {
+		_refreshShownFloors: function(vBox) { // not working
+			// vBox.
 		 var floorList = this.getView().byId("floorList").mAggregations.items;
 			for (var i = 0; i <= floorList.length; i++) {
-				if (floorList[i].mProperties.key >= this.minVisibleFloor && floorList[i].mProperties.key >= this.maxVisibleFloor) {
-					this.getView().byId(floorList[i].sId).addStyleClass("displayInherit");
+				if (parseInt(floorList[i].mProperties.key) >= this.minVisibleFloor && parseInt(floorList[i].mProperties.key) <= this.maxVisibleFloor) {
+					//this.getView().byId(floorList[i].sId).addStyleClass("displayInherit");
+					vBox = vBox.mAggregations.items[1].mAggregations.items[floorList[i].mProperties.key].addStyleClass("displayNone");
 				} else {
-					this.getView().byId(floorList[i].sId).addStyleClass("displayNone");
+					//this.getView().byId(floorList[i].sId).addStyleClass("displayNone");
+					vBox = vBox.mAggregations.items[1].mAggregations.items[floorList[i].mProperties.key].addStyleClass("displayNone");
 				}
 			}
-			return floorList;
+			return vBox;
 		}
 	});
 });
