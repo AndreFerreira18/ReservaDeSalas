@@ -1,0 +1,46 @@
+{
+	"0": {
+		"FloorId" : 0,
+		"Name" : "10º Andar"
+	},
+	"1": {
+		"FloorId" : 1,
+		"Name" : "9º Andar"
+	},
+	"2": {
+		"FloorId" : 2,
+		"Name" : "8º Andar"
+	},
+	"3": {
+		"FloorId" : 3,
+		"Name" : "7º Andar"
+	},
+	"4": {
+		"FloorId" : 4,
+		"Name" : "6º Andar"
+	},
+	"5": {
+		"FloorId" : 5,
+		"Name" : "5º Andar"
+	},
+	"6": {
+		"FloorId" : 6,
+		"Name" : "4º Andar"
+	},
+	"7": {
+		"FloorId" :7,
+		"Name" : "3º Andar"
+	},
+	"8": {
+		"FloorId" : 8,
+		"Name" : "2º Andar" 
+	},
+	"9": {
+		"FloorId" : 9,
+		"Name" : "1º Andar"
+	},
+	"10": {
+		"FloorId" : 10,
+		"Name" : "Res-do-Chão"
+	}
+}
