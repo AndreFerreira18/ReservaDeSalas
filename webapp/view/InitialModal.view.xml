@@ -1,5 +1,5 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:layout="sap.ui.layout" viewName="initialModal" height="860px" controllerName="odkasfactory.reservasalas.controller.InitialModal">
-	<m:Page class="modalPage" showHeader="false" title="Responsive Page Title" showFooter="false" showNavButton="false">
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:layout="sap.ui.layout" viewName="InitialModal" height="860px" controllerName="odkasfactory.reservasalas.controller.InitialModal">
+	<m:Page  class="modalPage" showHeader="false" title="Responsive Page Title" showFooter="false" showNavButton="false">
 		<m:content>
 			<m:Label text="" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
 			<m:Title text="Bem vindo à Reserva de Salas" titleStyle="H2" width="100%" textAlign="Center" visible="true"/>
@@ -9,7 +9,7 @@
 				<m:items>
 					<core:Icon src="sap-icon://feeder-arrow" size="34px" color="" height="60px" width="48px" visible="true"/>
 					<m:Title text="Seleção Inicial" titleStyle="H1" width="100%" textAlign="Center" visible="true"/>
-					<core:Icon src="sap-icon://sys-help-2" size="34px" color="#4d94ff" height="60px" width="48px" visible="true" press="onIconPress"/>
+					<core:Icon class="help_icon" src="sap-icon://sys-help-2" size="34px" color="#4d94ff" height="60px" width="48px" visible="true" press="onHelpPress"/>
 				</m:items>
 				<m:layoutData/>
 			</m:HBox>
@@ -25,7 +25,7 @@
 									<m:Label class="formLabel" text="Tipo de Reunião:" width="100%" required="true" textAlign="Left" textDirection="Inherit" design="Bold"/>
 								</form:label>
 								<form:fields>
-									<m:Select id="modal_meetingType" placeholder="Seleccione um tipo de reunião" editable="true" enabled="true" visible="true" width="auto" valueState="None">
+									<m:Select id="modal_meeting_type" placeholder="Seleccione um tipo de reunião" editable="true" enabled="true" visible="true" width="auto" valueState="None">
 										<m:items>
 											<core:Item text="Formação" key="formacao" enabled="true"/>
 											<core:Item text="Interna" key="interna" enabled="true"/>
@@ -39,7 +39,7 @@
 									<m:Label class="formLabel" text="Início:" design="Bold" width="100%" required="true" textAlign="Left" textDirection="Inherit"/>
 								</form:label>
 								<form:fields>
-									<m:DateTimePicker id="modal_startDate" enabled="true" visible="true" value="01/07/2017, 08:00"/>
+									<m:DateTimePicker id="modal_start_date" enabled="true" visible="true" value="01/07/2017, 08:00"/>
 								</form:fields>
 							</form:FormElement>
 							<form:FormElement visible="true">
@@ -47,12 +47,12 @@
 									<m:Label class="formLabel" text="Fim:" design="Bold" width="100%" required="true" textAlign="Begin" textDirection="Inherit"/>
 								</form:label>
 								<form:fields>
-									<m:DateTimePicker id="modal_endDate" enabled="true" visible="true" value="01/07/2017, 09:00"/>
+									<m:DateTimePicker id="modal_end_date" enabled="true" visible="true" value="01/07/2017, 09:00"/>
 								</form:fields>
 							</form:FormElement>
 							<form:FormElement visible="true">
 								<form:fields>
-									<m:RadioButtonGroup id="modal_periodSelection" columns="3" width="100%" class="sapUiMediuMarginBottom">
+									<m:RadioButtonGroup id="modal_selection" columns="3" width="100%" class="sapUiMediuMarginBottom radioButtonGroup">
 										<m:buttons>
 											<m:RadioButton class="radioBtns" text="Manhã" editable="true" enabled="true" visible="true" valueState="None"/>
 											<m:RadioButton class="radioBtns" text="Tarde" editable="true" enabled="true" visible="true" valueState="None"/>

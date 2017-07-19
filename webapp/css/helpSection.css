@@ -1,0 +1,56 @@
+.help_page .header {
+    text-align: center;
+    display: table;
+}
+
+.help_page .title {
+    width: 100vw;
+    text-align: center;
+    font-size: 1.375rem;
+}
+
+.help_page .icon {
+    width: 92vw;
+    text-align: right;
+    margin-right: 13px;
+    position: relative;
+    bottom: 65px;
+    outline: unset;
+}
+
+.help_page .icon:focus {
+    outline: unset;
+}
+
+.help_page .image {
+    max-width: 94%;
+    content: url("/webapp/images/help2.png");
+    padding: 0 3%;
+}
+
+@media (min-width: 600px) {
+    .help_page .header {
+        display: flex;
+    }
+    .help_page .title {
+        font-size: 1.625rem;
+        width: 60vw;
+        text-align: right;
+    }
+    .help_page .icon {
+        width: 36vw;
+        margin-right: 0;
+        position: unset;
+        bottom: unset;
+    }
+    .help_page .image {
+        width: 768px;
+        content: url("/webapp/images/help1.png");
+    }
+}
+
+@media (min-width: 645px) {
+    .help_page .image {
+        height: 768px;
+    }
+}

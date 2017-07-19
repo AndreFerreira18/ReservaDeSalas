@@ -1,22 +1,20 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller"
-], function (Controller) {
+	"odkasfactory/reservasalas/controller/BaseController"
+], function(BaseController) {
 	"use strict";
 
-	return Controller.extend("odkasfactory.reservasalas.controller.App", {
-		/**
-		 * Convenience method for accessing the router.
-		 * @public
-		 * @returns {sap.ui.core.routing.Router} the router for this component
-		 */
-		getRouter: function() {
-			return sap.ui.core.UIComponent.getRouterFor(this);
-		},
+	return BaseController.extend("odkasfactory.reservasalas.controller.App", {
 		
-		init : function () {
-			// show a native JavaScript alert
-			alert("Hello World");
+		onInit: function() {
+			//start Router 
+			this.getRouter().initialize();
+			
+			//display initial screen
+			this.getRouter().navTo("initialModal");
+		
+			
 		}
+
 	});
 
 });
