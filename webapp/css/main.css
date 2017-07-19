@@ -1,13 +1,13 @@
 /* Custom Styling */
 
-#__xmlview0 {
+.mainPage {
     background-color: #FFFFFF !important;
 }
 
 
 /*sidebar*/
 
-#__xmlview0 #__panel0,
+.mainPage #__panel0,
 #__container0--Grid {
     background-color: #fffae6 !important;
     background-image: unset !important;
@@ -42,35 +42,35 @@ span.sapMBtnInner.sapMBtnEmphasized {
 
 /*floor selector*/
 
-#__xmlview0 .triangle {
+.mainPage .triangle {
     margin-bottom: -4px;
 }
 
-#__xmlview0 .rectangle {
+.mainPage .rectangle {
     margin-top: -2px;
 }
 
-#__xmlview0 .floors {
+.mainPage .floors {
     text-align: center;
     /*min-width: 85% !important;*/
 }
 
-#__xmlview0 .sapMFlexBoxBGTransparent.sapMFlexBoxScroll.sapMFlexItem.sapMFlexItemAlignAuto {
+.mainPage .sapMFlexBoxBGTransparent.sapMFlexBoxScroll.sapMFlexItem.sapMFlexItemAlignAuto {
   min-width: 85% !important;
 }
 
-#__xmlview0 .sapMSelectListItemBaseSelected {
+.mainPage .sapMSelectListItemBaseSelected {
     background: #ffd24d !important;
 }
 
-#__xmlview0 .sapMSelectListItem {
+.mainPage .sapMSelectListItem {
     border: solid 1px #000000;
 }
 
-#__xmlview0 .displayNone {
+.mainPage .displayNone {
         display: none;
 }
 
-#__xmlview0 .displayInherit {
+.mainPage .displayInherit {
         display: inherit;
 }

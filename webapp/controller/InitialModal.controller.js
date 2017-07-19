@@ -100,6 +100,8 @@ sap.ui.define([
 			//resources
 			this.resources = this.getView().byId("modal_resources").mAggregations.content;
 			data.resources = this._checkSelectedResources(this.resources);
+			
+			this.getRouter().navTo("main");
 
 		},
 

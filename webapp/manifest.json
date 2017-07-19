@@ -72,6 +72,9 @@
 				},
 				"help": {
 					"viewName": "HelpSection"
+				},
+				"main": {
+					"viewName": "Main"
 				}
 			}
 		}
