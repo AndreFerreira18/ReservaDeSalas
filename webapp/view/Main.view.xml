@@ -1,14 +1,1996 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="odkasfactory.reservasalas.controller.Main" xmlns:m="sap.m">
-    <m:Page showHeader="true" title="Responsive Page Title" showFooter="true" showNavButton="false">
-        <m:content>
-            <m:VBox alignItems="Start" direction="Column" fitContainer="false" width="316px" height="792px" justifyContent="Start" renderType="Div" visible="true" displayInline="false">
-                <m:items/>
-                <m:layoutData/>
-            </m:VBox>
-        </m:content>
-        <m:footer/>
-        <m:headerContent/>
-        <m:subHeader/>
-        <m:customHeader/>
-    </m:Page>
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:m="sap.m"
+	controllerName="odkasfactory.reservasalas.controller.Main" width="100%" height="100%">
+	<m:Page showHeader="true" title="Escolha das Datas" showFooter="false" showNavButton="false">
+		<m:content>
+			<layout:Grid defaultIndent="L0 M0 S0" defaultSpan="L3 M6 S12" position="Center" width="100%" containerQuery="false" hSpacing="0"
+				vSpacing="0">
+				<layout:content>
+					<!--Side BAR-->
+					<m:Panel height="auto" width="auto" headerText="Filtros" expandable="true" expanded="true" expandAnimation="true"
+						backgroundDesign="Transparent" class="sapUiSmallMarginTopBottom">
+						<m:content>
+							<m:VBox alignItems="Center" direction="Column" fitContainer="true" width="100%" height="100%" justifyContent="Start" renderType="Div"
+								visible="true" displayInline="false">
+								<m:items>
+									<form:Form width="100%" editable="true" visible="true">
+										<form:title/>
+										<form:formContainers>
+											<form:FormContainer visible="true">
+												<form:formElements>
+													<form:FormElement visible="true">
+														<form:label>
+															<m:Label text="Tipo de Reunião" design="Bold" width="100%" required="true" textAlign="Begin" textDirection="Inherit"/>
+														</form:label>
+														<form:fields>
+															<m:ComboBox placeholder="Seleccione um tipo de reunião" editable="true" enabled="true" visible="true" width="auto" valueState="None"
+																maxWidth="100%">
+																<m:items>
+																	<core:Item text="Formação" enabled="true"/>
+																	<core:Item text="Interna" enabled="true"/>
+																	<core:Item text="Externa" enabled="true"/>
+																</m:items>
+															</m:ComboBox>
+														</form:fields>
+														<form:FormLayout/>
+													</form:FormElement>
+													<form:FormElement visible="true">
+														<form:label>
+															<m:Label text="Seleção de Datas e Horas (Início)" design="Bold" width="100%" required="true" textAlign="Begin" textDirection="Inherit"/>
+														</form:label>
+														<form:fields>
+															<m:DateTimeInput placeholder="DD/MM/YYYY, HH:mm" type="DateTime" enabled="true" visible="true" width="auto"/>
+														</form:fields>
+													</form:FormElement>
+													<form:FormElement visible="true">
+														<form:label>
+															<m:Label text="Seleção de Datas e Horas (Fim)" design="Bold" width="100%" required="true" textAlign="Begin" textDirection="Inherit"/>
+														</form:label>
+														<form:fields>
+															<m:DateTimeInput placeholder="DD/MM/YYYY, HH:mm" type="DateTime" enabled="true" visible="true" width="auto"/>
+														</form:fields>
+													</form:FormElement>
+													<form:FormElement visible="true">
+														<form:label>
+															<m:Label text="" design="Bold" width="0" required="false" textAlign="Begin" textDirection="Inherit"/>
+														</form:label>
+														<form:fields>
+															<m:RadioButton selected="false" text="Manhã" editable="true" enabled="true" visible="true" width="auto" valueState="None"/>
+															<m:RadioButton selected="false" text="Tarde" editable="true" enabled="true" visible="true" width="auto" valueState="None"/>
+															<m:RadioButton selected="false" text="Dia" editable="true" enabled="true" visible="true" width="auto" valueState="None"/>
+														</form:fields>
+													</form:FormElement>
+													<form:FormElement visible="true">
+														<form:label>
+															<m:Label text="Nº de Participantes" design="Bold" width="100%" required="true" textAlign="Begin" textDirection="Inherit"/>
+														</form:label>
+														<form:fields>
+															<m:Input value="" placeholder="Insira o número de participantes esperado" type="Number" description="" showValueHelp="false" enabled="true"
+																visible="true" width="auto" valueHelpOnly="false"/>
+														</form:fields>
+													</form:FormElement>
+												</form:formElements>
+												<form:title/>
+											</form:FormContainer>
+										</form:formContainers>
+										<form:layout>
+											<form:ResponsiveGridLayout adjustLabelSpan="false" columnsL="2" labelSpanL="3" columnsM="1" labelSpanM="2" labelSpanS="12"/>
+										</form:layout>
+									</form:Form>
+									<layout:Grid defaultIndent="L1 M0 S0" defaultSpan="L2 M4 S12" position="Center" width="100%" containerQuery="true" hSpacing="1" vSpacing="1">
+										<layout:content>
+											<m:ToggleButton pressed="false" text="Laser" icon="sap-icon://target-group" iconFirst="true" width="100%" enabled="true" visible="true"/>
+											<m:ToggleButton pressed="false" text="Microfone" icon="sap-icon://microphone" iconFirst="true" width="100%" enabled="true" visible="true"/>
+											<m:ToggleButton pressed="false" text="Flipchart" icon="sap-icon://sys-monitor" iconFirst="true" width="100%" enabled="true" visible="true"/>
+											<m:ToggleButton pressed="false" text="Material de Escritório" icon="sap-icon://edit" iconFirst="true" width="100%" enabled="true"
+												visible="true"/>
+											<m:ToggleButton pressed="false" text="Projetor" icon="sap-icon://projector" iconFirst="true" width="100%" enabled="true" visible="true"/>
+										</layout:content>
+									</layout:Grid>
+									<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+										visible="true" displayInline="false">
+										<m:items>
+											<m:Button text="Alterar Dados" type="Emphasized" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+										</m:items>
+										<m:layoutData/>
+									</m:HBox>
+									<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+										visible="true" displayInline="false">
+										<m:items>
+											<m:Image src="/webapp/images/logo.png" height="150px" width="200px" densityAware="false"/>
+										</m:items>
+										<m:layoutData/>
+									</m:HBox>
+								</m:items>
+								<m:layoutData/>
+							</m:VBox>
+						</m:content>
+						<m:layoutData><layout:GridData span="L3 M5 S12"/></m:layoutData>
+					</m:Panel>
+					<!--Floor Selector-->
+					<m:VBox id="floorSelector" alignItems="Center" direction="Column" fitContainer="true" width="auto" height="auto" justifyContent="Center"
+						renderType="Div" visible="true" displayInline="true" class="sapUiResponsiveMargin">
+						<m:Image src="/webapp/images/triangle.png" class="sapUiNoContentPadding triangle" height="50px" width="100%" densityAware="false"/>
+						<m:ScrollContainer height="300px" width="100%" horizontal="false" vertical="true" focusable="true">
+							<m:SelectList id="floorList" class="floors" items="{ path: '/', sorter: { path: 'FloorId' } }">
+								<core:Item key="{FloorId}" text="{Name}"/>
+							</m:SelectList>
+						</m:ScrollContainer>
+						<m:Image src="/webapp/images/rectangle.png" class="sapUiNoContentPadding rectangle" height="30px" width="100%" densityAware="false"/>
+						<m:layoutData><layout:GridData span="L3 M7 S12"/></m:layoutData>
+					</m:VBox>
+					<!--Matrix Week-->
+					<m:IconTabBar expandable="true" expanded="true" applyContentPadding="false" backgroundDesign="Solid" upperCase="false" visible="true"
+						selectedKey="Ok" width="auto" height="auto">
+						<m:items>
+							<m:IconTabFilter iconColor="Default" text="Sala 3.1" count="" design="Vertical" showAll="false" textDirection="Inherit" enabled="true"
+								visible="true" iconDensityAware="false">
+								<m:content>
+									<layout:Grid defaultIndent="L0 M0 S0" defaultSpan="L2 M2 S2" position="Center" width="100%" containerQuery="true" hSpacing="0" vSpacing="1">
+										<layout:content>
+											<m:VBox alignItems="Center" direction="Column" fitContainer="true" width="100%" height="100%" justifyContent="Start" renderType="Div"
+												visible="true" displayInline="false">
+												<m:items>
+													<m:Title text="" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="8:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="9:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="10:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="11:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="12:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="13:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="14:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="15:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="16:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="17:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="18:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="19:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+												</m:items>
+												<m:layoutData/>
+											</m:VBox>
+											<m:VBox alignItems="Center" direction="Column" fitContainer="true" width="100%" height="100%" justifyContent="Center" renderType="Div"
+												visible="true" displayInline="false">
+												<m:items>
+													<m:Title text="03/07" titleStyle="Auto" width="100%" textAlign="Center" visible="true"/>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+												</m:items>
+												<m:layoutData/>
+											</m:VBox>
+											<m:VBox alignItems="Center" direction="Column" fitContainer="true" width="100%" height="100%" justifyContent="Center" renderType="Div"
+												visible="true" displayInline="false">
+												<m:items>
+													<m:Title text="04/07" titleStyle="Auto" width="100%" textAlign="Center" visible="true"/>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+												</m:items>
+												<m:layoutData/>
+											</m:VBox>
+											<m:VBox alignItems="Center" direction="Column" fitContainer="true" width="100%" height="100%" justifyContent="Center" renderType="Div"
+												visible="true" displayInline="false">
+												<m:items>
+													<m:Title text="05/07" titleStyle="Auto" width="100%" textAlign="Center" visible="true"/>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+												</m:items>
+												<m:layoutData/>
+											</m:VBox>
+											<m:VBox alignItems="Center" direction="Column" fitContainer="true" width="100%" height="100%" justifyContent="Center" renderType="Div"
+												visible="true" displayInline="false">
+												<m:items>
+													<m:Title text="06/07" titleStyle="Auto" width="100%" textAlign="Center" visible="true"/>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+												</m:items>
+												<m:layoutData/>
+											</m:VBox>
+											<m:VBox alignItems="Center" direction="Column" fitContainer="true" width="100%" height="100%" justifyContent="Center" renderType="Div"
+												visible="true" displayInline="false">
+												<m:items>
+													<m:Title text="07/07" titleStyle="Auto" width="100%" textAlign="Center" visible="true"/>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+												</m:items>
+												<m:layoutData/>
+											</m:VBox>
+										</layout:content>
+									</layout:Grid>
+								</m:content>
+							</m:IconTabFilter>
+							<m:IconTabSeparator icon="" iconDensityAware="false"/>
+							<m:IconTabFilter iconColor="Default" text="Sala 3.2" count="" design="Vertical" showAll="false" textDirection="Inherit" enabled="true"
+								visible="true" iconDensityAware="false">
+								<m:content>
+									<layout:Grid defaultIndent="L0 M0 S0" defaultSpan="L2 M2 S2" position="Center" width="100%" containerQuery="true" hSpacing="0" vSpacing="1">
+										<layout:content>
+											<m:VBox alignItems="Center" direction="Column" fitContainer="true" width="100%" height="100%" justifyContent="Start" renderType="Div"
+												visible="true" displayInline="false">
+												<m:items>
+													<m:Title text="" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="8:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="9:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="10:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="11:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="12:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="13:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="14:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="15:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="16:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="17:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="18:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="19:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+												</m:items>
+												<m:layoutData/>
+											</m:VBox>
+											<m:VBox alignItems="Center" direction="Column" fitContainer="true" width="100%" height="100%" justifyContent="Center" renderType="Div"
+												visible="true" displayInline="false">
+												<m:items>
+													<m:Title text="03/07" titleStyle="Auto" width="100%" textAlign="Center" visible="true"/>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+												</m:items>
+												<m:layoutData/>
+											</m:VBox>
+											<m:VBox alignItems="Center" direction="Column" fitContainer="true" width="100%" height="100%" justifyContent="Center" renderType="Div"
+												visible="true" displayInline="false">
+												<m:items>
+													<m:Title text="04/07" titleStyle="Auto" width="100%" textAlign="Center" visible="true"/>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+												</m:items>
+												<m:layoutData/>
+											</m:VBox>
+											<m:VBox alignItems="Center" direction="Column" fitContainer="true" width="100%" height="100%" justifyContent="Center" renderType="Div"
+												visible="true" displayInline="false">
+												<m:items>
+													<m:Title text="05/07" titleStyle="Auto" width="100%" textAlign="Center" visible="true"/>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+												</m:items>
+												<m:layoutData/>
+											</m:VBox>
+											<m:VBox alignItems="Center" direction="Column" fitContainer="true" width="100%" height="100%" justifyContent="Center" renderType="Div"
+												visible="true" displayInline="false">
+												<m:items>
+													<m:Title text="06/07" titleStyle="Auto" width="100%" textAlign="Center" visible="true"/>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+												</m:items>
+												<m:layoutData/>
+											</m:VBox>
+											<m:VBox alignItems="Center" direction="Column" fitContainer="true" width="100%" height="100%" justifyContent="Center" renderType="Div"
+												visible="true" displayInline="false">
+												<m:items>
+													<m:Title text="07/07" titleStyle="Auto" width="100%" textAlign="Center" visible="true"/>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+												</m:items>
+												<m:layoutData/>
+											</m:VBox>
+										</layout:content>
+									</layout:Grid>
+								</m:content>
+							</m:IconTabFilter>
+							<m:IconTabSeparator icon="" iconDensityAware="false"/>
+							<m:IconTabFilter iconColor="Default" text="Sala 3.3" count="" design="Vertical" showAll="false" textDirection="Inherit" enabled="true"
+								visible="true" iconDensityAware="false">
+								<m:content>
+									<layout:Grid defaultIndent="L0 M0 S0" defaultSpan="L2 M2 S2" position="Center" width="100%" containerQuery="true" hSpacing="0" vSpacing="1">
+										<layout:content>
+											<m:VBox alignItems="Center" direction="Column" fitContainer="true" width="100%" height="100%" justifyContent="Start" renderType="Div"
+												visible="true" displayInline="false">
+												<m:items>
+													<m:Title text="" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="8:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="9:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="10:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="11:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="12:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="13:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="14:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="15:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="16:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="17:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="18:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+													<m:Title text="19:00" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+												</m:items>
+												<m:layoutData/>
+											</m:VBox>
+											<m:VBox alignItems="Center" direction="Column" fitContainer="true" width="100%" height="100%" justifyContent="Center" renderType="Div"
+												visible="true" displayInline="false">
+												<m:items>
+													<m:Title text="03/07" titleStyle="Auto" width="100%" textAlign="Center" visible="true"/>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+												</m:items>
+												<m:layoutData/>
+											</m:VBox>
+											<m:VBox alignItems="Center" direction="Column" fitContainer="true" width="100%" height="100%" justifyContent="Center" renderType="Div"
+												visible="true" displayInline="false">
+												<m:items>
+													<m:Title text="04/07" titleStyle="Auto" width="100%" textAlign="Center" visible="true"/>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+												</m:items>
+												<m:layoutData/>
+											</m:VBox>
+											<m:VBox alignItems="Center" direction="Column" fitContainer="true" width="100%" height="100%" justifyContent="Center" renderType="Div"
+												visible="true" displayInline="false">
+												<m:items>
+													<m:Title text="05/07" titleStyle="Auto" width="100%" textAlign="Center" visible="true"/>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+												</m:items>
+												<m:layoutData/>
+											</m:VBox>
+											<m:VBox alignItems="Center" direction="Column" fitContainer="true" width="100%" height="100%" justifyContent="Center" renderType="Div"
+												visible="true" displayInline="false">
+												<m:items>
+													<m:Title text="06/07" titleStyle="Auto" width="100%" textAlign="Center" visible="true"/>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+												</m:items>
+												<m:layoutData/>
+											</m:VBox>
+											<m:VBox alignItems="Center" direction="Column" fitContainer="true" width="100%" height="100%" justifyContent="Center" renderType="Div"
+												visible="true" displayInline="false">
+												<m:items>
+													<m:Title text="07/07" titleStyle="Auto" width="100%" textAlign="Center" visible="true"/>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+													<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
+														visible="true" displayInline="false">
+														<m:items>
+															<m:Text text="-" width="100%" maxLines="1" wrapping="false" textAlign="Center" textDirection="Inherit"/>
+															<m:Text text="-" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+														</m:items>
+														<m:layoutData/>
+													</m:HBox>
+												</m:items>
+												<m:layoutData/>
+											</m:VBox>
+										</layout:content>
+									</layout:Grid>
+								</m:content>
+							</m:IconTabFilter>
+						</m:items>
+						<m:layoutData><layout:GridData span="L6 M7 S12"/></m:layoutData>
+					</m:IconTabBar>
+					<!--Reserves Table-->
+					<m:Table width="auto" height="auto" noDataText="Não existem reservas." mode="None" showSeparators="All" growing="true" growingThreshold="20"
+						growingScrollToLoad="true" class="sapUiResponsiveMargin ">
+						<m:infoToolbar>
+							<m:Toolbar width="100%" height="auto" design="Auto" visible="false" enabled="true">
+								<m:content>
+									<m:Label text="Label" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
+								</m:content>
+							</m:Toolbar>
+						</m:infoToolbar>
+						<m:headerToolbar>
+							<m:Toolbar width="auto" height="46px" design="Info" visible="true" enabled="true">
+								<m:content>
+									<m:Title text="Items (3)" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+									<m:ToolbarSpacer width=""/>
+									<m:Button text="" type="Transparent" icon="sap-icon://sort" iconFirst="true" width="auto" enabled="true" visible="true"
+										iconDensityAware="false"/>
+									<m:Button text="" type="Transparent" icon="sap-icon://filter" iconFirst="true" width="auto" enabled="true" visible="true"
+										iconDensityAware="false"/>
+									<m:Button text="" type="Transparent" icon="sap-icon://group-2" iconFirst="true" width="auto" enabled="true" visible="true"
+										iconDensityAware="false"/>
+									<m:Button text="" type="Transparent" icon="sap-icon://action-settings" iconFirst="true" width="auto" enabled="true" visible="true"
+										iconDensityAware="false"/>
+								</m:content>
+								<m:tooltip/>
+							</m:Toolbar>
+						</m:headerToolbar>
+						<m:columns>
+							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="true">
+								<m:header>
+									<m:Text text="Status" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+								</m:header>
+								<m:footer/>
+							</m:Column>
+							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="true">
+								<m:header>
+									<m:Text text="Tipo de Reunião" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+								</m:header>
+								<m:footer/>
+							</m:Column>
+							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="true">
+								<m:header>
+									<m:Text text="Sala" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+								</m:header>
+								<m:footer/>
+							</m:Column>
+							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="true">
+								<m:header>
+									<m:Text text="Data" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+								</m:header>
+								<m:footer/>
+							</m:Column>
+							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<m:header>
+									<m:Text text="Hora de Início" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+								</m:header>
+								<m:footer/>
+							</m:Column>
+							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+								<m:header>
+									<m:Text text="Hora de Fim" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+								</m:header>
+								<m:footer/>
+							</m:Column>
+						</m:columns>
+						<m:items>
+							<m:ColumnListItem type="Active">
+								<m:cells>
+									<m:Text text="Aprovado" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="Formação" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="Sala 0.1" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="03/07/2017" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="09:00" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="13:00" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+								</m:cells>
+							</m:ColumnListItem>
+							<m:ColumnListItem type="Active">
+								<m:cells>
+									<m:Text text="Rejeitado" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="Interna" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="Sala 4.2" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="04/07/2017" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="14:00" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="18:00" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+								</m:cells>
+							</m:ColumnListItem>
+							<m:ColumnListItem type="Active">
+								<m:cells>
+									<m:Text text="Rejeitado" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="Interna" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="Sala 4.2" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="06/07/2017" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="08:00" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="13:00" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+								</m:cells>
+							</m:ColumnListItem>
+							<m:ColumnListItem type="Active">
+								<m:cells>
+									<m:Text text="Pendente" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="Formação" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="Sala 1.3" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="10/07/2017" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="09:00" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="18:00" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+								</m:cells>
+							</m:ColumnListItem>
+						</m:items>
+						<m:layoutData><layout:GridData span="L9 M7 S12"/></m:layoutData>
+					</m:Table>
+				</layout:content>
+			</layout:Grid>
+		</m:content>
+		<m:footer/>
+		<m:headerContent/>
+		<m:subHeader/>
+		<m:customHeader/>
+	</m:Page>
 </mvc:View>
