@@ -1,5 +1,5 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller",
+	"odkasfactory/reservasalas/controller/BaseController",
 	"sap/ui/core/UIComponent",
 	"sap/m/MessageBox",
 	'sap/ui/model/json/JSONModel',

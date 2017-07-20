@@ -1,76 +1,109 @@
 /*SAP overwritten styling */
 
-.sapUiBody {
+.sapUiBody, .sapUiView {
     background-color: #fffae6 !important;
     background-image: unset !important;
 }
 
-#__xmlview0 .sapUiFormElementLbl {
+.initialModal .sapUiFormElementLbl {
     padding: 0 !important;
     width: 100% !important;
 }
 
-#__xmlview0 .sapUiRespGridSpanL9 {
+.initialModal .sapUiRespGridSpanL9 {
     width: 75% !important;
 }
 
-#__xmlview0 .sapUiRespGridSpanL4 {
+.initialModal .sapUiRespGridSpanL4 {
     width: 100%;
+    text-align: center;
 }
 
-/*retirar para o ecran main*/
-@media (min-width: 630px) {
-    #__xmlview0 .sapUiFormElementLbl {
-        width: 25% !important;
-    }
-    #__xmlview0 .sapUiRespGridSpanL4 {
-        width: 33.33% !important;
-    }
+.initialModal .sapUiIcon {
+    outline: unset;
 }
 
 
 /* Custom Styling */
 
-#__xmlview0 .modalPage {
+.initialModal .modalPage {
     max-width: 95%;
-    max-height: 90%;
-    margin: 5% auto;
+    max-height: 98%;
+    margin: 4% auto;
     background-color: #FFFFFF;
     border: groove 1px #000000;
     box-shadow: 0 -1px 3px #888888;
 }
 
-@media (min-width: 768px) {
-    #__xmlview0 .modalPage {
-        max-width: 610px;
-    }
-}
-
-#__xmlview0 #__grid0,
-#__xmlview0 .cSaveBtn {
+.initialModal #__grid0,
+.initialModal .cSaveBtn {
     background-color: rgba(255, 255, 255, 0.8) !important;
 }
 
-#__xmlview0 #__grid0 {
+.initialModal #__grid0 {
     text-align: center;
     padding-bottom: 15px;
     border-bottom: 1px solid #cccccc;
 }
 
-#__xmlview0 .cSaveBtn {
+.initialModal .cSaveBtn {
     padding: 10px 0;
 }
 
-#__xmlview0 .radioBtns {
-    display: inline-block;
-    width: 33.33%;
+.initialModal .radioBtns {
+    text-align: left;
+    width: auto;
 }
 
-#__xmlview0 .formLabel {
+.initialModal .radioBtns:focus:before {
+    border: unset;
+}
+
+.initialModal .formLabel {
     padding: 15px 0;
     width: 96px;
 }
 
-#__xmlview0 .resourceBtn {
-    width: 182px !important;
+.initialModal .resourceBtn {
+    width: 181px !important;
+}
+
+.initialModal .resourceBtn .sapMBtnText {
+    padding-right: 0;
+}
+
+.resources {
+    text-align: center;
+}
+
+.initialModal .help_icon, .initialModal .help_icon:focus {
+	outline: unset;
+}
+
+
+@media (min-width: 630px) {
+    .initialModal .sapUiFormElementLbl {
+        width: 25% !important;
+    }
+    .initialModal .sapUiRespGridSpanL4 {
+        width: 33.33% !important;
+    }
+    .initialModal .modalPage {
+        max-height: 84%;
+    }
+    .radioButtonGroup {
+        margin-left: 23%;
+    }
+}
+
+@media (min-width: 650px) {
+    .resources {
+        text-align: unset;
+    }
+}
+
+@media (min-width: 768px) {
+    .initialModal .modalPage {
+        max-width: 610px;
+    }
 }
