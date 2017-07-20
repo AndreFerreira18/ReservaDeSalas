@@ -11,10 +11,6 @@ sap.ui.define([
 			
 			//display initial screen
 			this.getRouter().navTo("initialModal");
-		
-			
 		}
-
 	});
-
 });

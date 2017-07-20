@@ -6,66 +6,66 @@
 				vSpacing="0">
 				<layout:content>
 					<!--Side BAR-->
-					<m:Panel height="auto" width="auto" headerText="Filtros" expandable="true" expanded="true" expandAnimation="true"
-						backgroundDesign="Transparent" class="sapUiSmallMarginTopBottom">
+					<m:Panel headerText="Filtros" expandable="false" expanded="true" expandAnimation="true"
+						backgroundDesign="Transparent" class="sidebarPanel">
 						<m:content>
 							<m:VBox alignItems="Center" direction="Column" fitContainer="true" width="100%" height="100%" justifyContent="Start" renderType="Div"
 								visible="true" displayInline="false">
 								<m:items>
-									<form:Form width="100%" editable="true" visible="true">
+									<form:Form width="100%" editable="true" visible="true" id="sidebarForm">
 										<form:title/>
 										<form:formContainers>
 											<form:FormContainer visible="true">
 												<form:formElements>
 													<form:FormElement visible="true">
 														<form:label>
-															<m:Label text="Tipo de Reunião" design="Bold" width="100%" required="true" textAlign="Begin" textDirection="Inherit"/>
+															<m:Label class="formLabel" text="Tipo de Reunião" design="Bold" width="100%" required="true" textAlign="Left" textDirection="Inherit"/>
 														</form:label>
 														<form:fields>
-															<m:ComboBox placeholder="Seleccione um tipo de reunião" editable="true" enabled="true" visible="true" width="auto" valueState="None"
-																maxWidth="100%">
+															<m:Select id="sb_meeting_type" enabled="true" visible="true" width="auto" valueState="None">
 																<m:items>
-																	<core:Item text="Formação" enabled="true"/>
-																	<core:Item text="Interna" enabled="true"/>
-																	<core:Item text="Externa" enabled="true"/>
+																	<core:Item text="Formação" key="formacao" enabled="true"/>
+																	<core:Item text="Interna" key="interna" enabled="true"/>
+																	<core:Item text="Externa" key="externa" enabled="true"/>
 																</m:items>
-															</m:ComboBox>
+															</m:Select>
 														</form:fields>
 														<form:FormLayout/>
 													</form:FormElement>
 													<form:FormElement visible="true">
 														<form:label>
-															<m:Label text="Seleção de Datas e Horas (Início)" design="Bold" width="100%" required="true" textAlign="Begin" textDirection="Inherit"/>
+															<m:Label class="formLabel" text="Início:" design="Bold" width="100%" required="true" textAlign="Left" textDirection="Inherit"/>
 														</form:label>
 														<form:fields>
-															<m:DateTimeInput placeholder="DD/MM/YYYY, HH:mm" type="DateTime" enabled="true" visible="true" width="auto"/>
+															<m:DateTimePicker id="sb_start_date" enabled="true" visible="true" value="01/07/2017, 08:00"/>
 														</form:fields>
 													</form:FormElement>
 													<form:FormElement visible="true">
 														<form:label>
-															<m:Label text="Seleção de Datas e Horas (Fim)" design="Bold" width="100%" required="true" textAlign="Begin" textDirection="Inherit"/>
+															<m:Label class="formLabel" text="Fim:" design="Bold" width="100%" required="true" textAlign="Begin" textDirection="Inherit"/>
 														</form:label>
 														<form:fields>
-															<m:DateTimeInput placeholder="DD/MM/YYYY, HH:mm" type="DateTime" enabled="true" visible="true" width="auto"/>
+															<m:DateTimePicker id="sb_end_date" enabled="true" visible="true" value="01/07/2017, 09:00"/>
+														</form:fields>
+													</form:FormElement>
+													<form:FormElement visible="true">
+														<form:fields>
+															<m:RadioButtonGroup id="sb_selection" columns="3" width="100%" class="sapUiMediuMarginBottom radioButtonGroup">
+																<m:buttons>
+																	<m:RadioButton class="radioBtns" text="Manhã" editable="true" enabled="true" visible="true" valueState="None"/>
+																	<m:RadioButton class="radioBtns" text="Tarde" editable="true" enabled="true" visible="true" valueState="None"/>
+																	<m:RadioButton class="radioBtns" text="Dia" editable="true" enabled="true" visible="true" valueState="None"/>
+																</m:buttons>
+															</m:RadioButtonGroup>
 														</form:fields>
 													</form:FormElement>
 													<form:FormElement visible="true">
 														<form:label>
-															<m:Label text="" design="Bold" width="0" required="false" textAlign="Begin" textDirection="Inherit"/>
+															<m:Label class="formLabel" text="Nº de Participantes:" design="Bold" width="100%" required="true" textAlign="Begin" textDirection="Inherit"/>
 														</form:label>
 														<form:fields>
-															<m:RadioButton selected="false" text="Manhã" editable="true" enabled="true" visible="true" width="auto" valueState="None"/>
-															<m:RadioButton selected="false" text="Tarde" editable="true" enabled="true" visible="true" width="auto" valueState="None"/>
-															<m:RadioButton selected="false" text="Dia" editable="true" enabled="true" visible="true" width="auto" valueState="None"/>
-														</form:fields>
-													</form:FormElement>
-													<form:FormElement visible="true">
-														<form:label>
-															<m:Label text="Nº de Participantes" design="Bold" width="100%" required="true" textAlign="Begin" textDirection="Inherit"/>
-														</form:label>
-														<form:fields>
-															<m:Input value="" placeholder="Insira o número de participantes esperado" type="Number" description="" showValueHelp="false" enabled="true"
-																visible="true" width="auto" valueHelpOnly="false"/>
+															<m:Input id="sb_participants" liveChange="validateParticipants" placeholder="Insira o número de participantes esperado" type="Number"
+																visible="true" width="auto" valueLiveUpdate="true" valueHelpOnly="true" maxLength="3"/>
 														</form:fields>
 													</form:FormElement>
 												</form:formElements>
@@ -76,7 +76,7 @@
 											<form:ResponsiveGridLayout adjustLabelSpan="false" columnsL="2" labelSpanL="3" columnsM="1" labelSpanM="2" labelSpanS="12"/>
 										</form:layout>
 									</form:Form>
-									<layout:Grid defaultIndent="L1 M0 S0" defaultSpan="L2 M4 S12" position="Center" width="100%" containerQuery="true" hSpacing="1" vSpacing="1">
+									<layout:Grid class="sapUiMediumMarginTop" defaultIndent="L1 M0 S0" defaultSpan="L2 M4 S12" position="Center" width="100%" containerQuery="true" hSpacing="1" vSpacing="1">
 										<layout:content>
 											<m:ToggleButton pressed="false" text="Laser" icon="sap-icon://target-group" iconFirst="true" width="100%" enabled="true" visible="true"/>
 											<m:ToggleButton pressed="false" text="Microfone" icon="sap-icon://microphone" iconFirst="true" width="100%" enabled="true" visible="true"/>
@@ -89,12 +89,13 @@
 									<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
 										visible="true" displayInline="false">
 										<m:items>
-											<m:Button text="Alterar Dados" type="Emphasized" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+											<m:Button text="Alterar Dados" type="Emphasized" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"
+												press="onChangeData"/>
 										</m:items>
 										<m:layoutData/>
 									</m:HBox>
 									<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="100%" height="100%" justifyContent="Center" renderType="Div"
-										visible="true" displayInline="false">
+										visible="true" displayInline="false" class="sapUiLargeMarginTop">
 										<m:items>
 											<m:Image src="/webapp/images/logo.png" height="150px" width="200px" densityAware="false"/>
 										</m:items>

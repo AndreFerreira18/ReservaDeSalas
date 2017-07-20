@@ -1,9 +1,7 @@
 sap.ui.define([
 	"odkasfactory/reservasalas/controller/BaseController",
-	"sap/ui/core/UIComponent",
-	"sap/m/MessageBox",
 	"./utilities"
-], function(BaseController, UIComponent, MessageBox) {
+], function(BaseController) {
 	"use strict";
 
 	this.meetingType = null;
@@ -13,7 +11,7 @@ sap.ui.define([
 	this.participants = null;
 	this.floor = null;
 	this.resources = {};
-
+	
 	this.startingDay = null;
 
 	return BaseController.extend("odkasfactory.reservasalas.controller.InitialModal", {
@@ -102,6 +100,8 @@ sap.ui.define([
 			data.resources = this._checkSelectedResources(this.resources);
 			
 			this.getRouter().navTo("main");
+			var eventBus = this.getOwnerComponent().getEventBus();
+			eventBus.publish("InitialToMainChannel", "onRouteInitialMain", data);
 
 		},
 
@@ -249,82 +249,7 @@ sap.ui.define([
 				}
 			}
 			return aux;
-		},
-
-		handleRouteMatched: function(oEvent) {
-
-			var oParams = {};
-
-			if (oEvent.mParameters.data.context) {
-				this.sContext = oEvent.mParameters.data.context;
-				var oPath;
-				if (this.sContext) {
-					oPath = {
-						path: "/" + this.sContext,
-						parameters: oParams
-					};
-					this.getView().bindObject(oPath);
-				}
-			}
-
-		},
-
-		doNavigate: function(sRouteName, oBindingContext, fnPromiseResolve, sViaRelation) {
-
-			var sPath = (oBindingContext) ? oBindingContext.getPath() : null;
-			var oModel = (oBindingContext) ? oBindingContext.getModel() : null;
-
-			var sEntityNameSet;
-			if (sPath !== null && sPath !== "") {
-				if (sPath.substring(0, 1) === "/") {
-					sPath = sPath.substring(1);
-				}
-				sEntityNameSet = sPath.split("(")[0];
-			}
-			var sNavigationPropertyName;
-			var sMasterContext = this.sMasterContext ? this.sMasterContext : sPath;
-
-			if (sEntityNameSet !== null) {
-				sNavigationPropertyName = sViaRelation || this.getOwnerComponent().getNavigationPropertyForNavigationWithContext(sEntityNameSet,
-					sRouteName);
-			}
-			if (sNavigationPropertyName !== null && sNavigationPropertyName !== undefined) {
-				if (sNavigationPropertyName === "") {
-					this.oRouter.navTo(sRouteName, {
-						context: sPath,
-						masterContext: sMasterContext
-					}, false);
-				} else {
-					oModel.createBindingContext(sNavigationPropertyName, oBindingContext, null, function(bindingContext) {
-						if (bindingContext) {
-							sPath = bindingContext.getPath();
-							if (sPath.substring(0, 1) === "/") {
-								sPath = sPath.substring(1);
-							}
-						} else {
-							sPath = "undefined";
-						}
-
-						// If the navigation is a 1-n, sPath would be "undefined" as this is not supported in Build
-						if (sPath === "undefined") {
-							this.oRouter.navTo(sRouteName);
-						} else {
-							this.oRouter.navTo(sRouteName, {
-								context: sPath,
-								masterContext: sMasterContext
-							}, false);
-						}
-					}.bind(this));
-				}
-			} else {
-				this.oRouter.navTo(sRouteName);
-			}
-
-			if (typeof fnPromiseResolve === "function") {
-				fnPromiseResolve();
-			}
 		}
-
+		
 	});
-
 });

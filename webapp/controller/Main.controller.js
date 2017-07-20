@@ -12,11 +12,7 @@ sap.ui.define([
 	this.selectedFloor = null;
 	this.minVisibleFloor = null;
 	this.maxVisibleFloor = null;
-
-	// $("#floorList").load(function() {
-	// 	alert("Image loaded");
-	// 	this._refreshShownFloors();
-	// });
+	this.filters = {};
 
 	return BaseController.extend("odkasfactory.reservasalas.controller.Main", {
 
@@ -59,51 +55,8 @@ sap.ui.define([
 			// 		cancel: false
 			// 	});
 			// };
-
-		},
-
-		// handleAppointmentSelect: function (oEvent) {
-		// 	var oAppointment = oEvent.getParameter("appointment");
-		// 	if (oAppointment) {
-		// 		alert("Appointment selected: " + oAppointment.getTitle());
-		// 	}else {
-		// 		var aAppointments = oEvent.getParameter("appointments");
-		// 		var sValue = aAppointments.length + " Appointments selected";
-		// 		alert(sValue);
-		// 	}
-		// },
-
-		handleIntervalSelect: function(event) {
-			var oPC = event.oSource;
-			var startDate = this._getArrayDate(event.getParameter("startDate"));
-			var endDate = this._getArrayDate(event.getParameter("endDate"));
-			var row = event.getParameter("row");
-			var subInterval = event.getParameter("subInterval");
-			var modelPC = this.getView().byId("PC1").getModel();
-			var data = modelPC.getData();
-			var index = -1;
-			var newAppointment = {start: startDate,
-					            end: endDate,
-					            title: "new appointment",
-					            type: "Type09"};
-			if (row) {
-				index = oPC.indexOfRow(row);
-				data.rooms[index].appointments.push(newAppointment);
-			} else {
-				var selectedRows = oPC.getSelectedRows();
-				for (var i = 0; i < selectedRows.length; i++) {
-					index = oPC.indexOfRow(selectedRows[i]);
-					data.rooms[index].appointments.push(newAppointment);
-				}
-			}
-			modelPC.setData(data);
-		},
-		
-		_getArrayDate: function(date){
-			var dateMonth = date.getMonth().toString();
-			var strDate = date.toString().split(" ");
-			var strTime = strDate[4].split(":");
-			return [strDate[3],dateMonth,strDate[2],strTime[0],strTime[1]];
+this.getView().byId("sidebarForm").addStyleClass("sidebarForm");
+			this.getView().byId("sb_meeting_type").addStyleClass("meeting");
 		},
 
 		_refreshShownFloors: function(vBox) { // not working
@@ -117,9 +70,16 @@ sap.ui.define([
 					//this.getView().byId(floorList[i].sId).addStyleClass("displayNone");
 					vBox = vBox.mAggregations.items[1].mAggregations.items[floorList[i].mProperties.key].addStyleClass("displayNone");
 				}
-			}
-			return vBox;
+				return vBox;
+			},
+			
+				
+		onDataReceived: function(channel, event, data) {
+			this.filters = data;
+		},
+		
+		onChangeData: function(oEvent){
+			
 		}
-
 	});
 });

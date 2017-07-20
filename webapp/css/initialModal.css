@@ -1,6 +1,7 @@
 /*SAP overwritten styling */
 
-.sapUiBody, .sapUiView {
+.sapUiBody,
+.sapUiView {
     background-color: #fffae6 !important;
     background-image: unset !important;
 }
@@ -11,7 +12,9 @@
 }
 
 .initialModal .sapUiRespGridSpanL9 {
-    width: 75% !important;
+    width: 100% !important;
+    
+    
 }
 
 .initialModal .sapUiRespGridSpanL4 {
@@ -50,13 +53,29 @@
     padding: 10px 0;
 }
 
-.initialModal .radioBtns {
+.radioBtn {
     text-align: left;
     width: auto;
 }
 
-.initialModal .radioBtns:focus:before {
+.radioBtn:focus:before {
     border: unset;
+}
+
+.radioBtn .sapMRbBOut {
+    background-color: #BFBFBF !important;
+}
+
+.radioBtn .sapMRbBOut:hover {
+    border-color: #BFBFBF;
+}
+
+.sapMRbErr .sapMRbBOut:hover {
+    border-color: #e52929;
+}
+
+.sapMRbSel .sapMRbBInn {
+    background-color: #FFD24D !important;
 }
 
 .initialModal .formLabel {
@@ -72,14 +91,18 @@
     padding-right: 0;
 }
 
-.resources {
+.initialModal .resources {
     text-align: center;
 }
 
-.initialModal .help_icon, .initialModal .help_icon:focus {
-	outline: unset;
+.initialModal .help_icon,
+.initialModal .help_icon:focus {
+    outline: unset;
 }
 
+.initialModal .saveBtn {
+    font-weight: 900;
+}
 
 @media (min-width: 630px) {
     .initialModal .sapUiFormElementLbl {
@@ -91,13 +114,16 @@
     .initialModal .modalPage {
         max-height: 84%;
     }
-    .radioButtonGroup {
+    .initialModal .radioButtonGroup {
         margin-left: 23%;
+    }
+    .initialModal .sapUiRespGridSpanL9 {
+        width: 75% !important;
     }
 }
 
 @media (min-width: 650px) {
-    .resources {
+    .initialModal .resources {
         text-align: unset;
     }
 }
