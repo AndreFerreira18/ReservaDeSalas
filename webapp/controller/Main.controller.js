@@ -19,9 +19,89 @@ sap.ui.define([
 	// });
 
 	return BaseController.extend("odkasfactory.reservasalas.controller.Main", {
-		// onAfterRendering: function() {
-		// 	var containerSideBar =  sap.ui.getCore().byId("__panel0");
-		// 	containerSideBar.oParent.aCustomStyleClasses=["sapUiRespGridSpanL3", "sapUiRespGridSpanM5", "sapUiRespGridSpanS12", "sapUiRespGridSpanXL3"];
+
+		dateFormatter: function(sDate) {
+			return new Date(sDate[0], sDate[1], sDate[2], sDate[3], sDate[4]);
+		},
+
+		onInit: function() {
+			this.minVisibleFloor = 2;
+			this.maxVisibleFloor = 5;
+			var self = this;
+
+			var modelMatrix = new JSONModel();
+			modelMatrix.attachEvent("requestCompleted", function() {
+				var planCal = self.getView().byId("PC1");
+				planCal.setModel(this);
+			}).loadData("/webapp/mockdata/Reservations.json");
+			
+			var modelFloors = new JSONModel();
+			modelFloors.attachEvent("requestCompleted", function() {
+				var vBox = self.getView().byId("floorList");
+				vBox.setModel(this);
+				//vBox = self._refreshShownFloors(vBox); // not working
+			}).loadData("/webapp/mockdata/Floors.json");
+
+
+		},
+
+		// handleAppointmentSelect: function (oEvent) {
+		// 	var oAppointment = oEvent.getParameter("appointment");
+		// 	if (oAppointment) {
+		// 		alert("Appointment selected: " + oAppointment.getTitle());
+		// 	}else {
+		// 		var aAppointments = oEvent.getParameter("appointments");
+		// 		var sValue = aAppointments.length + " Appointments selected";
+		// 		alert(sValue);
+		// 	}
+		// },
+
+		// handleIntervalSelect: function (oEvent) {
+		// 	var oPC = oEvent.oSource;
+		// 	var oStartDate = oEvent.getParameter("startDate");
+		// 	var oEndDate = oEvent.getParameter("endDate");
+		// 	var oRow = oEvent.getParameter("row");
+		// 	var oSubInterval = oEvent.getParameter("subInterval");
+		// 	var oModel = this.getView().getModel();
+		// 	var oData = oModel.getData();
+		// 	var iIndex = -1;
+		// 	var oAppointment = {start: oStartDate,
+		// 			                end: oEndDate,
+		// 			                title: "new appointment",
+		// 			                type: "Type09"};
+
+		// 	if (oRow) {
+		// 		iIndex = oPC.indexOfRow(oRow);
+		// 		oData.people[iIndex].appointments.push(oAppointment);
+		// 	} else {
+		// 		var aSelectedRows = oPC.getSelectedRows();
+		// 		for (var i = 0; i < aSelectedRows.length; i++) {
+		// 			iIndex = oPC.indexOfRow(aSelectedRows[i]);
+		// 			oData.people[iIndex].appointments.push(oAppointment);
+		// 		}
+		// 	}
+
+		// 	oModel.setData(oData);
+
+		// },
+
+		_refreshShownFloors: function(vBox) { // not working
+				// vBox.
+				var floorList = this.getView().byId("floorList").mAggregations.items;
+				for (var i = 0; i <= floorList.length; i++) {
+					if (parseInt(floorList[i].mProperties.key) >= this.minVisibleFloor && parseInt(floorList[i].mProperties.key) <= this.maxVisibleFloor) {
+						//this.getView().byId(floorList[i].sId).addStyleClass("displayInherit");
+						vBox = vBox.mAggregations.items[1].mAggregations.items[floorList[i].mProperties.key].addStyleClass("displayNone");
+					} else {
+						//this.getView().byId(floorList[i].sId).addStyleClass("displayNone");
+						vBox = vBox.mAggregations.items[1].mAggregations.items[floorList[i].mProperties.key].addStyleClass("displayNone");
+					}
+				}
+				return vBox;
+			}
+			// onAfterRendering: function() {
+			// 	var containerSideBar =  sap.ui.getCore().byId("__panel0");
+			// 	containerSideBar.oParent.aCustomStyleClasses=["sapUiRespGridSpanL3", "sapUiRespGridSpanM5", "sapUiRespGridSpanS12", "sapUiRespGridSpanXL3"];
 
 		// 	var containerFloorSelector =  sap.ui.getCore().byId("__grid1");
 		// 	containerFloorSelector.oParent.aCustomStyleClasses=["sapUiRespGridSpanL3", "sapUiRespGridSpanM7", "sapUiRespGridSpanS12", "sapUiRespGridSpanXL3"];
@@ -47,37 +127,5 @@ sap.ui.define([
 		// }
 
 		//      },
-		onInit: function() {
-			// defines the model of the floor selector
-			this.minVisibleFloor = 2;
-			this.maxVisibleFloor = 5;
-			var self = this;
-			var vBox = this.getView().byId("floorList");
-			var oModel = new JSONModel();
-			oModel.attachEventOnce("requestCompleted",function() {
-				vBox.setModel(oModel);
-				vBox = self._refreshShownFloors(vBox); // not working
-				return console.log("Request Completed");
-			}).loadData("/webapp/mockdata/floors.json");
-			
-
-			// this.mBindingOptions = {};
-			// this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			// this.oRouter.getTarget("Main").attachDisplay(jQuery.proxy(this.handleRouteMatched, this));
-		},
-		_refreshShownFloors: function(vBox) { // not working
-			// vBox.
-		 var floorList = this.getView().byId("floorList").mAggregations.items;
-			for (var i = 0; i <= floorList.length; i++) {
-				if (parseInt(floorList[i].mProperties.key) >= this.minVisibleFloor && parseInt(floorList[i].mProperties.key) <= this.maxVisibleFloor) {
-					//this.getView().byId(floorList[i].sId).addStyleClass("displayInherit");
-					vBox = vBox.mAggregations.items[1].mAggregations.items[floorList[i].mProperties.key].addStyleClass("displayNone");
-				} else {
-					//this.getView().byId(floorList[i].sId).addStyleClass("displayNone");
-					vBox = vBox.mAggregations.items[1].mAggregations.items[floorList[i].mProperties.key].addStyleClass("displayNone");
-				}
-			}
-			return vBox;
-		}
 	});
 });
