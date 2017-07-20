@@ -39,9 +39,12 @@ sap.ui.define([
 
 			// call the base component's init function
 			UIComponent.prototype.init.apply(this, arguments);
+			var router = this.getRouter();
+			router.initialize();
+			
 
 			// create the views based on the url/hash
-			this.getRouter().initialize();
+			// this.getRouter().initialize();
 		}
 
 		// createContent: function() {
