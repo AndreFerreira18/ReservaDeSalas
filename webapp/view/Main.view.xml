@@ -119,24 +119,24 @@
 						<m:layoutData><layout:GridData span="L3 M7 S12"/></m:layoutData>
 					</m:VBox>
 					<!--Matrix Week-->
-					<m:PlanningCalendar id="PC1" viewKey="D" rows="{path: '/rooms'}" 
-						appointmentSelect="handleAppointmentSelect">
+					<m:PlanningCalendar id="PC1" viewKey="D" rows="{path: '/rooms'}" singleSelection="true" showIntervalHeaders="true" showEmptyIntervalHeaders="true"
+						intervalSelect="handleIntervalSelect">
 						<m:toolbarContent>
 							<m:Title text="Title" titleStyle="H4"/>
 						</m:toolbarContent>
 						<m:views>
-							<m:PlanningCalendarView key="A" intervalType="Hour" description="Vista por Hora" intervalsS="2" intervalsM="2" intervalsL="2"
+							<m:PlanningCalendarView key="A" intervalType="Hour" description="Vista por Hora"
 								showSubIntervals="true"></m:PlanningCalendarView>
 							<m:PlanningCalendarView key="D" intervalType="Day" description="Vista por Dia" intervalsS="1" intervalsM="3" intervalsL="7"
 								showSubIntervals="true"></m:PlanningCalendarView>
-							<m:PlanningCalendarView key="M" intervalType="Month" description="Vista por Mes" intervalsS="1" intervalsM="2" intervalsL="3"
+							<m:PlanningCalendarView key="M" intervalType="Month" description="Vista por Mes" intervalsS="1" intervalsM="1" intervalsL="2"
 								showSubIntervals="true"></m:PlanningCalendarView> 
 						</m:views>
 						<m:rows>
 							<m:PlanningCalendarRow icon="{pic}" title="{name}" text="{role}" nonWorkingDays="{freeDays}" nonWorkingHours="{freeHours}"
 								appointments="{path: 'appointments', templateShareable: false}" intervalHeaders="{path: 'headers', templateShareable: false}">
 								<m:appointments>
-									<unified:CalendarAppointment startDate="{path:'start', formatter:'.dateFormatter'}" endDate="{path:'end', formatter:'.dateFormatter'}" icon="{pic}" title="{title}" text="{info}" type="{type}"
+									<unified:CalendarAppointment id="draggable" startDate="{path:'start', formatter:'.dateFormatter'}" endDate="{path:'end', formatter:'.dateFormatter'}" icon="{pic}" title="{title}" text="{info}" type="{type}"
 										tentative="{tentative}"></unified:CalendarAppointment>
 								</m:appointments>
 								<m:intervalHeaders>

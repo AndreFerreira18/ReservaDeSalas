@@ -29,12 +29,12 @@ sap.ui.define([
 			this.maxVisibleFloor = 5;
 			var self = this;
 
-			var modelMatrix = new JSONModel();
-			modelMatrix.attachEvent("requestCompleted", function() {
+			var modelPC = new JSONModel();
+			modelPC.attachEvent("requestCompleted", function() {
 				var planCal = self.getView().byId("PC1");
 				planCal.setModel(this);
 			}).loadData("/webapp/mockdata/Reservations.json");
-			
+
 			var modelFloors = new JSONModel();
 			modelFloors.attachEvent("requestCompleted", function() {
 				var vBox = self.getView().byId("floorList");
@@ -42,6 +42,23 @@ sap.ui.define([
 				//vBox = self._refreshShownFloors(vBox); // not working
 			}).loadData("/webapp/mockdata/Floors.json");
 
+			// var oView = this.getView();
+
+			// //load jquery libraries for drag n drop
+			// jQuery.sap.require("sap.ui.thirdparty.jqueryui.jquery-ui-core");
+			// jQuery.sap.require("sap.ui.thirdparty.jqueryui.jquery-ui-widget");
+			// jQuery.sap.require("sap.ui.thirdparty.jqueryui.jquery-ui-mouse");
+			// jQuery.sap.require("sap.ui.thirdparty.jqueryui.jquery-ui-draggable");
+			// jQuery.sap.require("sap.ui.thirdparty.jqueryui.jquery-ui-droppable");
+
+			// //make the appointments drag n droppables
+			// var oAppointment = oView.byId("draggable");
+			// var idAppointment = oAppointment.getId();
+			// oAppointment.onAfterRendering = function() {
+			// 	$("#" + idAppointment).draggable({
+			// 		cancel: false
+			// 	});
+			// };
 
 		},
 
@@ -56,76 +73,53 @@ sap.ui.define([
 		// 	}
 		// },
 
-		// handleIntervalSelect: function (oEvent) {
-		// 	var oPC = oEvent.oSource;
-		// 	var oStartDate = oEvent.getParameter("startDate");
-		// 	var oEndDate = oEvent.getParameter("endDate");
-		// 	var oRow = oEvent.getParameter("row");
-		// 	var oSubInterval = oEvent.getParameter("subInterval");
-		// 	var oModel = this.getView().getModel();
-		// 	var oData = oModel.getData();
-		// 	var iIndex = -1;
-		// 	var oAppointment = {start: oStartDate,
-		// 			                end: oEndDate,
-		// 			                title: "new appointment",
-		// 			                type: "Type09"};
-
-		// 	if (oRow) {
-		// 		iIndex = oPC.indexOfRow(oRow);
-		// 		oData.people[iIndex].appointments.push(oAppointment);
-		// 	} else {
-		// 		var aSelectedRows = oPC.getSelectedRows();
-		// 		for (var i = 0; i < aSelectedRows.length; i++) {
-		// 			iIndex = oPC.indexOfRow(aSelectedRows[i]);
-		// 			oData.people[iIndex].appointments.push(oAppointment);
-		// 		}
-		// 	}
-
-		// 	oModel.setData(oData);
-
-		// },
+		handleIntervalSelect: function(event) {
+			var oPC = event.oSource;
+			var startDate = this._getArrayDate(event.getParameter("startDate"));
+			var endDate = this._getArrayDate(event.getParameter("endDate"));
+			var row = event.getParameter("row");
+			var subInterval = event.getParameter("subInterval");
+			var modelPC = this.getView().byId("PC1").getModel();
+			var data = modelPC.getData();
+			var index = -1;
+			var newAppointment = {start: startDate,
+					            end: endDate,
+					            title: "new appointment",
+					            type: "Type09"};
+			if (row) {
+				index = oPC.indexOfRow(row);
+				data.rooms[index].appointments.push(newAppointment);
+			} else {
+				var selectedRows = oPC.getSelectedRows();
+				for (var i = 0; i < selectedRows.length; i++) {
+					index = oPC.indexOfRow(selectedRows[i]);
+					data.rooms[index].appointments.push(newAppointment);
+				}
+			}
+			modelPC.setData(data);
+		},
+		
+		_getArrayDate: function(date){
+			var dateMonth = date.getMonth().toString();
+			var strDate = date.toString().split(" ");
+			var strTime = strDate[4].split(":");
+			return [strDate[3],dateMonth,strDate[2],strTime[0],strTime[1]];
+		},
 
 		_refreshShownFloors: function(vBox) { // not working
-				// vBox.
-				var floorList = this.getView().byId("floorList").mAggregations.items;
-				for (var i = 0; i <= floorList.length; i++) {
-					if (parseInt(floorList[i].mProperties.key) >= this.minVisibleFloor && parseInt(floorList[i].mProperties.key) <= this.maxVisibleFloor) {
-						//this.getView().byId(floorList[i].sId).addStyleClass("displayInherit");
-						vBox = vBox.mAggregations.items[1].mAggregations.items[floorList[i].mProperties.key].addStyleClass("displayNone");
-					} else {
-						//this.getView().byId(floorList[i].sId).addStyleClass("displayNone");
-						vBox = vBox.mAggregations.items[1].mAggregations.items[floorList[i].mProperties.key].addStyleClass("displayNone");
-					}
+			// vBox.
+			var floorList = this.getView().byId("floorList").mAggregations.items;
+			for (var i = 0; i <= floorList.length; i++) {
+				if (parseInt(floorList[i].mProperties.key) >= this.minVisibleFloor && parseInt(floorList[i].mProperties.key) <= this.maxVisibleFloor) {
+					//this.getView().byId(floorList[i].sId).addStyleClass("displayInherit");
+					vBox = vBox.mAggregations.items[1].mAggregations.items[floorList[i].mProperties.key].addStyleClass("displayInherit");
+				} else {
+					//this.getView().byId(floorList[i].sId).addStyleClass("displayNone");
+					vBox = vBox.mAggregations.items[1].mAggregations.items[floorList[i].mProperties.key].addStyleClass("displayNone");
 				}
-				return vBox;
 			}
-			// onAfterRendering: function() {
-			// 	var containerSideBar =  sap.ui.getCore().byId("__panel0");
-			// 	containerSideBar.oParent.aCustomStyleClasses=["sapUiRespGridSpanL3", "sapUiRespGridSpanM5", "sapUiRespGridSpanS12", "sapUiRespGridSpanXL3"];
+			return vBox;
+		}
 
-		// 	var containerFloorSelector =  sap.ui.getCore().byId("__grid1");
-		// 	containerFloorSelector.oParent.aCustomStyleClasses=["sapUiRespGridSpanL3", "sapUiRespGridSpanM7", "sapUiRespGridSpanS12", "sapUiRespGridSpanXL3"];
-
-		// 	var containerMatrix =  sap.ui.getCore().byId("__bar1");
-		// 	containerMatrix.oParent.aCustomStyleClasses=["sapUiRespGridSpanL6", "sapUiRespGridSpanM7", "sapUiRespGridSpanS12", "sapUiRespGridSpanXL6"];
-
-		// 	var containerFooter =  sap.ui.getCore().byId("__table0");
-		// 	containerFooter.oParent.aCustomStyleClasses=["sapUiRespGridSpanL9", "sapUiRespGridSpanM7", "sapUiRespGridSpanS12", "sapUiRespGridSpanXL9"];
-
-		// },
-		//  handleRouteMatched: function (oEvent) {
-
-		// var oParams = {}; 
-
-		// if (oEvent.mParameters.data.context) { 
-		//     this.sContext = oEvent.mParameters.data.context;
-		//     var oPath; 
-		//     if (this.sContext) { 
-		//         oPath = {path: "/" + this.sContext, parameters: oParams}; 
-		//         this.getView().bindObject(oPath);
-		//     } 
-		// }
-
-		//      },
 	});
 });
