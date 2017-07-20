@@ -12,6 +12,7 @@ sap.ui.define([
 	this.selectedFloor = null;
 	this.minVisibleFloor = null;
 	this.maxVisibleFloor = null;
+	this.filters = {};
 
 	// $("#floorList").load(function() {
 	// 	alert("Image loaded");
@@ -60,10 +61,14 @@ sap.ui.define([
 				return console.log("Request Completed");
 			}).loadData("/webapp/mockdata/floors.json");
 			
-
+			var eventBus = this.getOwnerComponent().getEventBus();
+			eventBus.subscribe("InitialToMainChannel", "onRouteInitialMain", this.onDataReceived, this);
 			// this.mBindingOptions = {};
 			// this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			// this.oRouter.getTarget("Main").attachDisplay(jQuery.proxy(this.handleRouteMatched, this));
+			
+			this.getView().byId("sidebarForm").addStyleClass("sidebarForm");
+			this.getView().byId("sb_meeting_type").addStyleClass("meeting");
 		},
 		_refreshShownFloors: function(vBox) { // not working
 			// vBox.
@@ -78,6 +83,14 @@ sap.ui.define([
 				}
 			}
 			return vBox;
+		},
+		
+		onDataReceived: function(channel, event, data) {
+			this.filters = data;
+		},
+		
+		onChangeData: function(oEvent){
+			
 		}
 	});
 });

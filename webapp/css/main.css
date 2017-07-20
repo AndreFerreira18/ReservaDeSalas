@@ -7,8 +7,9 @@
 
 /*sidebar*/
 
-.mainPage #__panel0,
-#__container0--Grid {
+.mainPage .sidebarPanel,
+#__container0--Grid,
+.sidebarPanel .sidebarForm {
     background-color: #fffae6 !important;
     background-image: unset !important;
 }
@@ -56,7 +57,7 @@ span.sapMBtnInner.sapMBtnEmphasized {
 }
 
 .mainPage .sapMFlexBoxBGTransparent.sapMFlexBoxScroll.sapMFlexItem.sapMFlexItemAlignAuto {
-  min-width: 85% !important;
+    min-width: 85% !important;
 }
 
 .mainPage .sapMSelectListItemBaseSelected {
@@ -68,9 +69,32 @@ span.sapMBtnInner.sapMBtnEmphasized {
 }
 
 .mainPage .displayNone {
-        display: none;
+    display: none;
 }
 
 .mainPage .displayInherit {
-        display: inherit;
+    display: inherit;
+}
+
+.sidebarPanel {
+    width: auto !important;
+    height: 120vh !important;
+}
+
+.sidebarPanel h1 {
+    text-align: center;
+}
+
+.sidebarForm .sapUiRespGrid {
+	background-color: unset !important;
+}
+
+.meeting label {
+    background-color: #FFFFFF;
+}
+
+@media (min-width: 600px) {
+    .sidebarPanel {
+        border-right: solid 1px #000000;
+    }
 }

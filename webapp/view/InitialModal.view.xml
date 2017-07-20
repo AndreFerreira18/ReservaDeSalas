@@ -25,7 +25,7 @@
 									<m:Label class="formLabel" text="Tipo de Reunião:" width="100%" required="true" textAlign="Left" textDirection="Inherit" design="Bold"/>
 								</form:label>
 								<form:fields>
-									<m:Select id="modal_meeting_type" placeholder="Seleccione um tipo de reunião" editable="true" enabled="true" visible="true" width="auto" valueState="None">
+									<m:Select id="modal_meeting_type" enabled="true" visible="true" width="auto" valueState="None">
 										<m:items>
 											<core:Item text="Formação" key="formacao" enabled="true"/>
 											<core:Item text="Interna" key="interna" enabled="true"/>
@@ -54,9 +54,9 @@
 								<form:fields>
 									<m:RadioButtonGroup id="modal_selection" columns="3" width="100%" class="sapUiMediuMarginBottom radioButtonGroup">
 										<m:buttons>
-											<m:RadioButton class="radioBtns" text="Manhã" editable="true" enabled="true" visible="true" valueState="None"/>
-											<m:RadioButton class="radioBtns" text="Tarde" editable="true" enabled="true" visible="true" valueState="None"/>
-											<m:RadioButton class="radioBtns" text="Dia" editable="true" enabled="true" visible="true" valueState="None"/>
+											<m:RadioButton class="radioBtn" text="Manhã" editable="true" enabled="true" visible="true" valueState="None"/>
+											<m:RadioButton class="radioBtn" text="Tarde" editable="true" enabled="true" visible="true" valueState="None"/>
+											<m:RadioButton class="radioBtn" text="Dia" editable="true" enabled="true" visible="true" valueState="None"/>
 										</m:buttons>
 									</m:RadioButtonGroup>
 								</form:fields>
@@ -107,7 +107,7 @@
 			</layout:Grid>
 			<m:HBox class="cSaveBtn" alignItems="Center" direction="Row" fitContainer="false" width="100%" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
 				<m:items>
-					<m:Button press="onSavePress" text="Guardar" type="Emphasized" icon="sap-icon://save" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+					<m:Button class="saveBtn" press="onSavePress" text="Guardar" type="Emphasized" icon="sap-icon://save" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
 				</m:items>
 				<m:layoutData/>
 			</m:HBox>
