@@ -38,7 +38,6 @@ sap.ui.define([
 				//vBox = self._refreshShownFloors(vBox); // not working
 			}).loadData("/webapp/mockdata/Floors.json");
 
-
 			// //load jquery libraries for drag n drop
 			// jQuery.sap.require("sap.ui.thirdparty.jqueryui.jquery-ui-core");
 			// jQuery.sap.require("sap.ui.thirdparty.jqueryui.jquery-ui-widget");
@@ -59,13 +58,10 @@ sap.ui.define([
 			eventBus.subscribe("InitialToMainChannel", "onRouteInitialMain", this.onDataReceived, this);
 
 			//styling 
-
 			this.getView().byId("sidebarForm").addStyleClass("sidebarForm");
 			this.getView().byId("sb_meeting_type").addStyleClass("meeting");
 			this.getView().addStyleClass("mainPage");
-
 		},
-
 
 		handleAppointmentSelect: function(oEvent) {
 			var oAppointment = oEvent.getParameter("appointment");
@@ -109,7 +105,7 @@ sap.ui.define([
 					var newAppointment = {
 						start: startDate,
 						end: endDate,
-						title: "new appointment",
+						title: this.getMeetingType(),
 						type: "Type09"
 					};
 					data.rooms[index].appointments.push(newAppointment);
@@ -124,6 +120,7 @@ sap.ui.define([
 			modelPC.setData(data);
 		},
 
+		//TODO Remake not working yet
 		_isSameInfoReservation: function(appointments, appointment) {
 			for (var i = 0; i < appointments.length; i++) {
 				for (var tempAppointments in appointments[i]) {
@@ -194,6 +191,25 @@ sap.ui.define([
 			var aux4 = this.getPeriodSelection();
 			var aux5 = this.getParticipants();
 			var aux6 = this.getResources();
+			this._setApointmentToCalendar();
+		},
+
+		_setApointmentToCalendar: function() {
+			var modelPC = this.getView().byId("PC1").getModel();
+			var data = modelPC.getData();
+			var room = 0; //TODO make this select were it has the avaliable resources
+			var newAppointment = {
+				start: this._getArrayDate(this.getStartDate()),
+				end: this._getArrayDate(this.getEndDate()),
+				title: this.getMeetingType(),
+				floor: "1",
+				room: room,
+				resources: this.getResources(),
+				type: "Type01",
+				tentative: false
+			};
+			data.rooms[room].appointments.push(newAppointment);
+			modelPC.setData(data);
 		},
 
 		_setDefaults: function(startDateID, endDateID, radioGroupID, meetingTypeID, participantsID) {
@@ -393,11 +409,11 @@ sap.ui.define([
 		},
 
 		getStartDate: function() {
-			return this.getView().byId("sb_start_date").getValue();
+			return this.getView().byId("sb_start_date").getDateValue();
 		},
 
 		getEndDate: function() {
-			return this.getView().byId("sb_end_date").getValue();
+			return this.getView().byId("sb_end_date").getDateValue();
 		},
 
 		getPeriodSelection: function() {

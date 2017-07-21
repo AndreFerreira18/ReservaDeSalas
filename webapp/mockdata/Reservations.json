@@ -9,27 +9,33 @@
 			"start": ["2018", "01", "08", "17", "00"],
 			"end": ["2018", "01", "08", "17", "00"],
 			"title": "Team meeting",
-			"info": "room 1",
+			"floor": "1",
+			"room": "1",
+			"resources":["Laser", "Microfone", "Material de Escritório", "Projetor"],
 			"type": "Type01",
-			"pic": "sap-icon://sap-ui5",
 			"tentative": false
 		}, {
 			"start": ["2018", "01", "09", "10", "00"],
 			"end": ["2018", "01", "09", "16", "00"],
-			"title": "Meeting",
-			"info": "phone",
-			"type": "Type02",
+			"title": "Team meeting",
+			"floor": "1",
+			"room": "1",
+			"resources":["Laser", "Microfone", "Material de Escritório", "Projetor"],
+			"type": "Type01",
 			"tentative": false
 		}, {
 			"start": ["2018", "01", "10", "00", "00"],
 			"end": ["2018", "01", "00", "23", "59"],
-			"title": "Blocker",
-			"type": "Type04",
+			"title": "Team meeting",
+			"floor": "1",
+			"room": "1",
+			"resources":["Laser", "Microfone", "Material de Escritório", "Projetor"],
+			"type": "Type01",
 			"tentative": false
 		}],
 		"headers": [{
-			"start": ["2018", "00", "14", "00", "00"],
-			"end": ["2018", "00", "14", "23", "59"],
+			"start": ["2018", "01", "14", "00", "00"],
+			"end": ["2018", "01", "14", "23", "59"],
 			"title": "Valentine's Day",
 			"type": "Type03"
 		}]
@@ -41,23 +47,30 @@
 		"appointments": [{
 			"start": ["2018", "01", "08", "08", "30"],
 			"end": ["2018", "01", "08", "10", "30"],
-			"title": "Meeting",
-			"type": "Type05",
+			"title": "Team meeting",
+			"floor": "1",
+			"room": "2",
+			"resources":["Flipchart", "Material de Escritório", "Projetor"],
+			"type": "Type01",
 			"tentative": false
 		}, {
 			"start": ["2018", "01", "08", "08", "00"],
 			"end": ["2018", "01", "08", "17", "00"],
 			"title": "Team meeting",
-			"info": "room 1",
+			"floor": "1",
+			"room": "2",
+			"resources":["Flipchart", "Material de Escritório", "Projetor"],
 			"type": "Type01",
-			"pic": "sap-icon://sap-ui5",
 			"tentative": false
 		}, {
 			"start": ["2018", "01", "10", "00", "00"],
 			"end": ["2018", "01", "11", "23", "59"],
-			"title": "Private",
-			"type": "Type06",
-			"tentative": true
+			"title": "Team meeting",
+			"floor": "1",
+			"room": "2",
+			"resources":["Flipchart", "Material de Escritório", "Projetor"],
+			"type": "Type01",
+			"tentative": false
 		}],
 		"headers": [{
 			"start": ["2018", "01", "08", "13", "00"],
