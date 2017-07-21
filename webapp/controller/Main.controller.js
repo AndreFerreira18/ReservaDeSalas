@@ -255,7 +255,7 @@ sap.ui.define([
 				}
 			}
 		},
-		
+
 		validateParticipants: function(oControlEvent) {
 			var participantsInput = this.getView().byId("sb_participants");
 			if (oControlEvent.getParameters().value === '' || oControlEvent.getParameters().value === '0') {
@@ -270,29 +270,30 @@ sap.ui.define([
 				participantsInput.setValue(text);
 			}
 		},
-		
-		getMeetingType: function(){
+
+		getMeetingType: function() {
 			return this.getView().byId("sb_meeting_type").getSelectedItem().getText();
 		},
-		
-		getStartDate: function(){
+
+		getStartDate: function() {
 			return this.getView().byId("sb_start_date").getValue();
 		},
-		
-		getEndDate: function(){
+
+		getEndDate: function() {
 			return this.getView().byId("sb_end_date").getValue();
 		},
-		
-		getPeriodSelection: function(){
-			return this.getView().byId("sb_selection").getSelectedButton() ? this.getView().byId("sb_selection").getSelectedButton().getText() : null;
+
+		getPeriodSelection: function() {
+			return this.getView().byId("sb_selection").getSelectedButton() ? this.getView().byId("sb_selection").getSelectedButton().getText() :
+				null;
 		},
-		
-		getParticipants: function(){
+
+		getParticipants: function() {
 			return this.getView().byId("sb_participants").getValue();
 		},
-		
-		getResources: function(){
-				var aux = [],
+
+		getResources: function() {
+			var aux = [],
 				i,
 				buttonsArray = this.getView().byId("sb_resources").mAggregations.content,
 				length = buttonsArray.length;
