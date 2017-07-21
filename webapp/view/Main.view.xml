@@ -121,7 +121,7 @@
 					</m:VBox>
 					<!--Matrix Week-->
 					<m:PlanningCalendar id="PC1" viewKey="D" rows="{path: '/rooms'}" singleSelection="true" showIntervalHeaders="true" showEmptyIntervalHeaders="true"
-						intervalSelect="handleIntervalSelect">
+						intervalSelect="handleIntervalSelect" appointmentSelect="handleAppointmentSelect">
 						<m:toolbarContent>
 							<m:Title text="Title" titleStyle="H4"/>
 						</m:toolbarContent>
