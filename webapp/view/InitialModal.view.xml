@@ -76,14 +76,14 @@
 								<form:fields>
 									<m:Select id="modal_floor" placeholder="Seleccione um piso preferencial" editable="true" enabled="true" visible="true" width="auto" valueState="None" maxWidth="100%">
 										<m:items>
-											<core:Item text="Rés-do-Chão" enabled="true"/>
-											<core:Item text="1º Andar" enabled="true"/>
-											<core:Item text="2º Andar" enabled="true"/>
-											<core:Item text="3º Andar" enabled="true"/>
-											<core:Item text="4º Andar" enabled="true"/>
-											<core:Item text="5º Andar" enabled="true"/>
-											<core:Item text="6º Andar" enabled="true"/>
-											<core:Item text="7º Andar" enabled="true"/>
+											<core:Item key="0" text="Rés-do-Chão" enabled="true"/>
+											<core:Item key="1" text="1º Andar" enabled="true"/>
+											<core:Item key="2" text="2º Andar" enabled="true"/>
+											<core:Item key="3" text="3º Andar" enabled="true"/>
+											<core:Item key="4" text="4º Andar" enabled="true"/>
+											<core:Item key="5" text="5º Andar" enabled="true"/>
+											<core:Item key="6" text="6º Andar" enabled="true"/>
+											<core:Item key="7" text="7º Andar" enabled="true"/>
 										</m:items>
 									</m:Select>
 								</form:fields>

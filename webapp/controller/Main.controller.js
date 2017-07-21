@@ -38,22 +38,6 @@ sap.ui.define([
 				//vBox = self._refreshShownFloors(vBox); // not working
 			}).loadData("/webapp/mockdata/Floors.json");
 
-			// //load jquery libraries for drag n drop
-			// jQuery.sap.require("sap.ui.thirdparty.jqueryui.jquery-ui-core");
-			// jQuery.sap.require("sap.ui.thirdparty.jqueryui.jquery-ui-widget");
-			// jQuery.sap.require("sap.ui.thirdparty.jqueryui.jquery-ui-mouse");
-			// jQuery.sap.require("sap.ui.thirdparty.jqueryui.jquery-ui-draggable");
-			// jQuery.sap.require("sap.ui.thirdparty.jqueryui.jquery-ui-droppable");
-
-			// //make the appointments drag n droppables
-			// var oAppointment = oView.byId("draggable");
-			// var idAppointment = oAppointment.getId();
-			// oAppointment.onAfterRendering = function() {
-			// 	$("#" + idAppointment).draggable({
-			// 		cancel: false
-			// 	});
-			// };
-
 			var eventBus = this.getOwnerComponent().getEventBus();
 			eventBus.subscribe("InitialToMainChannel", "onRouteInitialMain", this.onDataReceived, this);
 
@@ -178,12 +162,15 @@ sap.ui.define([
 
 		onDataReceived: function(channel, event, data) {
 			this.filters = data;
+			var list = this.getView().byId("floorList");
+			list.setSelectedItem(list.getItemByKey(this.filters.floor));
 			//dates handling
 			this._setDefaults("sb_start_date", "sb_end_date", "sb_selection", "sb_meeting_type", "sb_participants");
+			this._setApointmentToCalendar();
 		},
 
 		onChangeData: function(oEvent) {
-
+			
 			//TODO remove! This is only for testing purposes.
 			var aux = this.getMeetingType();
 			var aux2 = this.getStartDate();
@@ -202,7 +189,7 @@ sap.ui.define([
 				start: this._getArrayDate(this.getStartDate()),
 				end: this._getArrayDate(this.getEndDate()),
 				title: this.getMeetingType(),
-				floor: "1",
+				floor: this.getView().byId("floorList").getSelectedItem().getText(),
 				room: room,
 				resources: this.getResources(),
 				type: "Type01",
@@ -391,7 +378,7 @@ sap.ui.define([
 
 		validateParticipants: function(oControlEvent) {
 			var participantsInput = this.getView().byId("sb_participants");
-			if (oControlEvent.getParameters().value === '' || oControlEvent.getParameters().value === '0') {
+			if (oControlEvent.getParameters().value === "" || oControlEvent.getParameters().value === "0") {
 				participantsInput.setValueState(sap.ui.core.ValueState.Error);
 			} else {
 				participantsInput.setValueState(sap.ui.core.ValueState.None);
