@@ -1,13 +1,12 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:m="sap.m" xmlns:unified="sap.ui.unified"
-	controllerName="odkasfactory.reservasalas.controller.Main" width="100%" height="100%">
-	<m:Page class="mainPage" showHeader="true" title="Escolha das Datas" showFooter="false" showNavButton="false">
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:m="sap.m"
+	xmlns:unified="sap.ui.unified" controllerName="odkasfactory.reservasalas.controller.Main" width="100%" height="100%">
+	<m:Page showHeader="true" title="Escolha das Datas" showFooter="false" showNavButton="false">
 		<m:content>
 			<layout:Grid defaultIndent="L0 M0 S0" defaultSpan="L3 M6 S12" position="Center" width="100%" containerQuery="false" hSpacing="0"
 				vSpacing="0">
 				<layout:content>
 					<!--Side BAR-->
-					<m:Panel headerText="Filtros" expandable="false" expanded="true" expandAnimation="true"
-						backgroundDesign="Transparent" class="sidebarPanel">
+					<m:Panel headerText="Filtros" expandable="false" expanded="true" expandAnimation="true" backgroundDesign="Transparent" class="sidebarPanel">
 						<m:content>
 							<m:VBox alignItems="Center" direction="Column" fitContainer="true" width="100%" height="100%" justifyContent="Start" renderType="Div"
 								visible="true" displayInline="false">
@@ -76,7 +75,8 @@
 											<form:ResponsiveGridLayout adjustLabelSpan="false" columnsL="2" labelSpanL="3" columnsM="1" labelSpanM="2" labelSpanS="12"/>
 										</form:layout>
 									</form:Form>
-									<layout:Grid class="sapUiMediumMarginTop" defaultIndent="L1 M0 S0" defaultSpan="L2 M4 S12" position="Center" width="100%" containerQuery="true" hSpacing="1" vSpacing="1">
+									<layout:Grid id="sb_resources" class="sapUiMediumMarginTop" defaultIndent="L1 M0 S0" defaultSpan="L2 M4 S12" position="Center" width="100%"
+										containerQuery="true" hSpacing="1" vSpacing="1">
 										<layout:content>
 											<m:ToggleButton pressed="false" text="Laser" icon="sap-icon://target-group" iconFirst="true" width="100%" enabled="true" visible="true"/>
 											<m:ToggleButton pressed="false" text="Microfone" icon="sap-icon://microphone" iconFirst="true" width="100%" enabled="true" visible="true"/>
@@ -137,11 +137,12 @@
 							<m:PlanningCalendarRow icon="{pic}" title="{name}" text="{role}" nonWorkingDays="{freeDays}" nonWorkingHours="{freeHours}"
 								appointments="{path: 'appointments', templateShareable: false}" intervalHeaders="{path: 'headers', templateShareable: false}">
 								<m:appointments>
-									<unified:CalendarAppointment id="draggable" startDate="{path:'start', formatter:'.dateFormatter'}" endDate="{path:'end', formatter:'.dateFormatter'}" icon="{pic}" title="{title}" text="{info}" type="{type}"
-										tentative="{tentative}"></unified:CalendarAppointment>
+									<unified:CalendarAppointment startDate="{path:'start', formatter:'.dateFormatter'}" endDate="{path:'end', formatter:'.dateFormatter'}"
+										icon="{pic}" title="{title}" text="{info}" type="{type}" tentative="{tentative}"></unified:CalendarAppointment>
 								</m:appointments>
 								<m:intervalHeaders>
-									<unified:CalendarAppointment startDate="{path:'start', formatter:'.dateFormatter'}" endDate="{path:'end', formatter:'.dateFormatter'}" icon="{pic}" title="{title}" type="{type}"></unified:CalendarAppointment>
+									<unified:CalendarAppointment startDate="{path:'start', formatter:'.dateFormatter'}" endDate="{path:'end', formatter:'.dateFormatter'}"
+										icon="{pic}" title="{title}" type="{type}"></unified:CalendarAppointment>
 								</m:intervalHeaders>
 							</m:PlanningCalendarRow>
 						</m:rows>
