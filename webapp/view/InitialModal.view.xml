@@ -66,7 +66,7 @@
 									<m:Label class="formLabel" text="Nº de Participantes:" design="Bold" width="100%" required="true" textAlign="Begin" textDirection="Inherit"/>
 								</form:label>
 								<form:fields>
-									<m:Input id="modal_participants" liveChange="validateParticipants" placeholder="Insira o número de participantes esperado" type="Number" visible="true" width="auto" valueLiveUpdate="true" valueHelpOnly="true" maxLength="3"/>
+									<m:Input id="modal_participants" value="5" liveChange="validateParticipants" placeholder="Insira o número de participantes esperado" type="Number" visible="true" width="auto" valueLiveUpdate="true" valueHelpOnly="true" maxLength="3"/>
 								</form:fields>
 							</form:FormElement>
 							<form:FormElement visible="true">
