@@ -162,8 +162,8 @@ sap.ui.define([
 
 		onDataReceived: function(channel, event, data) {
 			this.filters = data;
-			var list = this.getView().byId("floorList");
-			list.setSelectedItem(list.getItemByKey(this.filters.floor));
+			var floorList = this.getView().byId("floorList");
+			floorList.setSelectedItem(floorList.getItemByKey(this.filters.floor));
 			//dates handling
 			this._setDefaults("sb_start_date", "sb_end_date", "sb_selection", "sb_meeting_type", "sb_participants");
 			this._setApointmentToCalendar();
@@ -178,6 +178,7 @@ sap.ui.define([
 			var aux4 = this.getPeriodSelection();
 			var aux5 = this.getParticipants();
 			var aux6 = this.getResources();
+			
 			this._setApointmentToCalendar();
 		},
 
@@ -330,21 +331,21 @@ sap.ui.define([
 			this.getView().byId(radioGroupID).attachSelect(function() {
 				var startDate = self.getView().byId(startDateID);
 				var endDate = self.getView().byId(endDateID);
-				var sDate = startDate.getValue().split(',')[0];
+				var sDate = startDate.getValue().split(",")[0];
 				var infos = this.getSelectedButton().getText();
 				switch (infos) {
 					case "Manhã":
-						startDate.setValue(sDate + ', 08:00');
-						endDate.setValue(sDate + ', 13:00');
+						startDate.setValue(sDate + ", 08:00");
+						endDate.setValue(sDate + ", 13:00");
 						break;
 
 					case "Tarde":
-						startDate.setValue(sDate + ', 14:00');
-						endDate.setValue(sDate + ', 20:00');
+						startDate.setValue(sDate + ", 14:00");
+						endDate.setValue(sDate + ", 20:00");
 						break;
 					case "Dia":
-						startDate.setValue(sDate + ', 08:00');
-						endDate.setValue(sDate + ', 20:00');
+						startDate.setValue(sDate + ", 08:00");
+						endDate.setValue(sDate + ", 20:00");
 						break;
 				}
 			});
