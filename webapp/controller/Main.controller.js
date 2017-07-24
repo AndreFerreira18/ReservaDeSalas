@@ -25,17 +25,18 @@ sap.ui.define([
 			this.maxVisibleFloor = 5;
 			var self = this;
 
-			var modelPC = new JSONModel();
-			modelPC.attachEvent("requestCompleted", function() {
-				var planCal = self.getView().byId("PC1");
-				planCal.setModel(this);
-			}).loadData("/webapp/mockdata/Reservations.json");
-
 			var modelFloors = new JSONModel();
 			modelFloors.attachEvent("requestCompleted", function() {
 				var vBox = self.getView().byId("floorList");
 				vBox.setModel(this);
 			}).loadData("/webapp/mockdata/Floors.json");
+
+			var modelPC = new JSONModel();
+			modelPC.attachEvent("requestCompleted", function() {
+				var planCal = self.getView().byId("PC1");
+				this.setData(this.getData().floors[0]);
+				planCal.setModel(this);
+			}).loadData("/webapp/mockdata/Reservations.json");
 
 			var eventBus = this.getOwnerComponent().getEventBus();
 			eventBus.subscribe("InitialToMainChannel", "onRouteInitialMain", this.onDataReceived, this);
@@ -162,6 +163,9 @@ sap.ui.define([
 			this.filters = data;
 			var floorList = this.getView().byId("floorList");
 			floorList.setSelectedItem(floorList.getItemByKey(this.filters.floor));
+			var selectedFloor = floorList.getSelectedKey();
+			var planningCalendar = this.getView().byId("PC1");
+			//planningCalendar.bindelement(selectedFloor+"/rooms");
 			//this.getView().byId(floorList.getItemByKey(this.filters.floor).getId()).focus();  //Not working Auto Focus in Selected Element
 			//this._refreshShownFloors(floorList); //TODO find a way around it not possible to do addStyleClass into a item
 			//dates handling
@@ -183,21 +187,42 @@ sap.ui.define([
 		},
 
 		_setApointmentToCalendar: function() {
-			var modelPC = this.getView().byId("PC1").getModel();
-			var data = modelPC.getData();
-			var room = 0; //TODO make this select were it has the avaliable resources
-			var newAppointment = {
-				start: this._getArrayDate(this.getStartDate()),
-				end: this._getArrayDate(this.getEndDate()),
-				title: this.getMeetingType(),
-				floor: this.getView().byId("floorList").getSelectedItem().getText(),
-				room: room,
-				resources: this.getResources(),
-				type: "Type01",
-				tentative: false
-			};
-			data.rooms[room].appointments.push(newAppointment);
-			modelPC.setData(data);
+			var modelPC = new JSONModel();
+			var self = this;
+			modelPC.attachEvent("requestCompleted", function() {
+				var planCal = self.getView().byId("PC1");
+				var data = this.getData();
+				var selectedFloor = self.getView().byId("floorList").getSelectedItem();
+				var room = 0; //TODO make this select were it has the avaliable resources
+				var newAppointment = {
+					start: self._getArrayDate(self.getStartDate()),
+					end: self._getArrayDate(self.getEndDate()),
+					title: self.getMeetingType(),
+					floor: selectedFloor.getText(),
+					room: room,
+					resources: self.getResources(),
+					type: "Type01",
+					tentative: false
+				};
+				var selectedFloorKey = self._getKeyOfFloorName(selectedFloor.getText(),data);    //testar isto
+				data.floors[selectedFloorKey].rooms[room].appointments.push(newAppointment);
+
+				this.setData(data.floors[selectedFloorKey]);
+				planCal.setModel(this);
+			}).loadData("/webapp/mockdata/Reservations.json");
+
+		},
+
+		_getKeyOfFloorName: function(floorName,data) {
+			var index = 0;
+
+			for(var i = 0;i<data.floors.length;i++){
+				if(data.floors[i].name===floorName){
+					index = i;
+					break;
+				}
+			}
+			return index;
 		},
 
 		_setDefaults: function(startDateID, endDateID, radioGroupID, meetingTypeID, participantsID) {
