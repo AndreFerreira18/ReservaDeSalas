@@ -35,7 +35,6 @@ sap.ui.define([
 			modelFloors.attachEvent("requestCompleted", function() {
 				var vBox = self.getView().byId("floorList");
 				vBox.setModel(this);
-				//vBox = self._refreshShownFloors(vBox); // not working
 			}).loadData("/webapp/mockdata/Floors.json");
 
 			var eventBus = this.getOwnerComponent().getEventBus();
@@ -145,18 +144,17 @@ sap.ui.define([
 			return [strDate[3], dateMonth, strDate[2], strTime[0], strTime[1]];
 		},
 
-		_refreshShownFloors: function(vBox) { // not working
-			// vBox.
-			var floorList = this.getView().byId("floorList").mAggregations.items;
-			for (var i = 0; i <= floorList.length; i++) {
-				if (parseInt(floorList[i].mProperties.key) >= this.minVisibleFloor && parseInt(floorList[i].mProperties.key) <= this.maxVisibleFloor) {
-					//this.getView().byId(floorList[i].sId).addStyleClass("displayInherit");
-					vBox = vBox.mAggregations.items[1].mAggregations.items[floorList[i].mProperties.key].addStyleClass("displayNone");
+		_refreshShownFloors: function(floorList) { // not working
+			//var floorList = this.getView().byId("floorList").mAggregations.items;
+			for (var i = 0; i <= floorList.mAggregations.items.length; i++) {
+				if (parseInt(floorList.mAggregations.items[i].mProperties.key) >= this.minVisibleFloor && parseInt(floorList.mAggregations.items[i]
+						.mProperties.key) <= this.maxVisibleFloor) {
+					this.getView().byId(floorList.mAggregations.items[i].getId()).addStyleClass("displayInherit");
+					//floorList.getItemByKey(floorList.mAggregations.items[i].mProperties.key).addStyleClass("displayInherit");
 				} else {
-					//this.getView().byId(floorList[i].sId).addStyleClass("displayNone");
-					vBox = vBox.mAggregations.items[1].mAggregations.items[floorList[i].mProperties.key].addStyleClass("displayNone");
+					this.getView().byId(floorList.mAggregations.items[i].getId()).addStyleClass("displayNone");
+					// floorList.getItemByKey(floorList.mAggregations.items[i].mProperties.key).addStyleClass("displayNone");
 				}
-				return vBox;
 			}
 		},
 
@@ -164,13 +162,15 @@ sap.ui.define([
 			this.filters = data;
 			var floorList = this.getView().byId("floorList");
 			floorList.setSelectedItem(floorList.getItemByKey(this.filters.floor));
+			//this.getView().byId(floorList.getItemByKey(this.filters.floor).getId()).focus();  //Not working Auto Focus in Selected Element
+			//this._refreshShownFloors(floorList); //TODO find a way around it not possible to do addStyleClass into a item
 			//dates handling
 			this._setDefaults("sb_start_date", "sb_end_date", "sb_selection", "sb_meeting_type", "sb_participants");
 			this._setApointmentToCalendar();
 		},
 
 		onChangeData: function(oEvent) {
-			
+
 			//TODO remove! This is only for testing purposes.
 			var aux = this.getMeetingType();
 			var aux2 = this.getStartDate();
@@ -178,7 +178,7 @@ sap.ui.define([
 			var aux4 = this.getPeriodSelection();
 			var aux5 = this.getParticipants();
 			var aux6 = this.getResources();
-			
+
 			this._setApointmentToCalendar();
 		},
 
