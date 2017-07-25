@@ -121,9 +121,8 @@
 						<m:layoutData><layout:GridData span="L3 M7 S12"/></m:layoutData>
 					</m:VBox>
 					<!--Matrix Week-->
-					<m:PlanningCalendar class="sapUiResponsiveMargin" id="PC1" viewKey="DDD" rows="{path: '/rooms'}" singleSelection="true" showIntervalHeaders="true"
-						showEmptyIntervalHeaders="false" appointmentSelect="handleAppointmentSelect">
-						<!-- intervalSelect="handleIntervalSelect"-->
+					<m:PlanningCalendar id="PC1" viewKey="DDD" rows="{path: '/rooms'}" singleSelection="true" showIntervalHeaders="true"
+						showEmptyIntervalHeaders="false" appointmentSelect="handleAppointmentSelect" intervalSelect="handleIntervalSelect">
 						<m:toolbarContent>
 							<m:Title text="Title" titleStyle="H4"/>
 						</m:toolbarContent>
@@ -135,7 +134,7 @@
 								showSubIntervals="true"></m:PlanningCalendarView>
 						</m:views>
 						<m:rows>
-							<m:PlanningCalendarRow icon="{pic}" title="{name}" text="{role}" nonWorkingDays="{freeDays}" nonWorkingHours="{freeHours}"
+							<m:PlanningCalendarRow icon="{pic}" key="{key}" title="{name}" text="{role}" nonWorkingDays="{freeDays}" nonWorkingHours="{freeHours}"
 								appointments="{path: 'appointments', templateShareable: false}" intervalHeaders="{path: 'headers', templateShareable: false}">
 								<m:appointments>
 									<unified:CalendarAppointment startDate="{path:'start', formatter:'.dateFormatter'}" endDate="{path:'end', formatter:'.dateFormatter'}"
@@ -164,7 +163,7 @@
 						<m:layoutData><layout:GridData span="L9 M7 S12"/></m:layoutData>
 					</m:HBox>
 					<!--Reserves Table-->
-					<m:Table id="reservationsTable" width="auto" height="auto" noDataText="Não existem reservas." growing="true" growingThreshold="20"
+					<m:Table id="reservationsTable" width="auto" height="auto" noDataText="Não existem reservas." growing="false" growingThreshold="20"
 						growingScrollToLoad="true" class="sapUiResponsiveMargin ">
 						<m:columns>
 							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="true">

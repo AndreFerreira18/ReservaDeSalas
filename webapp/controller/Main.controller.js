@@ -101,7 +101,8 @@ sap.ui.define([
 
 		onClearPress: function(oEvent) {
 			//TODO Nuno: implement clear appointments functionality
-
+			this.newAppointment = null;
+			this._changeModelPlanningCalendar(false);
 		},
 
 		onReservePress: function(oEvent) {
@@ -172,8 +173,12 @@ sap.ui.define([
 
 		handleIntervalSelect: function(event) {
 			var oPC = event.oSource;
-			var startDate = this._getArrayDate(event.getParameter("startDate"));
-			var endDate = this._getArrayDate(event.getParameter("endDate"));
+			var startDate = event.getParameter("startDate");
+			var endDate = event.getParameter("endDate");
+			endDate.setTime(endDate.getTime() + (60 * 1000)); // Adds 1 minute to the end date go around the less 1 minute
+			var tempTime = this._adaptHours(startDate,endDate);
+			startDate = this._getArrayDate(tempTime[0]);
+			endDate = this._getArrayDate(tempTime[1]);
 			var row = event.getParameter("row");
 			var subInterval = event.getParameter("subInterval");
 			var modelPC = this.getView().byId("PC1").getModel();
@@ -215,6 +220,18 @@ sap.ui.define([
 			modelPC.setData(data);
 		},
 
+		_adaptHours: function(startDate, endDate) {
+			var startMinutes = startDate.getMinutes();
+			if (startMinutes === 15 || startMinutes === 45) {
+				startDate.setTime(startDate.getTime() - (15 * 60 * 1000));
+			} else {
+				if (endDate.getTime() - startDate.getTime() < (30 * 60 * 1000)) { //minimum of 30 minuts
+					endDate.setTime(startDate.getTime() + (30 * 60 * 1000));
+				}
+			}
+			return [startDate, endDate];
+		},
+
 		//TODO Remake not working yet
 		_isSameInfoReservation: function(appointments, appointment) {
 			for (var i = 0; i < appointments.length; i++) {
@@ -241,8 +258,7 @@ sap.ui.define([
 		_isContiguousDates: function(endDate, startDate) {
 			var sd = this.dateFormatter(startDate);
 			var ed = this.dateFormatter(endDate);
-			// Adds 1 minute to the end date
-			ed.setTime(ed.getTime() + (60 * 1000));
+
 			if (ed.valueOf() === sd.valueOf()) {
 				return true;
 			}
@@ -275,13 +291,13 @@ sap.ui.define([
 			this.filters = data;
 			var floorList = this.getView().byId("floorList");
 			floorList.setSelectedItem(floorList.getItemByKey(this.filters.floor));
-			//this.getView().byId(floorList.getItemByKey(this.filters.floor).getId()).focus();  //Not working Auto Focus in Selected Element
 			//this._refreshShownFloors(floorList); //TODO find a way around it not possible to do addStyleClass into a item
 			//dates handling
 			setTimeout(function() {
 				self._setDefaults("sb_start_date", "sb_end_date", "sb_selection", "sb_meeting_type", "sb_participants");
+				floorList.getItemByKey(self.filters.floor).focus();
+				self._changeModelPlanningCalendar(true);
 			}, 500);
-			this._changeModelPlanningCalendar(true);
 		},
 
 		onChangeData: function(oEvent) {
@@ -310,22 +326,27 @@ sap.ui.define([
 				var planCal = self.getView().byId("PC1");
 				var data = this.getData();
 				var selectedFloorKey = self._getKeyOfFloorName(selectedFloor.getText(), data);
-				var room = 0; //TODO make this select were it has the avaliable resources
+				var roomInfo = self._getSelectedRoom(selectedFloorKey); //TODO make this select were it has the avaliable resources
+				if (!roomInfo.length) {
+					roomInfo[0] = data.floors[selectedFloorKey].rooms[0].key;
+					roomInfo[1] = data.floors[selectedFloorKey].rooms[0].name;
+				}
 				if (AddAppointment) {
 					self.newAppointment = {
 						start: self._getArrayDate(self.getStartDate()),
 						end: self._getArrayDate(self.getEndDate()),
 						title: self.getMeetingType(),
 						floor: selectedFloor.getText(),
-						room: room,
+						room: roomInfo[1],
 						resources: self.getResources(),
 						type: "Type01",
 						tentative: false
 					};
-					data.floors[selectedFloorKey].rooms[room].appointments.push(self.newAppointment);
+					data.floors[selectedFloorKey].rooms[roomInfo[0]].appointments.push(self.newAppointment);
 				} else {
-					if (self.newAppointment.floor === selectedFloor.getText()) {
-						data.floors[selectedFloorKey].rooms[room].appointments.push(self.newAppointment);
+
+					if (self.newAppointment && self.newAppointment.floor === selectedFloor.getText()) {
+						data.floors[selectedFloorKey].rooms[roomInfo[0]].appointments.push(self.newAppointment);
 					}
 				}
 
@@ -333,6 +354,17 @@ sap.ui.define([
 				planCal.setModel(this);
 			}).loadData("/webapp/mockdata/Reservations.json");
 
+		},
+
+		_getSelectedRoom: function() {
+			var rows = [];
+			var planCal = this.getView().byId("PC1");
+			var selectedRow = planCal.getSelectedRows();
+			if (selectedRow.length) {
+				rows[0] = selectedRow[0].getKey();
+				rows[1] = selectedRow[0].getTitle();
+			}
+			return rows;
 		},
 
 		_getKeyOfFloorName: function(floorName, data) {
