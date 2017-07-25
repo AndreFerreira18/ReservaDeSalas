@@ -250,11 +250,11 @@ sap.ui.define([
 			this.filters = data;
 			var floorList = this.getView().byId("floorList");
 			floorList.setSelectedItem(floorList.getItemByKey(this.filters.floor));
-			//this.getView().byId(floorList.getItemByKey(this.filters.floor).getId()).focus();  //Not working Auto Focus in Selected Element
 			//this._refreshShownFloors(floorList); //TODO find a way around it not possible to do addStyleClass into a item
 			//dates handling
 			setTimeout(function() {
 				self._setDefaults("sb_start_date", "sb_end_date", "sb_selection", "sb_meeting_type", "sb_participants");
+				floorList.getItemByKey(self.filters.floor).focus();
 				self._changeModelPlanningCalendar(true);
 			}, 500);
 		},
