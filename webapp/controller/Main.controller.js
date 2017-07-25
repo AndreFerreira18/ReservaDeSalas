@@ -49,7 +49,7 @@ sap.ui.define([
 			this.getView().byId("sb_meeting_type").addStyleClass("meeting");
 			this.getView().addStyleClass("mainPage");
 		},
-		
+
 		onAfterRendering: function() {
 			var self = this;
 			this.wasRemoved = false;
@@ -117,8 +117,8 @@ sap.ui.define([
 				closeDialog: function() {
 					oDialog.close();
 				},
-				
-				confirmationPress: function(){
+
+				confirmationPress: function() {
 					MessageToast.show("A sua reserva foi criada! [DUMMY]");
 					oDialog.close();
 				}
@@ -147,8 +147,12 @@ sap.ui.define([
 
 		handleIntervalSelect: function(event) {
 			var oPC = event.oSource;
-			var startDate = this._getArrayDate(event.getParameter("startDate"));
-			var endDate = this._getArrayDate(event.getParameter("endDate"));
+			var startDate = event.getParameter("startDate");
+			var endDate = event.getParameter("endDate");
+			endDate.setTime(endDate.getTime() + (60 * 1000)); // Adds 1 minute to the end date go around the less 1 minute
+			var tempTime = this._adaptHours(startDate,endDate);
+			startDate = this._getArrayDate(tempTime[0]);
+			endDate = this._getArrayDate(tempTime[1]);
 			var row = event.getParameter("row");
 			var subInterval = event.getParameter("subInterval");
 			var modelPC = this.getView().byId("PC1").getModel();
@@ -190,6 +194,18 @@ sap.ui.define([
 			modelPC.setData(data);
 		},
 
+		_adaptHours: function(startDate, endDate) {
+			var startMinutes = startDate.getMinutes();
+			if (startMinutes === 15 || startMinutes === 45) {
+				startDate.setTime(startDate.getTime() - (15 * 60 * 1000));
+			} else {
+				if (endDate.getTime() - startDate.getTime() < (30 * 60 * 1000)) { //minimum of 30 minuts
+					endDate.setTime(startDate.getTime() + (30 * 60 * 1000));
+				}
+			}
+			return [startDate, endDate];
+		},
+
 		//TODO Remake not working yet
 		_isSameInfoReservation: function(appointments, appointment) {
 			for (var i = 0; i < appointments.length; i++) {
@@ -216,8 +232,7 @@ sap.ui.define([
 		_isContiguousDates: function(endDate, startDate) {
 			var sd = this.dateFormatter(startDate);
 			var ed = this.dateFormatter(endDate);
-			// Adds 1 minute to the end date
-			ed.setTime(ed.getTime() + (60 * 1000));
+
 			if (ed.valueOf() === sd.valueOf()) {
 				return true;
 			}
@@ -303,7 +318,7 @@ sap.ui.define([
 					};
 					data.floors[selectedFloorKey].rooms[roomInfo[0]].appointments.push(self.newAppointment);
 				} else {
-					
+
 					if (self.newAppointment && self.newAppointment.floor === selectedFloor.getText()) {
 						data.floors[selectedFloorKey].rooms[roomInfo[0]].appointments.push(self.newAppointment);
 					}
