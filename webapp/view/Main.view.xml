@@ -112,7 +112,7 @@
 						renderType="Div" visible="true" displayInline="true" class="sapUiResponsiveMargin">
 						<m:Image src="/webapp/images/triangle.png" class="sapUiNoContentPadding triangle" height="50px" width="100%" densityAware="false"/>
 						<m:ScrollContainer height="300px" width="100%" horizontal="false" vertical="true" focusable="true">
-							<m:SelectList id="floorList" class="floors" items="{ path: '/' }">
+							<m:SelectList id="floorList" class="floors" items="{ path: '/' }" selectionChange="selectionChange">
 								<core:Item key="{FloorId}" text="{Name}"/>
 							</m:SelectList>
 						</m:ScrollContainer>
@@ -121,7 +121,7 @@
 					</m:VBox>
 					<!--Matrix Week-->
 					<m:PlanningCalendar id="PC1" viewKey="DDD" rows="{path: '/rooms'}" singleSelection="true" showIntervalHeaders="true"
-						showEmptyIntervalHeaders="true" appointmentSelect="handleAppointmentSelect">
+						showEmptyIntervalHeaders="false" appointmentSelect="handleAppointmentSelect">
 						<!-- intervalSelect="handleIntervalSelect"-->
 						<m:toolbarContent>
 							<m:Title text="Title" titleStyle="H4"/>

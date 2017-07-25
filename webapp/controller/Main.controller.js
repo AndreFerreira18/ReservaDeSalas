@@ -13,6 +13,7 @@ sap.ui.define([
 	this.minVisibleFloor = null;
 	this.maxVisibleFloor = null;
 	this.filters = {};
+	this.newAppointment = null;
 
 	return BaseController.extend("odkasfactory.reservasalas.controller.Main", {
 
@@ -163,14 +164,11 @@ sap.ui.define([
 			this.filters = data;
 			var floorList = this.getView().byId("floorList");
 			floorList.setSelectedItem(floorList.getItemByKey(this.filters.floor));
-			var selectedFloor = floorList.getSelectedKey();
-			var planningCalendar = this.getView().byId("PC1");
-			//planningCalendar.bindelement(selectedFloor+"/rooms");
 			//this.getView().byId(floorList.getItemByKey(this.filters.floor).getId()).focus();  //Not working Auto Focus in Selected Element
 			//this._refreshShownFloors(floorList); //TODO find a way around it not possible to do addStyleClass into a item
 			//dates handling
 			this._setDefaults("sb_start_date", "sb_end_date", "sb_selection", "sb_meeting_type", "sb_participants");
-			this._setApointmentToCalendar();
+			this._changeModelPlanningCalendar(true);
 		},
 
 		onChangeData: function(oEvent) {
@@ -183,29 +181,40 @@ sap.ui.define([
 			var aux5 = this.getParticipants();
 			var aux6 = this.getResources();
 
-			this._setApointmentToCalendar();
+			this._changeModelPlanningCalendar(true);
 		},
 
-		_setApointmentToCalendar: function() {
-			var modelPC = new JSONModel();
+		selectionChange: function() {
+
+			this._changeModelPlanningCalendar(false);
+		},
+
+		_changeModelPlanningCalendar: function(AddAppointment) {
 			var self = this;
+			var modelPC = new JSONModel();
 			modelPC.attachEvent("requestCompleted", function() {
+				var selectedFloor = self.getView().byId("floorList").getSelectedItem();
 				var planCal = self.getView().byId("PC1");
 				var data = this.getData();
-				var selectedFloor = self.getView().byId("floorList").getSelectedItem();
+				var selectedFloorKey = self._getKeyOfFloorName(selectedFloor.getText(), data);
 				var room = 0; //TODO make this select were it has the avaliable resources
-				var newAppointment = {
-					start: self._getArrayDate(self.getStartDate()),
-					end: self._getArrayDate(self.getEndDate()),
-					title: self.getMeetingType(),
-					floor: selectedFloor.getText(),
-					room: room,
-					resources: self.getResources(),
-					type: "Type01",
-					tentative: false
-				};
-				var selectedFloorKey = self._getKeyOfFloorName(selectedFloor.getText(),data);    //testar isto
-				data.floors[selectedFloorKey].rooms[room].appointments.push(newAppointment);
+				if (AddAppointment) {
+					self.newAppointment = {
+						start: self._getArrayDate(self.getStartDate()),
+						end: self._getArrayDate(self.getEndDate()),
+						title: self.getMeetingType(),
+						floor: selectedFloor.getText(),
+						room: room,
+						resources: self.getResources(),
+						type: "Type01",
+						tentative: false
+					};
+					data.floors[selectedFloorKey].rooms[room].appointments.push(self.newAppointment);
+				}else{
+					if(self.newAppointment.floor === selectedFloor.getText()){
+						data.floors[selectedFloorKey].rooms[room].appointments.push(self.newAppointment);
+					}
+				}
 
 				this.setData(data.floors[selectedFloorKey]);
 				planCal.setModel(this);
@@ -213,11 +222,11 @@ sap.ui.define([
 
 		},
 
-		_getKeyOfFloorName: function(floorName,data) {
+		_getKeyOfFloorName: function(floorName, data) {
 			var index = 0;
 
-			for(var i = 0;i<data.floors.length;i++){
-				if(data.floors[i].name===floorName){
+			for (var i = 0; i < data.floors.length; i++) {
+				if (data.floors[i].name === floorName) {
 					index = i;
 					break;
 				}
@@ -450,5 +459,6 @@ sap.ui.define([
 			}
 			return aux;
 		}
+
 	});
 });
