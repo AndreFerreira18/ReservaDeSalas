@@ -6,7 +6,8 @@
 				vSpacing="0">
 				<layout:content>
 					<!--Side BAR-->
-					<m:Panel headerText="Filtros" expandable="false" expanded="true" expandAnimation="true" backgroundDesign="Transparent" class="sidebarPanel">
+					<m:Panel id="sb_panel" headerText="Filtros" expandable="true" expanded="true" expandAnimation="true" backgroundDesign="Transparent"
+						class="sidebarPanel">
 						<m:content>
 							<m:VBox alignItems="Center" direction="Column" fitContainer="true" width="100%" height="100%" justifyContent="Start" renderType="Div"
 								visible="true" displayInline="false">
@@ -51,9 +52,9 @@
 														<form:fields>
 															<m:RadioButtonGroup id="sb_selection" columns="3" width="100%" class="sapUiMediuMarginBottom radioButtonGroup">
 																<m:buttons>
-																	<m:RadioButton class="radioBtns" text="Manhã" editable="true" enabled="true" visible="true" valueState="None"/>
-																	<m:RadioButton class="radioBtns" text="Tarde" editable="true" enabled="true" visible="true" valueState="None"/>
-																	<m:RadioButton class="radioBtns" text="Dia" editable="true" enabled="true" visible="true" valueState="None"/>
+																	<m:RadioButton class="radioBtn" text="Manhã" editable="true" enabled="true" visible="true" valueState="None"/>
+																	<m:RadioButton class="radioBtn" text="Tarde" editable="true" enabled="true" visible="true" valueState="None"/>
+																	<m:RadioButton class="radioBtn" text="Dia" editable="true" enabled="true" visible="true" valueState="None"/>
 																</m:buttons>
 															</m:RadioButtonGroup>
 														</form:fields>
@@ -120,7 +121,7 @@
 						<m:layoutData><layout:GridData span="L3 M7 S12"/></m:layoutData>
 					</m:VBox>
 					<!--Matrix Week-->
-					<m:PlanningCalendar id="PC1" viewKey="D" rows="{path: '/rooms'}" appointmentSelect="handleAppointmentSelect">
+					<m:PlanningCalendar id="PC1" class="sapUiResponsiveMargin" viewKey="D" rows="{path: '/rooms'}" appointmentSelect="handleAppointmentSelect">
 						<m:toolbarContent>
 							<m:Title text="Title" titleStyle="H4"/>
 						</m:toolbarContent>
@@ -147,67 +148,57 @@
 						</m:rows>
 						<m:layoutData><layout:GridData span="L6 M7 S12"/></m:layoutData>
 					</m:PlanningCalendar>
+					<!--Matrix Buttons-->
+					<m:HBox alignContent="End" alignItems="End" class="buttonsAlign">
+						<m:Button id="btn_clear" text="Limpar Seleção" press="onClearPress" class="sapUiResponsiveMargin">
+							<m:layoutData>
+								<m:FlexItemData growFactor="1"/>
+							</m:layoutData>
+						</m:Button>
+						<m:Button id="btn_reserve" type="Accept" text="Reservar Sala" press="onReservePress" class="sapUiResponsiveMargin">
+							<m:layoutData>
+								<m:FlexItemData growFactor="1"/>
+							</m:layoutData>
+						</m:Button>
+						<m:layoutData><layout:GridData span="L9 M7 S12"/></m:layoutData>
+					</m:HBox>
 					<!--Reserves Table-->
-					<m:Table width="auto" height="auto" noDataText="Não existem reservas." mode="None" showSeparators="All" growing="true" growingThreshold="20"
+					<m:Table id="reservationsTable" width="auto" height="auto" noDataText="Não existem reservas." growing="true" growingThreshold="20"
 						growingScrollToLoad="true" class="sapUiResponsiveMargin ">
-						<m:infoToolbar>
-							<m:Toolbar width="100%" height="auto" design="Auto" visible="false" enabled="true">
-								<m:content>
-									<m:Label text="Label" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
-								</m:content>
-							</m:Toolbar>
-						</m:infoToolbar>
-						<m:headerToolbar>
-							<m:Toolbar width="auto" height="46px" design="Info" visible="true" enabled="true">
-								<m:content>
-									<m:Title text="Items (3)" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
-									<m:ToolbarSpacer width=""/>
-									<m:Button text="" type="Transparent" icon="sap-icon://sort" iconFirst="true" width="auto" enabled="true" visible="true"
-										iconDensityAware="false"/>
-									<m:Button text="" type="Transparent" icon="sap-icon://filter" iconFirst="true" width="auto" enabled="true" visible="true"
-										iconDensityAware="false"/>
-									<m:Button text="" type="Transparent" icon="sap-icon://group-2" iconFirst="true" width="auto" enabled="true" visible="true"
-										iconDensityAware="false"/>
-									<m:Button text="" type="Transparent" icon="sap-icon://action-settings" iconFirst="true" width="auto" enabled="true" visible="true"
-										iconDensityAware="false"/>
-								</m:content>
-								<m:tooltip/>
-							</m:Toolbar>
-						</m:headerToolbar>
 						<m:columns>
 							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="true">
 								<m:header>
-									<m:Text text="Status" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="Status" width="auto" textAlign="Begin" textDirection="Inherit"/>
 								</m:header>
 								<m:footer/>
 							</m:Column>
 							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="true">
 								<m:header>
-									<m:Text text="Tipo de Reunião" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="Tipo de Reunião" width="auto" textAlign="Begin" textDirection="Inherit"/>
 								</m:header>
 								<m:footer/>
 							</m:Column>
 							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="true">
 								<m:header>
-									<m:Text text="Sala" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="Sala" width="auto" textAlign="Begin" textDirection="Inherit"/>
 								</m:header>
 								<m:footer/>
 							</m:Column>
 							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="true">
 								<m:header>
-									<m:Text text="Data" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="Data" width="auto" textAlign="Begin" textDirection="Inherit"/>
 								</m:header>
 								<m:footer/>
 							</m:Column>
 							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
 								<m:header>
-									<m:Text text="Hora de Início" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="Hora de Início" width="auto" textAlign="Begin" textDirection="Inherit"/>
 								</m:header>
 								<m:footer/>
 							</m:Column>
 							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
 								<m:header>
-									<m:Text text="Hora de Fim" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="Hora de Fim" width="auto" textAlign="Begin" textDirection="Inherit"/>
 								</m:header>
 								<m:footer/>
 							</m:Column>
@@ -215,42 +206,42 @@
 						<m:items>
 							<m:ColumnListItem type="Active">
 								<m:cells>
-									<m:Text text="Aprovado" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="Formação" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="Sala 0.1" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="03/07/2017" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="09:00" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="13:00" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="Aprovado" width="auto" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="Formação" width="auto" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="Sala 0.1" width="auto" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="03/07/2017" width="auto" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="09:00" width="auto" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="13:00" width="auto" textAlign="Begin" textDirection="Inherit"/>
 								</m:cells>
 							</m:ColumnListItem>
 							<m:ColumnListItem type="Active">
 								<m:cells>
-									<m:Text text="Rejeitado" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="Interna" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="Sala 4.2" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="04/07/2017" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="14:00" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="18:00" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="Rejeitado" width="auto" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="Interna" width="auto" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="Sala 4.2" width="auto" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="04/07/2017" width="auto" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="14:00" width="auto" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="18:00" width="auto" textAlign="Begin" textDirection="Inherit"/>
 								</m:cells>
 							</m:ColumnListItem>
 							<m:ColumnListItem type="Active">
 								<m:cells>
-									<m:Text text="Rejeitado" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="Interna" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="Sala 4.2" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="06/07/2017" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="08:00" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="13:00" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="Rejeitado" width="auto" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="Interna" width="auto" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="Sala 4.2" width="auto" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="06/07/2017" width="auto" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="08:00" width="auto" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="13:00" width="auto" textAlign="Begin" textDirection="Inherit"/>
 								</m:cells>
 							</m:ColumnListItem>
 							<m:ColumnListItem type="Active">
 								<m:cells>
-									<m:Text text="Pendente" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="Formação" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="Sala 1.3" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="10/07/2017" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="09:00" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="18:00" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="Pendente" width="auto" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="Formação" width="auto" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="Sala 1.3" width="auto" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="10/07/2017" width="auto" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="09:00" width="auto" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="18:00" width="auto" textAlign="Begin" textDirection="Inherit"/>
 								</m:cells>
 							</m:ColumnListItem>
 						</m:items>

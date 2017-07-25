@@ -104,6 +104,10 @@
     font-weight: 900;
 }
 
+.radioButtonGroup:focus {
+    outline-color: #FFFFFF;
+}
+
 @media (min-width: 630px) {
     .initialModal .sapUiFormElementLbl {
         width: 25% !important;

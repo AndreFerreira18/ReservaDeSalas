@@ -78,7 +78,6 @@ span.sapMBtnInner.sapMBtnEmphasized {
 
 .sidebarPanel {
     width: auto !important;
-    height: 120vh !important;
 }
 
 .sidebarPanel h1 {
@@ -86,15 +85,38 @@ span.sapMBtnInner.sapMBtnEmphasized {
 }
 
 .sidebarForm .sapUiRespGrid {
-	background-color: unset !important;
+    background-color: unset !important;
 }
 
 .meeting label {
     background-color: #FFFFFF;
 }
 
+.sapMTextNoWrap {
+    white-space: normal !important;
+    word-break: break-all;
+}
+
+.sapMListTblCell {
+    padding: 0 !important;
+}
+
+.buttonsAlign {
+    text-align: center;
+}
+
 @media (min-width: 600px) {
     .sidebarPanel {
         border-right: solid 1px #000000;
+        height: calc(124vh + 250px) !important;
+    }
+    .sapMListTblCell {
+        padding: 0.875rem .5rem !important;
+    }
+}
+
+@media (min-width: 1024px){
+	.buttonsAlign {
+        text-align: right;
     }
 }

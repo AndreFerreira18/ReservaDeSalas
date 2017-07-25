@@ -84,6 +84,9 @@
 											<core:Item text="5º Andar" enabled="true"/>
 											<core:Item text="6º Andar" enabled="true"/>
 											<core:Item text="7º Andar" enabled="true"/>
+											<core:Item text="8º Andar" enabled="true"/>
+											<core:Item text="9º Andar" enabled="true"/>
+											<core:Item text="10º Andar" enabled="true"/>
 										</m:items>
 									</m:Select>
 								</form:fields>
