@@ -121,7 +121,7 @@
 						<m:layoutData><layout:GridData span="L3 M7 S12"/></m:layoutData>
 					</m:VBox>
 					<!--Matrix Week-->
-					<m:PlanningCalendar id="PC1" viewKey="DDD" rows="{path: '/rooms'}" singleSelection="true" showIntervalHeaders="true"
+					<m:PlanningCalendar class="sapUiResponsiveMargin" id="PC1" viewKey="DDD" rows="{path: '/rooms'}" singleSelection="true" showIntervalHeaders="true"
 						showEmptyIntervalHeaders="false" appointmentSelect="handleAppointmentSelect">
 						<!-- intervalSelect="handleIntervalSelect"-->
 						<m:toolbarContent>

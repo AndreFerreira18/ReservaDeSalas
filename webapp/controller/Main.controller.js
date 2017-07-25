@@ -49,10 +49,9 @@ sap.ui.define([
 			this.getView().byId("sb_meeting_type").addStyleClass("meeting");
 			this.getView().addStyleClass("mainPage");
 		},
-		
+
 		onAfterRendering: function() {
 			var self = this;
-			this.wasRemoved = false;
 			if (window.innerWidth >= 600) {
 				self.getView().byId("sb_panel").setExpandable(false);
 			} else {
@@ -63,34 +62,33 @@ sap.ui.define([
 						cells[i].parentNode.removeChild(cells[i]);
 					}
 				}
-				this.wasRemoved = true;
 				var cells2 = document.querySelectorAll(".sapMListTblSubRow");
 				length = cells2.length;
 				for (var j = 0; j < length; j++) {
 					cells2[j].children[0].colSpan = "2";
+					cells2[j].children[0].style.borderBottom = "1px solid #e5e5e5";
 				}
 			}
 			//this code is used for testing purposes.
 			window.onresize = function() {
-				if (window.innerWidth >= 600) {
+				if (window.innerWidth > 600) {
 					self.getView().byId("sb_panel").setExpandable(false);
 				} else {
 					self.getView().byId("sb_panel").setExpandable(true);
 					self.getView().byId("sb_panel").setExpanded(true);
-					if (!self.wasRemoved) {
-						self.wasRemoved = true;
-						var cells = document.querySelectorAll(".sapMListTblHighlightCell"),
-							length = cells.length;
-						for (var i = 0; i < length; i++) {
-							if (!self._isEven(i)) {
-								cells[i].parentNode.removeChild(cells[i]);
-							}
+					var cells = document.querySelectorAll(".sapMListTblHighlightCell"),
+						length = cells.length;
+					for (var i = 0; i < length; i++) {
+						if (!self._isEven(i)) {
+							cells[i].parentNode.removeChild(cells[i]);
 						}
 					}
+
 					var cells2 = document.querySelectorAll(".sapMListTblSubRow");
 					length = cells2.length;
 					for (var j = 0; j < length; j++) {
 						cells2[j].children[0].colSpan = "2";
+						cells2[j].children[0].style.borderBottom = "1px solid #e5e5e5";
 					}
 				}
 			};
@@ -103,7 +101,7 @@ sap.ui.define([
 
 		onClearPress: function(oEvent) {
 			//TODO Nuno: implement clear appointments functionality
-			
+
 		},
 
 		onReservePress: function(oEvent) {
@@ -114,11 +112,13 @@ sap.ui.define([
 
 			var oDummyController = {
 				closeDialog: function() {
+					MessageToast.show("Cancelou a sua reserva! [DUMMY]");
 					oDialog.close();
 				},
-				
-				confirmationPress: function(){
-					MessageToast.show("A sua reserva foi criada! [DUMMY]");
+
+				confirmationPress: function() {
+					var sText = self.getView().byId("confirmDialogTextarea").getValue();
+					MessageToast.show("A sua reserva foi criada com a nota: " + sText + " ! [DUMMY]");
 					oDialog.close();
 				}
 			};
@@ -129,7 +129,33 @@ sap.ui.define([
 				oView.addDependent(oDialog);
 			}
 
+			this.updateConfirmationModalFields();
+
 			oDialog.open();
+		},
+		
+		updateConfirmationModalFields: function(){
+			//update modal fields with Filters data
+			var oView = this.getView();
+			//participants
+			var pt = oView.byId("txt_participants");
+			pt.setText(this.getParticipants() + ".");
+
+			//resources
+			var res = oView.byId("txt_resources");
+			var resources = this.getResources();
+			var text = "";
+			for (var i = 0; i < resources.length; i++) {
+				if (i < resources.length - 1) {
+					text += resources[i] + ", ";
+				} else {
+					text += resources[i] + ".";
+				}
+			}
+			if(text === ""){
+				text = "Nenhum.";
+			}
+			res.setText(text);
 		},
 
 		handleAppointmentSelect: function(oEvent) {
@@ -297,8 +323,8 @@ sap.ui.define([
 						tentative: false
 					};
 					data.floors[selectedFloorKey].rooms[room].appointments.push(self.newAppointment);
-				}else{
-					if(self.newAppointment.floor === selectedFloor.getText()){
+				} else {
+					if (self.newAppointment.floor === selectedFloor.getText()) {
 						data.floors[selectedFloorKey].rooms[room].appointments.push(self.newAppointment);
 					}
 				}
