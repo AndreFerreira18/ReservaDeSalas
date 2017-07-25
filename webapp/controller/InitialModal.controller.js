@@ -76,7 +76,7 @@ sap.ui.define([
 			}
 
 			//floor
-			this.floor = this.getView().byId("modal_floor").getSelectedItem().getText();
+			this.floor = this.getView().byId("modal_floor").getSelectedItem().getKey();
 			data.floor = this.floor;
 
 			//resources
