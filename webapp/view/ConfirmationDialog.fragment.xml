@@ -1,0 +1,20 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout">
+	<Dialog id="confDialog" title="Pedido realizado por: ">
+		<content>
+			<layout:HorizontalLayout>
+				
+			</layout:HorizontalLayout>
+			<TextArea>
+				
+			</TextArea>
+		</content>
+		<buttons>
+			<Button text="Confirmar" press="confirmationPress">
+				
+			</Button>
+			<Button text="Cancelar" press="closeDialog">
+				
+			</Button>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

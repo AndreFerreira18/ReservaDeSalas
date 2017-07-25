@@ -4,8 +4,9 @@ sap.ui.define([
 	"sap/m/MessageBox",
 	"sap/ui/model/json/JSONModel",
 	"jquery.sap.global",
-	"./utilities"
-], function(BaseController, MessageBox, Utilities, JSONModel, jquery, History) {
+	"./utilities",
+	"sap/m/MessageToast"
+], function(BaseController, MessageBox, Utilities, JSONModel, jquery, History, MessageToast) {
 	"use strict";
 
 	this.visibleFloors = 6;
@@ -14,6 +15,7 @@ sap.ui.define([
 	this.maxVisibleFloor = null;
 	this.filters = {};
 	this.newAppointment = null;
+	this.startingDay = null;
 
 	return BaseController.extend("odkasfactory.reservasalas.controller.Main", {
 
@@ -46,6 +48,88 @@ sap.ui.define([
 			this.getView().byId("sidebarForm").addStyleClass("sidebarForm");
 			this.getView().byId("sb_meeting_type").addStyleClass("meeting");
 			this.getView().addStyleClass("mainPage");
+		},
+		
+		onAfterRendering: function() {
+			var self = this;
+			this.wasRemoved = false;
+			if (window.innerWidth >= 600) {
+				self.getView().byId("sb_panel").setExpandable(false);
+			} else {
+				var cells = document.querySelectorAll(".sapMListTblHighlightCell"),
+					length = cells.length;
+				for (var i = 0; i < length; i++) {
+					if (!this._isEven(i)) {
+						cells[i].parentNode.removeChild(cells[i]);
+					}
+				}
+				this.wasRemoved = true;
+				var cells2 = document.querySelectorAll(".sapMListTblSubRow");
+				length = cells2.length;
+				for (var j = 0; j < length; j++) {
+					cells2[j].children[0].colSpan = "2";
+				}
+			}
+			//this code is used for testing purposes.
+			window.onresize = function() {
+				if (window.innerWidth >= 600) {
+					self.getView().byId("sb_panel").setExpandable(false);
+				} else {
+					self.getView().byId("sb_panel").setExpandable(true);
+					self.getView().byId("sb_panel").setExpanded(true);
+					if (!self.wasRemoved) {
+						self.wasRemoved = true;
+						var cells = document.querySelectorAll(".sapMListTblHighlightCell"),
+							length = cells.length;
+						for (var i = 0; i < length; i++) {
+							if (!self._isEven(i)) {
+								cells[i].parentNode.removeChild(cells[i]);
+							}
+						}
+					}
+					var cells2 = document.querySelectorAll(".sapMListTblSubRow");
+					length = cells2.length;
+					for (var j = 0; j < length; j++) {
+						cells2[j].children[0].colSpan = "2";
+					}
+				}
+			};
+		},
+
+		onExit: function() {
+			this.filters = {};
+			this.startingDay = null;
+		},
+
+		onClearPress: function(oEvent) {
+			//TODO Nuno: implement clear appointments functionality
+			
+		},
+
+		onReservePress: function(oEvent) {
+			var self = this;
+			//TODO implement confirmation Modal
+			var oView = this.getView();
+			var oDialog = oView.byId("confDialog");
+
+			var oDummyController = {
+				closeDialog: function() {
+					oDialog.close();
+				},
+				
+				confirmationPress: function(){
+					MessageToast.show("A sua reserva foi criada! [DUMMY]");
+					oDialog.close();
+				}
+			};
+			// create dialog lazily
+			if (!oDialog) {
+				// create dialog via fragment factory
+				oDialog = sap.ui.xmlfragment(oView.getId(), "odkasfactory.reservasalas.view.ConfirmationDialog", oDummyController);
+				oView.addDependent(oDialog);
+			}
+
+			oDialog.open();
 		},
 
 		handleAppointmentSelect: function(oEvent) {
@@ -161,13 +245,16 @@ sap.ui.define([
 		},
 
 		onDataReceived: function(channel, event, data) {
+			var self = this;
 			this.filters = data;
 			var floorList = this.getView().byId("floorList");
 			floorList.setSelectedItem(floorList.getItemByKey(this.filters.floor));
 			//this.getView().byId(floorList.getItemByKey(this.filters.floor).getId()).focus();  //Not working Auto Focus in Selected Element
 			//this._refreshShownFloors(floorList); //TODO find a way around it not possible to do addStyleClass into a item
 			//dates handling
-			this._setDefaults("sb_start_date", "sb_end_date", "sb_selection", "sb_meeting_type", "sb_participants");
+			setTimeout(function() {
+				self._setDefaults("sb_start_date", "sb_end_date", "sb_selection", "sb_meeting_type", "sb_participants");
+			}, 500);
 			this._changeModelPlanningCalendar(true);
 		},
 
@@ -262,15 +349,14 @@ sap.ui.define([
 				this.startingDay = date.getDate();
 				//initial radio buttons correction (event is not triggered)
 				radioGroup.setSelectedIndex(0);
-				radioGroup.getSelectedButton().setValueState(sap.ui.core.ValueState.Error);
 				radioGroup.getSelectedButton().setEnabled(false);
 				radioGroup.setSelectedIndex(2);
-				radioGroup.getSelectedButton().setValueState(sap.ui.core.ValueState.Error);
 				radioGroup.getSelectedButton().setEnabled(false);
 			} else {
 				beginning = 8;
 				date.setDate(date.getDate() + 1); //move to next day
 			}
+			radioGroup.setSelectedIndex(4);
 			date.setHours(beginning);
 			date.setMinutes(0);
 			date.setSeconds(0);
@@ -305,18 +391,14 @@ sap.ui.define([
 				if (parseInt(this.getValue().split("/")[0]) === self.startingDay) {
 					radioGroup.setSelectedIndex(0);
 					button = radioGroup.getSelectedButton();
-					button.setValueState(sap.ui.core.ValueState.Error);
 					button.setEnabled(false);
 
 					radioGroup.setSelectedIndex(2);
-					radioGroup.getSelectedButton().setValueState(sap.ui.core.ValueState.Error);
 					radioGroup.getSelectedButton().setEnabled(false);
 				} else {
 					radioGroup.setSelectedIndex(0);
-					radioGroup.getSelectedButton().setValueState(sap.ui.core.ValueState.None);
 					radioGroup.getSelectedButton().setEnabled(true);
 					radioGroup.setSelectedIndex(2);
-					radioGroup.getSelectedButton().setValueState(sap.ui.core.ValueState.None);
 					radioGroup.getSelectedButton().setEnabled(true);
 				}
 				radioGroup.setSelectedIndex(4);
@@ -473,6 +555,11 @@ sap.ui.define([
 				}
 			}
 			return aux;
+		},
+
+		_isEven: function(n) {
+			n = Number(n);
+			return n === 0 || !!(n && !(n % 2));
 		}
 
 	});

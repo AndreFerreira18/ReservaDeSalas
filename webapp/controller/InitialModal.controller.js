@@ -29,6 +29,17 @@ sap.ui.define([
 			this.getView().byId("modal_resources").addStyleClass("resources");
 		},
 
+		onExit: function() {
+			this.meetingType = null;
+			this.startDate = null;
+			this.endDate = null;
+			this.periodSelection = null;
+			this.participants = null;
+			this.floor = null;
+			this.resources = {};
+			this.startingDay = null;
+
+		},
 		onHelpPress: function(oEvent) {
 			this.getRouter().navTo("helpSection");
 		},
@@ -106,10 +117,8 @@ sap.ui.define([
 				this.startingDay = date.getDate();
 				//initial radio buttons correction (event is not triggered)
 				radioGroup.setSelectedIndex(0);
-				radioGroup.getSelectedButton().setValueState(sap.ui.core.ValueState.Error);
 				radioGroup.getSelectedButton().setEnabled(false);
 				radioGroup.setSelectedIndex(2);
-				radioGroup.getSelectedButton().setValueState(sap.ui.core.ValueState.Error);
 				radioGroup.getSelectedButton().setEnabled(false);
 			} else {
 				beginning = 8;
@@ -147,18 +156,14 @@ sap.ui.define([
 				if (parseInt(this.getValue().split("/")[0]) === self.startingDay) {
 					radioGroup.setSelectedIndex(0);
 					button = radioGroup.getSelectedButton();
-					button.setValueState(sap.ui.core.ValueState.Error);
 					button.setEnabled(false);
 
 					radioGroup.setSelectedIndex(2);
-					radioGroup.getSelectedButton().setValueState(sap.ui.core.ValueState.Error);
 					radioGroup.getSelectedButton().setEnabled(false);
 				} else {
 					radioGroup.setSelectedIndex(0);
-					radioGroup.getSelectedButton().setValueState(sap.ui.core.ValueState.None);
 					radioGroup.getSelectedButton().setEnabled(true);
 					radioGroup.setSelectedIndex(2);
-					radioGroup.getSelectedButton().setValueState(sap.ui.core.ValueState.None);
 					radioGroup.getSelectedButton().setEnabled(true);
 				}
 				radioGroup.setSelectedIndex(4);
