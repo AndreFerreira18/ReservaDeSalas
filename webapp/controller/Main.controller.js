@@ -103,7 +103,8 @@ sap.ui.define([
 
 		onClearPress: function(oEvent) {
 			//TODO Nuno: implement clear appointments functionality
-			
+			this.newAppointment = null;
+			this._changeModelPlanningCalendar(false);
 		},
 
 		onReservePress: function(oEvent) {
@@ -254,8 +255,8 @@ sap.ui.define([
 			//dates handling
 			setTimeout(function() {
 				self._setDefaults("sb_start_date", "sb_end_date", "sb_selection", "sb_meeting_type", "sb_participants");
+				self._changeModelPlanningCalendar(true);
 			}, 500);
-			this._changeModelPlanningCalendar(true);
 		},
 
 		onChangeData: function(oEvent) {
@@ -302,7 +303,8 @@ sap.ui.define([
 					};
 					data.floors[selectedFloorKey].rooms[roomInfo[0]].appointments.push(self.newAppointment);
 				} else {
-					if (self.newAppointment.floor === selectedFloor.getText()) {
+					
+					if (self.newAppointment && self.newAppointment.floor === selectedFloor.getText()) {
 						data.floors[selectedFloorKey].rooms[roomInfo[0]].appointments.push(self.newAppointment);
 					}
 				}
