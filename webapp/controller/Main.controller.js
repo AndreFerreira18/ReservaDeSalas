@@ -14,7 +14,7 @@ sap.ui.define([
 	this.minVisibleFloor = null;
 	this.maxVisibleFloor = null;
 	this.filters = {};
-	this.newAppointment = null;
+	this.appointments = [];
 	this.startingDay = null;
 
 	return BaseController.extend("odkasfactory.reservasalas.controller.Main", {
@@ -24,6 +24,7 @@ sap.ui.define([
 		},
 
 		onInit: function() {
+			this.appointments = [];
 			this.minVisibleFloor = 2;
 			this.maxVisibleFloor = 5;
 			var self = this;
@@ -103,7 +104,7 @@ sap.ui.define([
 
 		onClearPress: function(oEvent) {
 			//TODO Nuno: implement clear appointments functionality
-			this.newAppointment = null;
+			this.appointments = [];
 			this._changeModelPlanningCalendar(false);
 		},
 
@@ -150,48 +151,55 @@ sap.ui.define([
 			var startDate = event.getParameter("startDate");
 			var endDate = event.getParameter("endDate");
 			endDate.setTime(endDate.getTime() + (60 * 1000)); // Adds 1 minute to the end date go around the less 1 minute
-			var tempTime = this._adaptHours(startDate,endDate);
+			var tempTime = this._adaptHours(startDate, endDate);
 			startDate = this._getArrayDate(tempTime[0]);
 			endDate = this._getArrayDate(tempTime[1]);
 			var row = event.getParameter("row");
-			var subInterval = event.getParameter("subInterval");
-			var modelPC = this.getView().byId("PC1").getModel();
-			var data = modelPC.getData();
-			var index = -1;
-
-			if (row) {
-				index = oPC.indexOfRow(row);
-				var isNewAppointment = true;
-				var appointments = data.rooms[index].appointments;
-				for (var i = 0; i < appointments.length; i++) {
-					if (this._inRange(startDate, appointments[i].start, appointments[i].end) || this._isContiguousDates(appointments[i].end,
-							startDate)) {
-						data.rooms[index].appointments[i].end = endDate;
-						isNewAppointment = false;
-					}
-					if (this._inRange(endDate, appointments[i].start, appointments[i].end) || this._isContiguousDates(endDate, appointments[i].start)) {
-						data.rooms[index].appointments[i].start = startDate;
-						isNewAppointment = false;
-					}
-
-				}
+			var modelPC = new JSONModel();
+			var self = this;
+			modelPC.attachEvent("requestCompleted", function() {
+				var data = modelPC.getData();
+				var index = oPC.indexOfRow(row);
+				data = data.floors[index];
+				var selectedFloor = self.getView().byId("floorList").getSelectedItem();
+				var newAppointment = {
+					start: startDate,
+					end: endDate,
+					title: self.getMeetingType(),
+					floor: selectedFloor.getText(),
+					room: data.rooms[index].name,
+					resources: self.getResources(),
+					type: "Type01",
+					tentative: false
+				};
+				var isContiguous = false;
+				var isNewAppointment = self._isSameInfoReservation(self.appointments, newAppointment);
 				if (isNewAppointment) {
-					var newAppointment = {
-						start: startDate,
-						end: endDate,
-						title: this.getMeetingType(),
-						type: "Type09"
-					};
-					data.rooms[index].appointments.push(newAppointment);
+					for (var i = 0; i < self.appointments.length; i++) {
+						if (self._inRange(startDate, self.appointments[i].start, self.appointments[i].end) || self._isContiguousDates(self.appointments[
+									i].end,
+								startDate)) {
+							self.appointments.rooms[index].appointments[i].end = endDate;
+							isContiguous = true;
+						}
+						if (self._inRange(endDate, self.appointments[i].start, self.appointments[i].end) || self._isContiguousDates(endDate, self.appointments[
+								i].start)) {
+							self.appointments.rooms[index].appointments[i].start = startDate;
+							isContiguous = true;
+						}
+					}
+					if (!isContiguous) {
+						self.appointments.push(newAppointment);
+
+					}
+				} else {
+					self.appointments.push(newAppointment);
 				}
-			} else {
-				var selectedRows = oPC.getSelectedRows();
-				for (i = 0; i < selectedRows.length; i++) {
-					index = oPC.indexOfRow(selectedRows[i]);
-					data.rooms[index].appointments.push(newAppointment);
+				for (i = 0; i < self.appointments.length; i++) {
+					data.rooms[index].appointments.push(self.appointments[i]);
 				}
-			}
-			modelPC.setData(data);
+				modelPC.setData(data);
+			}).loadData("/webapp/mockdata/Reservations.json");
 		},
 
 		_adaptHours: function(startDate, endDate) {
@@ -208,12 +216,37 @@ sap.ui.define([
 
 		//TODO Remake not working yet
 		_isSameInfoReservation: function(appointments, appointment) {
+
+			var arraySameApointment = [];
 			for (var i = 0; i < appointments.length; i++) {
+				var arrayAppointment = [];
 				for (var tempAppointments in appointments[i]) {
-					for (var tempAppointment in appointment)
-						if (tempAppointments === tempAppointment && (tempAppointment !== "start" || tempAppointment !== "end")) {
-							return true;
+					for (var tempAppointment in appointment) {
+						if (tempAppointments === tempAppointment) {
+							if (tempAppointment !== "start" && tempAppointment !== "end" && tempAppointment !== "resources") { //TODO check resources here
+								if (appointments[i][tempAppointments] === appointment[tempAppointment]) {
+									arrayAppointment.push(true);
+								} else {
+									arrayAppointment.push(false);
+								}
+							} else {
+								arrayAppointment.push(true);
+							}
 						}
+					}
+				}
+				arraySameApointment.push(arrayAppointment);
+			}
+
+			for (i = 0; i < arraySameApointment.length; i++) {
+				var count = 0;
+				for (var j = 0; j < arraySameApointment[i].length; j++) {
+					if (arraySameApointment[i][j] === true) {
+						count++;
+					}
+				}
+				if (count === arraySameApointment[i].length) {
+					return true;
 				}
 			}
 			return false;
@@ -232,7 +265,6 @@ sap.ui.define([
 		_isContiguousDates: function(endDate, startDate) {
 			var sd = this.dateFormatter(startDate);
 			var ed = this.dateFormatter(endDate);
-
 			if (ed.valueOf() === sd.valueOf()) {
 				return true;
 			}
@@ -249,7 +281,8 @@ sap.ui.define([
 		_refreshShownFloors: function(floorList) { // not working
 			//var floorList = this.getView().byId("floorList").mAggregations.items;
 			for (var i = 0; i <= floorList.mAggregations.items.length; i++) {
-				if (parseInt(floorList.mAggregations.items[i].mProperties.key) >= this.minVisibleFloor && parseInt(floorList.mAggregations.items[i]
+				if (parseInt(floorList.mAggregations.items[i].mProperties.key) >= this.minVisibleFloor && parseInt(floorList.mAggregations.items[
+							i]
 						.mProperties.key) <= this.maxVisibleFloor) {
 					this.getView().byId(floorList.mAggregations.items[i].getId()).addStyleClass("displayInherit");
 					//floorList.getItemByKey(floorList.mAggregations.items[i].mProperties.key).addStyleClass("displayInherit");
@@ -284,6 +317,7 @@ sap.ui.define([
 			var aux5 = this.getParticipants();
 			var aux6 = this.getResources();
 
+			this.appointments = [];
 			this._changeModelPlanningCalendar(true);
 		},
 
@@ -300,13 +334,13 @@ sap.ui.define([
 				var planCal = self.getView().byId("PC1");
 				var data = this.getData();
 				var selectedFloorKey = self._getKeyOfFloorName(selectedFloor.getText(), data);
-				var roomInfo = self._getSelectedRoom(selectedFloorKey); //TODO make this select were it has the avaliable resources
+				var roomInfo = self._getSelectedRoom(); //TODO make this select were it has the avaliable resources
 				if (!roomInfo.length) {
 					roomInfo[0] = data.floors[selectedFloorKey].rooms[0].key;
 					roomInfo[1] = data.floors[selectedFloorKey].rooms[0].name;
 				}
 				if (AddAppointment) {
-					self.newAppointment = {
+					var newAppointment = {
 						start: self._getArrayDate(self.getStartDate()),
 						end: self._getArrayDate(self.getEndDate()),
 						title: self.getMeetingType(),
@@ -316,11 +350,11 @@ sap.ui.define([
 						type: "Type01",
 						tentative: false
 					};
-					data.floors[selectedFloorKey].rooms[roomInfo[0]].appointments.push(self.newAppointment);
-				} else {
-
-					if (self.newAppointment && self.newAppointment.floor === selectedFloor.getText()) {
-						data.floors[selectedFloorKey].rooms[roomInfo[0]].appointments.push(self.newAppointment);
+					self.appointments.push(newAppointment);
+				}
+				for (var i = 0; i < self.appointments.length; i++) {
+					if (self.appointments[i] && self.appointments[i].floor === selectedFloor.getText()) {
+						data.floors[selectedFloorKey].rooms[roomInfo[0]].appointments.push(self.appointments[i]);
 					}
 				}
 
