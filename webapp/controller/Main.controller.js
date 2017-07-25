@@ -197,22 +197,26 @@ sap.ui.define([
 				var planCal = self.getView().byId("PC1");
 				var data = this.getData();
 				var selectedFloorKey = self._getKeyOfFloorName(selectedFloor.getText(), data);
-				var room = 0; //TODO make this select were it has the avaliable resources
+				var roomInfo = self._getSelectedRoom(selectedFloorKey); //TODO make this select were it has the avaliable resources
+				if (!roomInfo.length) {
+					roomInfo[0] = data.floors[selectedFloorKey].rooms[0].key;
+					roomInfo[1] = data.floors[selectedFloorKey].rooms[0].name;
+				}
 				if (AddAppointment) {
 					self.newAppointment = {
 						start: self._getArrayDate(self.getStartDate()),
 						end: self._getArrayDate(self.getEndDate()),
 						title: self.getMeetingType(),
 						floor: selectedFloor.getText(),
-						room: room,
+						room: roomInfo[1],
 						resources: self.getResources(),
 						type: "Type01",
 						tentative: false
 					};
-					data.floors[selectedFloorKey].rooms[room].appointments.push(self.newAppointment);
-				}else{
-					if(self.newAppointment.floor === selectedFloor.getText()){
-						data.floors[selectedFloorKey].rooms[room].appointments.push(self.newAppointment);
+					data.floors[selectedFloorKey].rooms[roomInfo[0]].appointments.push(self.newAppointment);
+				} else {
+					if (self.newAppointment.floor === selectedFloor.getText()) {
+						data.floors[selectedFloorKey].rooms[roomInfo[0]].appointments.push(self.newAppointment);
 					}
 				}
 
@@ -220,6 +224,17 @@ sap.ui.define([
 				planCal.setModel(this);
 			}).loadData("/webapp/mockdata/Reservations.json");
 
+		},
+
+		_getSelectedRoom: function() {
+			var rows = [];
+			var planCal = this.getView().byId("PC1");
+			var selectedRow = planCal.getSelectedRows();
+			if (selectedRow.length) {
+				rows[0] = selectedRow[0].getKey();
+				rows[1] = selectedRow[0].getTitle();
+			}
+			return rows;
 		},
 
 		_getKeyOfFloorName: function(floorName, data) {

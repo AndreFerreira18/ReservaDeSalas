@@ -134,7 +134,7 @@
 								showSubIntervals="true"></m:PlanningCalendarView>
 						</m:views>
 						<m:rows>
-							<m:PlanningCalendarRow icon="{pic}" title="{name}" text="{role}" nonWorkingDays="{freeDays}" nonWorkingHours="{freeHours}"
+							<m:PlanningCalendarRow icon="{pic}" key="{key}" title="{name}" text="{role}" nonWorkingDays="{freeDays}" nonWorkingHours="{freeHours}"
 								appointments="{path: 'appointments', templateShareable: false}" intervalHeaders="{path: 'headers', templateShareable: false}">
 								<m:appointments>
 									<unified:CalendarAppointment startDate="{path:'start', formatter:'.dateFormatter'}" endDate="{path:'end', formatter:'.dateFormatter'}"
