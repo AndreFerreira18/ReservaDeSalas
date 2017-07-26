@@ -17,11 +17,11 @@ sap.ui.define([
 	return BaseController.extend("odkasfactory.reservasalas.controller.InitialModal", {
 
 		onInit: function() {
-			this.getView().addStyleClass("initialModal");
 
 		},
 
 		onAfterRendering: function() {
+			this.getView().addStyleClass("initialModal");
 			//dates handling
 			this._setDateTimeAndSelection("modal_start_date", "modal_end_date", "modal_selection");
 
@@ -45,7 +45,8 @@ sap.ui.define([
 		},
 
 		onSavePress: function() {
-			var data = {};
+			var self = this,
+				data = {};
 
 			//meeting Type
 			this.meetingType = this.getView().byId("modal_meeting_type").getSelectedItem().getKey();
@@ -60,7 +61,7 @@ sap.ui.define([
 
 			//Time of Day
 			this.periodSelection = this.getView().byId("modal_selection").getSelectedIndex();
-			if (this.periodSelection && parseInt(this.periodSelection) < 4) {
+			if (this.periodSelection < 4) {
 				data.selection = this.periodSelection;
 			}
 
@@ -84,8 +85,10 @@ sap.ui.define([
 			data.resources = this._checkSelectedResources(this.resources);
 
 			this.getRouter().navTo("main");
-			var eventBus = this.getOwnerComponent().getEventBus();
-			eventBus.publish("InitialToMainChannel", "onRouteInitialMain", data);
+			setTimeout(function() {
+				var eventBus = self.getOwnerComponent().getEventBus();
+				eventBus.publish("InitialToMainChannel", "onRouteInitialMain", data);
+			}, 250);
 
 		},
 
@@ -105,72 +108,58 @@ sap.ui.define([
 		},
 
 		_setDateTimeAndSelection: function(startDateID, endDateID, radioGroupID) {
-			var self = this;
+			var self = this,
+				radioGroup = this.getView().byId(radioGroupID),
+				date1 = new Date(),
+				date2 = new Date(),
+				beginning;
+
 			this.startDate = this.getView().byId(startDateID);
 			this.endDate = this.getView().byId(endDateID);
-			var radioGroup = this.getView().byId(radioGroupID);
 			//set Start date
-			var date = new Date();
-			var beginning;
-			if (date.getHours() <= 13) {
+			if (date1.getHours() <= 13) {
 				beginning = 14;
-				this.startingDay = date.getDate();
+				this.startingDay = date1.getDate();
 				//initial radio buttons correction (event is not triggered)
-				radioGroup.setSelectedIndex(0);
-				radioGroup.getSelectedButton().setEnabled(false);
-				radioGroup.setSelectedIndex(2);
-				radioGroup.getSelectedButton().setEnabled(false);
+				this._disableRadioButtons();
 			} else {
 				beginning = 8;
-				date.setDate(date.getDate() + 1); //move to next day
+				date1.setDate(date1.getDate() + 1); //move to next day
+				date2.setDate(date2.getDate() + 1); //move to next day
+				radioGroup.setSelectedIndex(4);
 			}
-			date.setHours(beginning);
-			date.setMinutes(0);
-			date.setSeconds(0);
-			this.startDate.setMinDate(date);
+			date1.setHours(beginning, 0, 0);
+			this.startDate.setMinDate(date1);
 
 			//set End Date
-			date.setMinutes(30);
-			this.endDate.setMinDate(date);
+			date2.setHours(beginning, 30, 0);
+			this.endDate.setMinDate(date2);
 			//create date and time selection popup with correct time intervals for Start Date.
 			this.startDate._createPopupContent = function() {
-				self.startDate = self.getView().byId(startDateID);
 				sap.m.DateTimePicker.prototype._createPopupContent.apply(this, arguments);
-				self.startDate._oSliders.setMinutesStep(30);
-				self.startDate._oSliders.setSecondsStep(60);
+				this._oSliders.setMinutesStep(30);
+				this._oSliders.setSecondsStep(60);
 				radioGroup.setSelectedIndex(4); //set selection to empty if user manually changes date or time
 			};
 			//create date and time selection popup with correct time intervals for End Date.
 			this.endDate._createPopupContent = function() {
-				self.endDate = self.getView().byId(endDateID);
 				sap.m.DateTimePicker.prototype._createPopupContent.apply(this, arguments);
-				self.endDate._oSliders.setMinutesStep(30);
-				self.endDate._oSliders.setSecondsStep(60);
+				this._oSliders.setMinutesStep(30);
+				this._oSliders.setSecondsStep(60);
 				radioGroup.setSelectedIndex(4); //set selection to empty if user manually changes date or time
 			};
 
 			this.startDate.attachChange(function() {
-				var button = null;
-				self.startDate = self.getView().byId(startDateID);
 				self.endDate = self.getView().byId(endDateID);
 				if (parseInt(this.getValue().split("/")[0]) === self.startingDay) {
-					radioGroup.setSelectedIndex(0);
-					button = radioGroup.getSelectedButton();
-					button.setEnabled(false);
-
-					radioGroup.setSelectedIndex(2);
-					radioGroup.getSelectedButton().setEnabled(false);
+					self._disableRadioButtons();
 				} else {
-					radioGroup.setSelectedIndex(0);
-					radioGroup.getSelectedButton().setEnabled(true);
-					radioGroup.setSelectedIndex(2);
-					radioGroup.getSelectedButton().setEnabled(true);
+					self._enableRadioButtons();
 				}
-				radioGroup.setSelectedIndex(4);
-				var startD = this.getValue().split("/");
-				var endD = self.endDate.getValue().split("/");
-				var startT = this.getValue().split(",");
-				var endT = self.endDate.getValue().split(",");
+				var startD = this.getValue().split("/"),
+					endD = self.endDate.getValue().split("/"),
+					startT = this.getValue().split(","),
+					endT = self.endDate.getValue().split(",");
 
 				if ((startD[0] > endD[0] && startD[1] >= endD[1]) || ((startD[0] === endD[0] && startD[1] === endD[1]) && startT[1] > endT[1]) ||
 					startT[1] === endT[1]) {
@@ -194,10 +183,10 @@ sap.ui.define([
 			});
 
 			this.endDate.attachChange(function() {
-				var startD = self.startDate.getValue().split("/");
-				var endD = this.getValue().split("/");
-				var startT = self.startDate.getValue().split(",");
-				var endT = this.getValue().split(",");
+				var startD = self.startDate.getValue().split("/"),
+					endD = this.getValue().split("/"),
+					startT = self.startDate.getValue().split(","),
+					endT = this.getValue().split(",");
 
 				if (((endD[0] === startD[0] && endD[1] === startD[1]) && startT[1] > endT[1]) ||
 					startT[1] === endT[1]) {
@@ -220,33 +209,67 @@ sap.ui.define([
 				}
 			});
 
-			//set Radio Button Group selection to null
-			this.periodSelection = this.getView().byId(radioGroupID);
-			this.periodSelection.setSelectedIndex(4);
-
 			//define event for when selection changes (Moorning, Afternoon or Day);
 			this.getView().byId(radioGroupID).attachSelect(function() {
-				var startDate = self.getView().byId(startDateID);
-				var endDate = self.getView().byId(endDateID);
-				var sDate = startDate.getValue().split(',')[0];
-				var infos = this.getSelectedButton().getText();
+				var startDate = self.getView().byId(startDateID),
+					endDate = self.getView().byId(endDateID),
+					infos = this.getSelectedButton().getText(),
+					dateA = new Date(),
+					dateB = new Date(),
+					sDateValue = startDate.getDateValue(),
+					sDate = startDate.getValue().split(",")[0];
 
+				dateA.setFullYear(sDateValue.getFullYear(), sDateValue.getMonth(), sDateValue.getDate());
+				dateB.setFullYear(sDateValue.getFullYear(), sDateValue.getMonth(), sDateValue.getDate());
+				dateA.setMinutes(0);
+				dateA.setSeconds(0);
+				dateB.setMinutes(0);
+				dateB.setSeconds(0);
 				switch (infos) {
 					case "Manhã":
-						startDate.setValue(sDate + ', 08:00');
-						endDate.setValue(sDate + ', 13:00');
+						dateA.setHours(8);
+						startDate.setDateValue(dateA);
+						startDate.setValue(sDate + ", 08:00");
+						dateB.setHours(13);
+						endDate.setDateValue(dateB);
+						endDate.setValue(sDate + ", 13:00");
 						break;
-
 					case "Tarde":
-						startDate.setValue(sDate + ', 14:00');
-						endDate.setValue(sDate + ', 20:00');
+						dateA.setHours(14);
+						startDate.setDateValue(dateA);
+						startDate.setValue(sDate + ", 14:00");
+						dateB.setHours(20);
+						endDate.setDateValue(dateB);
+						endDate.setValue(sDate + ", 20:00");
 						break;
 					case "Dia":
-						startDate.setValue(sDate + ', 08:00');
-						endDate.setValue(sDate + ', 20:00');
+						dateA.setHours(8);
+						startDate.setDateValue(dateA);
+						startDate.setValue(sDate + ", 08:00");
+						dateB.setHours(20);
+						endDate.setDateValue(dateB);
+						endDate.setValue(sDate + ", 20:00");
 						break;
 				}
 			});
+		},
+
+		_disableRadioButtons: function() {
+			var radioGroup = this.getView().byId('modal_selection');
+			radioGroup.setSelectedIndex(0);
+			radioGroup.getSelectedButton().setEnabled(false);
+			radioGroup.setSelectedIndex(2);
+			radioGroup.getSelectedButton().setEnabled(false);
+			radioGroup.setSelectedIndex(4);
+		},
+
+		_enableRadioButtons: function() {
+			var radioGroup = this.getView().byId('modal_selection');
+			radioGroup.setSelectedIndex(0);
+			radioGroup.getSelectedButton().setEnabled(true);
+			radioGroup.setSelectedIndex(2);
+			radioGroup.getSelectedButton().setEnabled(true);
+			radioGroup.setSelectedIndex(4);
 		},
 
 		_checkSelectedResources: function(buttonsArray) {
