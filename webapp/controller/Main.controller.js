@@ -107,6 +107,10 @@ sap.ui.define([
 		},
 
 		onReservePress: function(oEvent) {
+			if (this.appointments.length === 0) {
+				MessageToast.show("Indique pelo menos 1 data!");
+				return;
+			}
 			var self = this;
 			//TODO implement confirmation Modal
 			var oView = this.getView();
@@ -158,6 +162,31 @@ sap.ui.define([
 				text = "Nenhum.";
 			}
 			res.setText(text);
+			var appointments = this.appointments;
+			//Room
+			var room = oView.byId("txt_room");
+			room.setText(appointments[0].room + " do andar " + appointments[0].floor + ".");
+
+			//date
+			var date = oView.byId("txt_date"),
+				sDate = "";
+			for (var j = 0; j < appointments.length; j++) {
+				var start = this.dateFormatter(appointments[j].start),
+					end = this.dateFormatter(appointments[j].end);
+				start.setHours(0, 0, 0);
+				end.setHours(0, 0, 0);
+				if (start.getTime() === end.getTime()) {
+					sDate += "Dia " + appointments[j].start[2] + "/" + appointments[j].start[1] + "/" + appointments[j].start[0] + " entre as " +
+						appointments[j].start[3] + ":" + appointments[j].start[4] + "h e as " + appointments[j].end[3] + ":" + appointments[j].end[4] +
+						"h.\n";
+				}
+			}
+			date.setText(sDate);
+
+			//Meeting Type
+			var type = oView.byId("txt_type");
+			type.setText(appointments[0].title + ".");
+
 		},
 
 		handleAppointmentSelect: function(oEvent) {
@@ -323,17 +352,15 @@ sap.ui.define([
 		},
 
 		onDataReceived: function(channel, event, data) {
-			var self = this;
 			this.filters = data;
 			var floorList = this.getView().byId("floorList");
 			floorList.setSelectedItem(floorList.getItemByKey(this.filters.floor));
 			//this._refreshShownFloors(floorList); //TODO find a way around it not possible to do addStyleClass into a item
 			//dates handling
-			setTimeout(function() {
-				self._setDefaults("sb_start_date", "sb_end_date", "sb_selection", "sb_meeting_type", "sb_participants");
-				floorList.getItemByKey(self.filters.floor).focus();
-				self._changeModelPlanningCalendar(true);
-			}, 500);
+			this._setDefaults("sb_start_date", "sb_end_date", "sb_selection", "sb_meeting_type", "sb_participants");
+
+			floorList.getItemByKey(this.filters.floor).focus();
+			this._changeModelPlanningCalendar(true);
 		},
 
 		onChangeData: function(oEvent) {
@@ -467,72 +494,80 @@ sap.ui.define([
 			return index;
 		},
 
+		_disableRadioButtons: function() {
+			var radioGroup = this.getView().byId('sb_selection');
+			radioGroup.setSelectedIndex(0);
+			radioGroup.getSelectedButton().setEnabled(false);
+			radioGroup.setSelectedIndex(2);
+			radioGroup.getSelectedButton().setEnabled(false);
+			radioGroup.setSelectedIndex(4);
+		},
+
+		_enableRadioButtons: function() {
+			var radioGroup = this.getView().byId('sb_selection');
+			radioGroup.setSelectedIndex(0);
+			radioGroup.getSelectedButton().setEnabled(true);
+			radioGroup.setSelectedIndex(2);
+			radioGroup.getSelectedButton().setEnabled(true);
+			radioGroup.setSelectedIndex(4);
+		},
+
 		_setDefaults: function(startDateID, endDateID, radioGroupID, meetingTypeID, participantsID) {
-			var self = this;
+			var self = this,
+				radioGroup = this.getView().byId(radioGroupID),
+				date1 = new Date(),
+				date2 = new Date(),
+				beginning;
 			this.startDate = this.getView().byId(startDateID);
 			this.endDate = this.getView().byId(endDateID);
-			var radioGroup = this.getView().byId(radioGroupID);
 			//set Start date
-			var date = new Date();
-			var beginning;
-			if (date.getHours() <= 13) {
+			if (date1.getHours() <= 13) {
 				beginning = 14;
-				this.startingDay = date.getDate();
+				this.startingDay = date1.getDate();
 				//initial radio buttons correction (event is not triggered)
-				radioGroup.setSelectedIndex(0);
-				radioGroup.getSelectedButton().setEnabled(false);
-				radioGroup.setSelectedIndex(2);
-				radioGroup.getSelectedButton().setEnabled(false);
+				this._disableRadioButtons();
+
 			} else {
 				beginning = 8;
-				date.setDate(date.getDate() + 1); //move to next day
+				date1.setDate(date1.getDate() + 1); //move to next day
+				date2.setDate(date2.getDate() + 1); //move to next day
+				radioGroup.setSelectedIndex(this.filters.selection < 4 ? this.filters.selection : 4);
 			}
-			radioGroup.setSelectedIndex(4);
-			date.setHours(beginning);
-			date.setMinutes(0);
-			date.setSeconds(0);
-			this.startDate.setMinDate(date);
+			date1.setHours(beginning, 0, 0);
+			var actualDate = new Date();
+			actualDate.setHours(0,0,0);
+			this.getView().byId("PC1").setMinDate(actualDate);
+			this.startDate.setMinDate(date1);
 			this.startDate.setValue(this.filters.startDate);
 
 			//set End Date
-			date.setMinutes(30);
-			this.endDate.setMinDate(date);
+			date2.setHours(beginning, 30, 0);
+			this.endDate.setMinDate(date2);
 			this.endDate.setValue(this.filters.endDate);
+
 			//create date and time selection popup with correct time intervals for Start Date.
 			this.startDate._createPopupContent = function() {
-				self.startDate = self.getView().byId(startDateID);
 				sap.m.DateTimePicker.prototype._createPopupContent.apply(this, arguments);
-				self.startDate._oSliders.setMinutesStep(30);
-				self.startDate._oSliders.setSecondsStep(60);
+				this._oSliders.setMinutesStep(30);
+				this._oSliders.setSecondsStep(60);
 				radioGroup.setSelectedIndex(4); //set selection to empty if user manually changes date or time
 			};
 			//create date and time selection popup with correct time intervals for End Date.
 			this.endDate._createPopupContent = function() {
-				self.endDate = self.getView().byId(endDateID);
 				sap.m.DateTimePicker.prototype._createPopupContent.apply(this, arguments);
-				self.endDate._oSliders.setMinutesStep(30);
-				self.endDate._oSliders.setSecondsStep(60);
+				this._oSliders.setMinutesStep(30);
+				this._oSliders.setSecondsStep(60);
 				radioGroup.setSelectedIndex(4); //set selection to empty if user manually changes date or time
 			};
 
 			this.startDate.attachChange(function() {
-				var button = null;
 				self.startDate = self.getView().byId(startDateID);
 				self.endDate = self.getView().byId(endDateID);
 				if (parseInt(this.getValue().split("/")[0]) === self.startingDay) {
-					radioGroup.setSelectedIndex(0);
-					button = radioGroup.getSelectedButton();
-					button.setEnabled(false);
-
-					radioGroup.setSelectedIndex(2);
-					radioGroup.getSelectedButton().setEnabled(false);
+					self._disableRadioButtons();
 				} else {
-					radioGroup.setSelectedIndex(0);
-					radioGroup.getSelectedButton().setEnabled(true);
-					radioGroup.setSelectedIndex(2);
-					radioGroup.getSelectedButton().setEnabled(true);
+					self._enableRadioButtons();
 				}
-				radioGroup.setSelectedIndex(4);
 				var startD = this.getValue().split("/");
 				var endD = self.endDate.getValue().split("/");
 				var startT = this.getValue().split(",");
@@ -565,7 +600,8 @@ sap.ui.define([
 				var startT = self.startDate.getValue().split(",");
 				var endT = this.getValue().split(",");
 
-				if ((endD[0] < startD[0] && endD[1] <= startD[1]) || ((endD[0] === startD[0] && endD[1] === startD[1]) && startT[1] > endT[1])) {
+				if ((startD[0] > endD[0] && startD[1] >= endD[1]) || ((startD[0] === endD[0] && startD[1] === endD[1]) && startT[1] > endT[1]) ||
+					startT[1] === endT[1]) {
 					var auxDate, auxTime, aux, infoTime, infoDate, endTime, endDate;
 					aux = self.startDate.getValue().split(",");
 					auxTime = aux[1];
@@ -585,29 +621,48 @@ sap.ui.define([
 				}
 			});
 
-			//set Radio Button Group selection to null
-			this.periodSelection = this.getView().byId(radioGroupID);
-			this.periodSelection.setSelectedIndex(this.filters.selection ? this.filters.selection : 4);
-
 			//define event for when selection changes (Moorning, Afternoon or Day);
 			this.getView().byId(radioGroupID).attachSelect(function() {
-				var startDate = self.getView().byId(startDateID);
-				var endDate = self.getView().byId(endDateID);
-				var sDate = startDate.getValue().split(",")[0];
-				var infos = this.getSelectedButton().getText();
+				var startDate = self.getView().byId(startDateID),
+					endDate = self.getView().byId(endDateID),
+					infos = this.getSelectedButton().getText(),
+					dateA = new Date(),
+					dateB = new Date(),
+					sDateValue = startDate.getDateValue(),
+					sDate = startDate.getValue().split(",")[0],
+					eDateValue = endDate.getDateValue(),
+					eDate = endDate.getValue().split(",")[0];
+
+				dateA.setFullYear(sDateValue.getFullYear(), sDateValue.getMonth(), sDateValue.getDate());
+				dateB.setFullYear(eDateValue.getFullYear(), eDateValue.getMonth(), eDateValue.getDate());
+				dateA.setMinutes(0);
+				dateA.setSeconds(0);
+				dateB.setMinutes(0);
+				dateB.setSeconds(0);
 				switch (infos) {
 					case "Manhã":
+						dateA.setHours(8);
+						startDate.setDateValue(dateA);
 						startDate.setValue(sDate + ", 08:00");
-						endDate.setValue(sDate + ", 13:00");
+						dateB.setHours(13);
+						endDate.setDateValue(dateB);
+						endDate.setValue(eDate + ", 13:00");
 						break;
-
 					case "Tarde":
+						dateA.setHours(14);
+						startDate.setDateValue(dateA);
 						startDate.setValue(sDate + ", 14:00");
-						endDate.setValue(sDate + ", 20:00");
+						dateB.setHours(20);
+						endDate.setDateValue(dateB);
+						endDate.setValue(eDate + ", 20:00");
 						break;
 					case "Dia":
+						dateA.setHours(8);
+						startDate.setDateValue(dateA);
 						startDate.setValue(sDate + ", 08:00");
-						endDate.setValue(sDate + ", 20:00");
+						dateB.setHours(20);
+						endDate.setDateValue(dateB);
+						endDate.setValue(eDate + ", 20:00");
 						break;
 				}
 			});
