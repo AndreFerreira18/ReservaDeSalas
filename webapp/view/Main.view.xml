@@ -113,7 +113,7 @@
 						renderType="Div" visible="true" displayInline="true" class="sapUiResponsiveMargin">
 						<m:Image src="/webapp/images/triangle.png" class="sapUiNoContentPadding triangle" height="50px" width="100%" densityAware="false"/>
 						<m:ScrollContainer height="300px" width="100%" horizontal="false" vertical="true" focusable="true">
-							<m:SelectList id="floorList" class="floors" items="{ path: '/' }" selectionChange="selectionChange">
+							<m:SelectList id="floorList" class="floors" items="{ path: '/' }" selectionChange="onSelectionChange">
 								<core:Item key="{FloorId}" text="{Name}"/>
 							</m:SelectList>
 						</m:ScrollContainer>
