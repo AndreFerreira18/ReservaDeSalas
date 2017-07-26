@@ -5,8 +5,9 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"jquery.sap.global",
 	"./utilities",
-	"sap/m/MessageToast"
-], function(BaseController, MessageBox, Utilities, JSONModel, jquery, History, MessageToast) {
+	"sap/m/MessageToast",
+	"sap/m/Text"
+], function(BaseController, MessageBox, Utilities, JSONModel, jquery, History, MessageToast, Text) {
 	"use strict";
 
 	this.visibleFloors = 6;
@@ -134,8 +135,8 @@ sap.ui.define([
 
 			oDialog.open();
 		},
-		
-		updateConfirmationModalFields: function(){
+
+		updateConfirmationModalFields: function() {
 			//update modal fields with Filters data
 			var oView = this.getView();
 			//participants
@@ -153,7 +154,7 @@ sap.ui.define([
 					text += resources[i] + ".";
 				}
 			}
-			if(text === ""){
+			if (text === "") {
 				text = "Nenhum.";
 			}
 			res.setText(text);
@@ -187,7 +188,7 @@ sap.ui.define([
 				var data = modelPC.getData();
 				var roomIndex = oPC.indexOfRow(row);
 				var selectedFloor = self.getView().byId("floorList").getSelectedItem();
-				var selectedFloorKey = self._getKeyOfFloorName(selectedFloor.getText(),data);
+				var selectedFloorKey = self._getKeyOfFloorName(selectedFloor.getText(), data);
 				data = data.floors[selectedFloorKey];
 				var newAppointment = {
 					start: startDate,
@@ -224,7 +225,7 @@ sap.ui.define([
 					self.appointments.push(newAppointment);
 				}
 				for (i = 0; i < self.appointments.length; i++) {
-					data.rooms[roomIndex].appointments.push(self.appointments[i]);  //TODO ver o que fazer quando selecionamos outra sala
+					data.rooms[roomIndex].appointments.push(self.appointments[i]); //TODO ver o que fazer quando selecionamos outra sala
 				}
 				modelPC.setData(data);
 				planCal.setModel(modelPC);
@@ -368,28 +369,79 @@ sap.ui.define([
 					roomInfo[1] = data.floors[selectedFloorKey].rooms[0].name;
 				}
 				if (AddAppointment) {
-					var newAppointment = {
-						start: self._getArrayDate(self.getStartDate()),
-						end: self._getArrayDate(self.getEndDate()),
-						title: self.getMeetingType(),
-						floor: selectedFloor.getText(),
-						room: roomInfo[1],
-						resources: self.getResources(),
-						type: "Type01",
-						tentative: false
-					};
-					self.appointments.push(newAppointment);
+					var startDate = self._getArrayDate(self.getStartDate());
+					var endDate = self._getArrayDate(self.getEndDate());
+					var openDialog = false;
+					for (var i = 0; i < data.floors[selectedFloorKey].rooms[roomInfo[0]].appointments.length; i++) {
+						if (self._inRange(data.floors[selectedFloorKey].rooms[roomInfo[0]].appointments[i].start, startDate, endDate) || self._inRange(
+								data.floors[selectedFloorKey].rooms[roomInfo[0]].appointments[i].end, startDate, endDate)) {
+							openDialog = true;
+						}
+					}
+					if (openDialog) {
+						self.genericDialog({
+							"title": "Verificar Disponibilidade",
+							"body": "Com as datas selecionadas não é possivel executar uma reserva. Por favou selecionar um conjunto de datas diferentes."
+						});
+					} else {
+						var newAppointment = {
+							start: startDate,
+							end: endDate,
+							title: self.getMeetingType(),
+							floor: selectedFloor.getText(),
+							room: roomInfo[1],
+							resources: self.getResources(),
+							type: "Type01",
+							tentative: false
+						};
+						self.appointments.push(newAppointment);
+					}
 				}
 				for (var i = 0; i < self.appointments.length; i++) {
 					if (self.appointments[i] && self.appointments[i].floor === selectedFloor.getText()) {
 						data.floors[selectedFloorKey].rooms[roomInfo[0]].appointments.push(self.appointments[i]);
 					}
 				}
-
-				this.setData(data.floors[selectedFloorKey]);
-				planCal.setModel(this);
+				modelPC.setData(data.floors[selectedFloorKey]);
+				planCal.setModel(modelPC);
 			}).loadData("/webapp/mockdata/Reservations.json");
 
+		},
+
+		genericDialog: function(dialogData, callback) {
+			var view = this.getView();
+			var dialog = view.byId("genDialog");
+
+			var genericController = {
+				closeDialog: function() {
+					dialog.close();
+				},
+
+				confirmationPress: function() {
+					dialog.close();
+					callback && callback();
+				}
+			};
+			// create dialog lazily
+			if (!dialog) {
+				dialog = sap.ui.xmlfragment(view.getId(), "odkasfactory.reservasalas.view.GenericDialog", genericController);
+				view.addDependent(dialog);
+			}
+
+			//updade dialog information
+			if (dialogData.title) {
+				dialog.setTitle(dialogData.title);
+			}
+			if (dialogData.body) {
+				var text = new Text();
+				text.setText(dialogData.body);
+				text.setWidth("100%");
+				text.setTextAlign("Center");
+				text.addStyleClass("sapMText sapUiSmallMarginTop sapUiSmallMarginBottom");
+				dialog.destroyContent();
+				dialog.insertContent(text, -1);
+			}
+			dialog.open();
 		},
 
 		_getSelectedRoom: function() {

@@ -1,0 +1,8 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout">
+	<Dialog id="genDialog" class="sapUiResponsiveMargin confDialogContainer">
+		<buttons>
+			<Button text="Confirmar" press="confirmationPress"></Button>
+			<Button text="Cancelar" press="closeDialog"></Button>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>
