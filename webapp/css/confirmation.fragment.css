@@ -1,0 +1,29 @@
+.confirmationLabel {
+	font-weight: bold !important;
+}
+
+.textareaContainer {
+	width: 100% !important;
+}
+
+.confDialogContainer {
+	min-width: 100% !important;
+}
+
+@media (min-width: 400px) {
+	.confDialogContainer {
+	min-width: 25rem !important;
+}
+}
+
+@media (min-width: 600px) {
+	.textareaContainer {
+		width: calc(100% - 3rem) !important;
+	}
+}
+
+@media (min-width: 1024px) {
+	.textareaContainer {
+		width: calc(100% - 5rem) !important;
+	}
+}
