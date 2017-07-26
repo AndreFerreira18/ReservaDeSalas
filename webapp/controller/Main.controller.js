@@ -103,7 +103,6 @@ sap.ui.define([
 		},
 
 		onClearPress: function(oEvent) {
-			//TODO Nuno: implement clear appointments functionality
 			this.appointments = [];
 			this._changeModelPlanningCalendar(false);
 		},
@@ -155,19 +154,21 @@ sap.ui.define([
 			startDate = this._getArrayDate(tempTime[0]);
 			endDate = this._getArrayDate(tempTime[1]);
 			var row = event.getParameter("row");
-			var modelPC = new JSONModel();
 			var self = this;
+			var modelPC = new JSONModel();
 			modelPC.attachEvent("requestCompleted", function() {
+				var planCal = self.getView().byId("PC1");
 				var data = modelPC.getData();
-				var index = oPC.indexOfRow(row);
-				data = data.floors[index];
+				var roomIndex = oPC.indexOfRow(row);
 				var selectedFloor = self.getView().byId("floorList").getSelectedItem();
+				var selectedFloorKey = self._getKeyOfFloorName(selectedFloor.getText(),data);
+				data = data.floors[selectedFloorKey];
 				var newAppointment = {
 					start: startDate,
 					end: endDate,
 					title: self.getMeetingType(),
 					floor: selectedFloor.getText(),
-					room: data.rooms[index].name,
+					room: data.rooms[roomIndex].name,
 					resources: self.getResources(),
 					type: "Type01",
 					tentative: false
@@ -179,26 +180,28 @@ sap.ui.define([
 						if (self._inRange(startDate, self.appointments[i].start, self.appointments[i].end) || self._isContiguousDates(self.appointments[
 									i].end,
 								startDate)) {
-							self.appointments.rooms[index].appointments[i].end = endDate;
+							self.appointments[i].end = endDate;
 							isContiguous = true;
 						}
 						if (self._inRange(endDate, self.appointments[i].start, self.appointments[i].end) || self._isContiguousDates(endDate, self.appointments[
 								i].start)) {
-							self.appointments.rooms[index].appointments[i].start = startDate;
+							self.appointments[i].start = startDate;
 							isContiguous = true;
 						}
 					}
 					if (!isContiguous) {
 						self.appointments.push(newAppointment);
-
+					} else {
+						//TODO ver se é para juntar os apointments 	
 					}
 				} else {
 					self.appointments.push(newAppointment);
 				}
 				for (i = 0; i < self.appointments.length; i++) {
-					data.rooms[index].appointments.push(self.appointments[i]);
+					data.rooms[roomIndex].appointments.push(self.appointments[i]);  //TODO ver o que fazer quando selecionamos outra sala
 				}
 				modelPC.setData(data);
+				planCal.setModel(modelPC);
 			}).loadData("/webapp/mockdata/Reservations.json");
 		},
 
@@ -214,7 +217,6 @@ sap.ui.define([
 			return [startDate, endDate];
 		},
 
-		//TODO Remake not working yet
 		_isSameInfoReservation: function(appointments, appointment) {
 
 			var arraySameApointment = [];
@@ -321,7 +323,7 @@ sap.ui.define([
 			this._changeModelPlanningCalendar(true);
 		},
 
-		selectionChange: function() {
+		onSelectionChange: function() {
 
 			this._changeModelPlanningCalendar(false);
 		},
