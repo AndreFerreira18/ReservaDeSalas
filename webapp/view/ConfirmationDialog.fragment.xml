@@ -1,32 +1,22 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout">
 	<Dialog id="confDialog" title="Informações da Reserva " class="sapUiResponsiveMargin confDialogContainer">
 		<layout:HorizontalLayout>
-			<!--<layout:VerticalLayout width="200px" class="sapUiResponsiveMargin labelsContainer">-->
-			<!--	<Text class="confirmationLabel sapUiSmallMarginBottom" text="Responsável: "/>-->
-			<!--	<Text class="confirmationLabel sapUiSmallMarginBottom" text="Data: "/>-->
-			<!--	<Text class="confirmationLabel sapUiSmallMarginBottom" text="Sala: "/>-->
-			<!--	<Text class="confirmationLabel sapUiSmallMarginBottom" text="Participantes previstos: "/>-->
-			<!--	<Text class="confirmationLabel sapUiSmallMarginBottom" text="Recursos: "/>-->
-			<!--</layout:VerticalLayout>-->
-			<!--<layout:VerticalLayout class="sapUiResponsiveMargin">-->
-			<!--	<Text class="sapUiSmallMarginBottom" id="txt_responsable" text="João Sousa Silva." />-->
-			<!--	<Text class="sapUiSmallMarginBottom" id="txt_date" text="Dia 04/07/2017 entre as 8:00h e as 12:00h."/>-->
-			<!--	<Text class="sapUiSmallMarginBottom" id="txt_room" text="0.1 do andar Rés-do-Chão."/>-->
-			<!--	<Text class="sapUiSmallMarginBottom" id="txt_participants" text="15" />-->
-			<!--	<Text class="sapUiSmallMarginBottom" id="txt_resources" text="Microfone, Laser, Projetor."/>-->
-			<!--</layout:VerticalLayout>-->
 			<layout:VerticalLayout>
 				<HBox width="100%" alignItems="Start" alignContent="SpaceAround" class="sapUiResponsiveMargin">
 					<Label class="confirmationLabel sapUiSmallMarginTop sapUiTinyMarginBegin " text="Responsável:"/>
-					<Text class="sapUiSmallMarginTop sapUiTinyMarginBegin" id="txt_responsable" text="João Sousa Silva."/>
+					<Text class="sapUiSmallMarginTop sapUiTinyMarginBegin" id="txt_responsable" text="Master"/>
+				</HBox>
+				<HBox width="100%" alignItems="Start" alignContent="SpaceAround" class="sapUiResponsiveMargin">
+					<Label class="confirmationLabel sapUiSmallMarginTop sapUiTinyMarginBegin " text="Tipo de Reunião:"/>
+					<Text class="sapUiSmallMarginTop sapUiTinyMarginBegin" id="txt_type"/>
 				</HBox>
 				<HBox width="100%" alignItems="Start" alignContent="SpaceAround" class="sapUiResponsiveMargin">
 					<Label class="confirmationLabel sapUiSmallMarginTop sapUiTinyMarginBegin" text="Data: "/>
-					<Text class="sapUiSmallMarginTop sapUiTinyMarginBegin" id="txt_date" text="Dia 04/07/2017 entre as 8:00h e as 12:00h."/>
+					<Text class="sapUiSmallMarginTop sapUiTinyMarginBegin" id="txt_date"/>
 				</HBox>
 				<HBox width="100%" alignItems="Start" alignContent="SpaceAround" class="sapUiResponsiveMargin">
 					<Label class="confirmationLabel sapUiSmallMarginTop sapUiTinyMarginBegin" text="Sala: "/>
-					<Text class="sapUiSmallMarginTop sapUiTinyMarginBegin" id="txt_room" text="0.1 do andar Rés-do-Chão."/>
+					<Text class="sapUiSmallMarginTop sapUiTinyMarginBegin" id="txt_room"/>
 				</HBox>
 				<HBox width="100%" alignItems="Start" alignContent="SpaceAround" class="sapUiResponsiveMargin">
 					<Label class="confirmationLabel sapUiSmallMarginTop sapUiTinyMarginBegin" text="Participantes previstos: "/>

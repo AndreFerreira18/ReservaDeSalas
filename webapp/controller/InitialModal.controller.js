@@ -189,7 +189,7 @@ sap.ui.define([
 					endT = this.getValue().split(",");
 
 				if (((endD[0] === startD[0] && endD[1] === startD[1]) && startT[1] > endT[1]) ||
-					startT[1] === endT[1]) {
+					startT[1] === endT[1] || (endD[0] < startD[0])) {
 					var auxDate, auxTime, aux, infoTime, infoDate, endTime, endDate;
 					aux = self.startDate.getValue().split(",");
 					auxTime = aux[1];
@@ -211,16 +211,18 @@ sap.ui.define([
 
 			//define event for when selection changes (Moorning, Afternoon or Day);
 			this.getView().byId(radioGroupID).attachSelect(function() {
-				var startDate = self.getView().byId(startDateID),
+					var startDate = self.getView().byId(startDateID),
 					endDate = self.getView().byId(endDateID),
 					infos = this.getSelectedButton().getText(),
 					dateA = new Date(),
 					dateB = new Date(),
 					sDateValue = startDate.getDateValue(),
-					sDate = startDate.getValue().split(",")[0];
+					sDate = startDate.getValue().split(",")[0],
+					eDateValue = endDate.getDateValue(),
+					eDate = endDate.getValue().split(",")[0];
 
 				dateA.setFullYear(sDateValue.getFullYear(), sDateValue.getMonth(), sDateValue.getDate());
-				dateB.setFullYear(sDateValue.getFullYear(), sDateValue.getMonth(), sDateValue.getDate());
+				dateB.setFullYear(eDateValue.getFullYear(), eDateValue.getMonth(), eDateValue.getDate());
 				dateA.setMinutes(0);
 				dateA.setSeconds(0);
 				dateB.setMinutes(0);
@@ -232,7 +234,7 @@ sap.ui.define([
 						startDate.setValue(sDate + ", 08:00");
 						dateB.setHours(13);
 						endDate.setDateValue(dateB);
-						endDate.setValue(sDate + ", 13:00");
+						endDate.setValue(eDate + ", 13:00");
 						break;
 					case "Tarde":
 						dateA.setHours(14);
@@ -240,7 +242,7 @@ sap.ui.define([
 						startDate.setValue(sDate + ", 14:00");
 						dateB.setHours(20);
 						endDate.setDateValue(dateB);
-						endDate.setValue(sDate + ", 20:00");
+						endDate.setValue(eDate + ", 20:00");
 						break;
 					case "Dia":
 						dateA.setHours(8);
@@ -248,7 +250,7 @@ sap.ui.define([
 						startDate.setValue(sDate + ", 08:00");
 						dateB.setHours(20);
 						endDate.setDateValue(dateB);
-						endDate.setValue(sDate + ", 20:00");
+						endDate.setValue(eDate + ", 20:00");
 						break;
 				}
 			});

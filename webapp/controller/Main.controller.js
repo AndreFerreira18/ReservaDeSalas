@@ -106,6 +106,10 @@ sap.ui.define([
 		},
 
 		onReservePress: function(oEvent) {
+			if (this.appointments.length === 0) {
+				MessageToast.show("Indique pelo menos 1 data!");
+				return;
+			}
 			var self = this;
 			//TODO implement confirmation Modal
 			var oView = this.getView();
@@ -136,6 +140,7 @@ sap.ui.define([
 		},
 
 		updateConfirmationModalFields: function() {
+
 			//update modal fields with Filters data
 			var oView = this.getView();
 			//participants
@@ -157,24 +162,31 @@ sap.ui.define([
 				text = "Nenhum.";
 			}
 			res.setText(text);
-			var appointment = this.newAppointment;
+			var appointments = this.appointments;
 			//Room
 			var room = oView.byId("txt_room");
-			room.setText(appointment.room + " do andar " + appointment.floor + ".");
-			
-			//Date
+			room.setText(appointments[0].room + " do andar " + appointments[0].floor + ".");
+
+			//date
 			var date = oView.byId("txt_date"),
-				start = this.dateFormatter(appointment.start),
-				end = this.dateFormatter(appointment.end),
 				sDate = "";
-			start.setHours(0,0,0);
-			end.setHours(0,0,0);
-			if(start.getTime() === end.getTime()){
-				sDate = "Dia " + appointment.start[2] + "/" + appointment.start[1] + "/" + appointment.start[0] + " entre as " + appointment.start[3] + ":" + appointment.start[4] + "h e as " + appointment.end[3] + ":" + appointment.end[4] + "h.";
+			for (var j = 0; j < appointments.length; j++) {
+				var start = this.dateFormatter(appointments[j].start),
+					end = this.dateFormatter(appointments[j].end);
+				start.setHours(0, 0, 0);
+				end.setHours(0, 0, 0);
+				if (start.getTime() === end.getTime()) {
+					sDate += "Dia " + appointments[j].start[2] + "/" + appointments[j].start[1] + "/" + appointments[j].start[0] + " entre as " +
+						appointments[j].start[3] + ":" + appointments[j].start[4] + "h e as " + appointments[j].end[3] + ":" + appointments[j].end[4] +
+						"h.\n";
+				}
 			}
 			date.setText(sDate);
-			
-			
+
+			//Meeting Type
+			var type = oView.byId("txt_type");
+			type.setText(appointments[0].title + ".");
+
 		},
 
 		handleAppointmentSelect: function(oEvent) {
@@ -205,7 +217,7 @@ sap.ui.define([
 				var data = modelPC.getData();
 				var roomIndex = oPC.indexOfRow(row);
 				var selectedFloor = self.getView().byId("floorList").getSelectedItem();
-				var selectedFloorKey = self._getKeyOfFloorName(selectedFloor.getText(),data);
+				var selectedFloorKey = self._getKeyOfFloorName(selectedFloor.getText(), data);
 				data = data.floors[selectedFloorKey];
 				var newAppointment = {
 					start: startDate,
@@ -242,7 +254,7 @@ sap.ui.define([
 					self.appointments.push(newAppointment);
 				}
 				for (i = 0; i < self.appointments.length; i++) {
-					data.rooms[roomIndex].appointments.push(self.appointments[i]);  //TODO ver o que fazer quando selecionamos outra sala
+					data.rooms[roomIndex].appointments.push(self.appointments[i]); //TODO ver o que fazer quando selecionamos outra sala
 				}
 				modelPC.setData(data);
 				planCal.setModel(modelPC);
@@ -535,7 +547,8 @@ sap.ui.define([
 				var startT = self.startDate.getValue().split(",");
 				var endT = this.getValue().split(",");
 
-				if ((endD[0] < startD[0] && endD[1] <= startD[1]) || ((endD[0] === startD[0] && endD[1] === startD[1]) && startT[1] > endT[1])) {
+				if ((startD[0] > endD[0] && startD[1] >= endD[1]) || ((startD[0] === endD[0] && startD[1] === endD[1]) && startT[1] > endT[1]) ||
+					startT[1] === endT[1]) {
 					var auxDate, auxTime, aux, infoTime, infoDate, endTime, endDate;
 					aux = self.startDate.getValue().split(",");
 					auxTime = aux[1];
@@ -563,10 +576,12 @@ sap.ui.define([
 					dateA = new Date(),
 					dateB = new Date(),
 					sDateValue = startDate.getDateValue(),
-					sDate = startDate.getValue().split(",")[0];
-					
+					sDate = startDate.getValue().split(",")[0],
+					eDateValue = endDate.getDateValue(),
+					eDate = endDate.getValue().split(",")[0];
+
 				dateA.setFullYear(sDateValue.getFullYear(), sDateValue.getMonth(), sDateValue.getDate());
-				dateB.setFullYear(sDateValue.getFullYear(), sDateValue.getMonth(), sDateValue.getDate());
+				dateB.setFullYear(eDateValue.getFullYear(), eDateValue.getMonth(), eDateValue.getDate());
 				dateA.setMinutes(0);
 				dateA.setSeconds(0);
 				dateB.setMinutes(0);
@@ -578,7 +593,7 @@ sap.ui.define([
 						startDate.setValue(sDate + ", 08:00");
 						dateB.setHours(13);
 						endDate.setDateValue(dateB);
-						endDate.setValue(sDate + ", 13:00");
+						endDate.setValue(eDate + ", 13:00");
 						break;
 					case "Tarde":
 						dateA.setHours(14);
@@ -586,7 +601,7 @@ sap.ui.define([
 						startDate.setValue(sDate + ", 14:00");
 						dateB.setHours(20);
 						endDate.setDateValue(dateB);
-						endDate.setValue(sDate + ", 20:00");
+						endDate.setValue(eDate + ", 20:00");
 						break;
 					case "Dia":
 						dateA.setHours(8);
@@ -594,7 +609,7 @@ sap.ui.define([
 						startDate.setValue(sDate + ", 08:00");
 						dateB.setHours(20);
 						endDate.setDateValue(dateB);
-						endDate.setValue(sDate + ", 20:00");
+						endDate.setValue(eDate + ", 20:00");
 						break;
 				}
 			});
