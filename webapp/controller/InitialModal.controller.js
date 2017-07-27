@@ -189,7 +189,7 @@ sap.ui.define([
 					endT = this.getValue().split(",");
 
 				if (((endD[0] === startD[0] && endD[1] === startD[1]) && startT[1] > endT[1]) ||
-					startT[1] === endT[1] || (endD[0] < startD[0])) {
+					startT[1] === endT[1] || (endD[0] < startD[0] && endD[1] === startD[1])) {
 					var auxDate, auxTime, aux, infoTime, infoDate, endTime, endDate;
 					aux = self.startDate.getValue().split(",");
 					auxTime = aux[1];
@@ -211,7 +211,7 @@ sap.ui.define([
 
 			//define event for when selection changes (Moorning, Afternoon or Day);
 			this.getView().byId(radioGroupID).attachSelect(function() {
-					var startDate = self.getView().byId(startDateID),
+				var startDate = self.getView().byId(startDateID),
 					endDate = self.getView().byId(endDateID),
 					infos = this.getSelectedButton().getText(),
 					dateA = new Date(),

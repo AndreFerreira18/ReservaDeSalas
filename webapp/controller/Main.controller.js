@@ -547,8 +547,8 @@ sap.ui.define([
 				var startT = self.startDate.getValue().split(",");
 				var endT = this.getValue().split(",");
 
-				if ((startD[0] > endD[0] && startD[1] >= endD[1]) || ((startD[0] === endD[0] && startD[1] === endD[1]) && startT[1] > endT[1]) ||
-					startT[1] === endT[1]) {
+				if (((endD[0] === startD[0] && endD[1] === startD[1]) && startT[1] > endT[1]) ||
+					startT[1] === endT[1] || (endD[0] < startD[0] && endD[1] === startD[1])) {
 					var auxDate, auxTime, aux, infoTime, infoDate, endTime, endDate;
 					aux = self.startDate.getValue().split(",");
 					auxTime = aux[1];
