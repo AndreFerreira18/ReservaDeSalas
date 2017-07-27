@@ -12,9 +12,8 @@ sap.ui.define([
 
 	this.visibleFloors = 6;
 	this.selectedFloor = null;
-	this.minVisibleFloor = null;
-	this.maxVisibleFloor = null;
 	this.filters = {};
+	this.myAppointments = [];
 	this.appointments = [];
 	this.startingDay = null;
 
@@ -23,15 +22,14 @@ sap.ui.define([
 		dateFormatter: function(sDate) {
 			return new Date(sDate[0], sDate[1], sDate[2], sDate[3], sDate[4]);
 		},
-		
-		mergeTable: function(){
-			
+
+		mergeTable: function() {
+
 		},
 
 		onInit: function() {
 			this.appointments = [];
-			this.minVisibleFloor = 2;
-			this.maxVisibleFloor = 5;
+			this.myAppointments = [];
 			var self = this;
 
 			var modelFloors = new JSONModel();
@@ -46,7 +44,7 @@ sap.ui.define([
 				this.setData(this.getData().floors[0]);
 				planCal.setModel(this);
 			}).loadData("/webapp/mockdata/Reservations.json");
-	
+
 			var modelTable = new JSONModel();
 			modelTable.attachEvent("requestCompleted", function() {
 				var table = self.getView().byId("reservationsTable");
@@ -135,6 +133,7 @@ sap.ui.define([
 				confirmationPress: function() {
 					var sText = self.getView().byId("confirmDialogTextarea").getValue();
 					MessageToast.show("A sua reserva foi criada com a nota: " + sText + " ! [DUMMY]");
+					self.updateTable();
 					oDialog.close();
 				}
 			};
@@ -148,6 +147,68 @@ sap.ui.define([
 			this.updateConfirmationModalFields();
 
 			oDialog.open();
+		},
+
+		updateTable: function() {
+			var self = this;
+			var modelTable = new JSONModel();
+			modelTable.attachEvent("requestCompleted", function() {
+				var table = self.getView().byId("reservationsTable");
+				var data = modelTable.getData();
+				//previous appointments
+				for (var j = 0; j < self.myAppointments.length; j++) {
+					data.appointments.push.push(self.myAppointments[j]);
+				}
+				//new appointments
+				for (var i = 0; i < self.appointments.length; i++) {
+					var startDate = self.dateFormatter(self.appointments[i].start);
+					var endDate = self.dateFormatter(self.appointments[i].end);
+					var myApointment = {
+						"status": "Pendente",
+						"metingtype": self.appointments[i].title,
+						"room": self.appointments[i].room,
+						"date": self._toStringDate(startDate),
+						"startTime": self._toStringTime(startDate),
+						"endTime": self._toStringTime(endDate)
+					};
+					data.appointments.push(myApointment);
+				}
+				//Clear Planning Calendar
+				self.appointments = [];
+				self._changeModelPlanningCalendar(false);
+				modelTable.setData(data);
+				table.setModel(modelTable);
+			}).loadData("/webapp/mockdata/MyReservations.json");
+		},
+
+		_toStringDate: function(date) {
+			var day = date.getDate();
+			if (day < 10) {
+				day = "0" + day;
+			}
+			var month = date.getMonth() + 1;
+			if (month < 10) {
+				month = "0" + month;
+			}
+			var year = date.getFullYear();
+			return day + "/" + month + "/" + year;
+		},
+
+		_toStringTime: function(date) {
+			var hour = date.getHours();
+			if (hour < 10) {
+				hour = "0" + hour;
+			}
+			var minutes = date.getMinutes();
+			if (minutes === 0) {
+				minutes = "00";
+			} else {
+				if (minutes < 10) {
+					minutes = "0" + minutes;
+				}
+			}
+
+			return hour + ":" + minutes;
 		},
 
 		updateConfirmationModalFields: function() {
