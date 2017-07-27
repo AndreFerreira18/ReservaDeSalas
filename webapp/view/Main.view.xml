@@ -124,7 +124,7 @@
 					<m:PlanningCalendar id="PC1" viewKey="DDD" rows="{path: '/rooms'}" singleSelection="true" showIntervalHeaders="true"
 						showEmptyIntervalHeaders="false" appointmentSelect="handleAppointmentSelect" intervalSelect="handleIntervalSelect">
 						<m:toolbarContent>
-							<m:Title text="Title" titleStyle="H4"/>
+							<m:Title text="Disponibilidade" titleStyle="H4"/>
 						</m:toolbarContent>
 						<m:views>
 							<m:PlanningCalendarView key="A" intervalType="Hour" description="Vista por Hora" showSubIntervals="true"></m:PlanningCalendarView>
@@ -163,28 +163,28 @@
 						<m:layoutData><layout:GridData span="L9 M7 S12"/></m:layoutData>
 					</m:HBox>
 					<!--Reserves Table-->
-					<m:Table id="reservationsTable" width="auto" height="auto" noDataText="Não existem reservas." growing="false" growingThreshold="20"
+					<m:Table id="reservationsTable" width="auto" height="auto" noDataText="Não existem reservas." items="{path: '/' }" growing="true" growingThreshold="5"
 						growingScrollToLoad="true" class="sapUiResponsiveMargin ">
 						<m:columns>
-							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="true">
+							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="true" mergeFunctionName="mergeTable">
 								<m:header>
 									<m:Text text="Status" width="auto" textAlign="Begin" textDirection="Inherit"/>
 								</m:header>
 								<m:footer/>
 							</m:Column>
-							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="true">
+							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="true" mergeFunctionName="mergeTable">
 								<m:header>
 									<m:Text text="Tipo de Reunião" width="auto" textAlign="Begin" textDirection="Inherit"/>
 								</m:header>
 								<m:footer/>
 							</m:Column>
-							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="true">
+							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="true" mergeFunctionName="mergeTable">
 								<m:header>
 									<m:Text text="Sala" width="auto" textAlign="Begin" textDirection="Inherit"/>
 								</m:header>
 								<m:footer/>
 							</m:Column>
-							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="true">
+							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="true" mergeFunctionName="mergeTable">
 								<m:header>
 									<m:Text text="Data" width="auto" textAlign="Begin" textDirection="Inherit"/>
 								</m:header>
@@ -206,44 +206,15 @@
 						<m:items>
 							<m:ColumnListItem type="Active">
 								<m:cells>
-									<m:Text text="Aprovado" width="auto" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="Formação" width="auto" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="Sala 0.1" width="auto" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="03/07/2017" width="auto" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="09:00" width="auto" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="13:00" width="auto" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="{status}" width="auto" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="{metingtype}" width="auto" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="{room}" width="auto" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="{date}" width="auto" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="{startTime}" width="auto" textAlign="Begin" textDirection="Inherit"/>
+									<m:Text text="{endTime}" width="auto" textAlign="Begin" textDirection="Inherit"/>
 								</m:cells>
 							</m:ColumnListItem>
-							<m:ColumnListItem type="Active">
-								<m:cells>
-									<m:Text text="Rejeitado" width="auto" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="Interna" width="auto" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="Sala 4.2" width="auto" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="04/07/2017" width="auto" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="14:00" width="auto" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="18:00" width="auto" textAlign="Begin" textDirection="Inherit"/>
-								</m:cells>
-							</m:ColumnListItem>
-							<m:ColumnListItem type="Active">
-								<m:cells>
-									<m:Text text="Rejeitado" width="auto" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="Interna" width="auto" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="Sala 4.2" width="auto" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="06/07/2017" width="auto" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="08:00" width="auto" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="13:00" width="auto" textAlign="Begin" textDirection="Inherit"/>
-								</m:cells>
-							</m:ColumnListItem>
-							<m:ColumnListItem type="Active">
-								<m:cells>
-									<m:Text text="Pendente" width="auto" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="Formação" width="auto" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="Sala 1.3" width="auto" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="10/07/2017" width="auto" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="09:00" width="auto" textAlign="Begin" textDirection="Inherit"/>
-									<m:Text text="18:00" width="auto" textAlign="Begin" textDirection="Inherit"/>
-								</m:cells>
-							</m:ColumnListItem>
+							
 						</m:items>
 						<m:layoutData><layout:GridData span="L9 M7 S12"/></m:layoutData>
 					</m:Table>

@@ -5,8 +5,9 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"jquery.sap.global",
 	"./utilities",
-	"sap/m/MessageToast"
-], function(BaseController, MessageBox, Utilities, JSONModel, jquery, History, MessageToast) {
+	"sap/m/MessageToast",
+	"sap/m/Text"
+], function(BaseController, MessageBox, Utilities, JSONModel, jquery, History, MessageToast, Text) {
 	"use strict";
 
 	this.visibleFloors = 6;
@@ -21,6 +22,10 @@ sap.ui.define([
 
 		dateFormatter: function(sDate) {
 			return new Date(sDate[0], sDate[1], sDate[2], sDate[3], sDate[4]);
+		},
+		
+		mergeTable: function(){
+			
 		},
 
 		onInit: function() {
@@ -41,6 +46,12 @@ sap.ui.define([
 				this.setData(this.getData().floors[0]);
 				planCal.setModel(this);
 			}).loadData("/webapp/mockdata/Reservations.json");
+	
+			var modelTable = new JSONModel();
+			modelTable.attachEvent("requestCompleted", function() {
+				var table = self.getView().byId("reservationsTable");
+				table.setModel(this);
+			}).loadData("/webapp/mockdata/MyReservations.json");
 
 			var eventBus = this.getOwnerComponent().getEventBus();
 			eventBus.subscribe("InitialToMainChannel", "onRouteInitialMain", this.onDataReceived, this);
@@ -87,7 +98,7 @@ sap.ui.define([
 
 					var cells2 = document.querySelectorAll(".sapMListTblSubRow");
 					length = cells2.length;
-					for (var j = 0; j < length; j++) {
+					for (j = 0; j < length; j++) {
 						cells2[j].children[0].colSpan = "2";
 						cells2[j].children[0].style.borderBottom = "1px solid #e5e5e5";
 					}
@@ -100,7 +111,7 @@ sap.ui.define([
 			this.startingDay = null;
 		},
 
-		onClearPress: function(oEvent) {
+		onClearPress: function() {
 			this.appointments = [];
 			this._changeModelPlanningCalendar(false);
 		},
@@ -140,7 +151,6 @@ sap.ui.define([
 		},
 
 		updateConfirmationModalFields: function() {
-
 			//update modal fields with Filters data
 			var oView = this.getView();
 			//participants
@@ -370,7 +380,7 @@ sap.ui.define([
 			this._changeModelPlanningCalendar(true);
 		},
 
-		onChangeData: function(oEvent) {
+		onChangeData: function() {
 
 			//TODO remove! This is only for testing purposes.
 			var aux = this.getMeetingType();
@@ -403,28 +413,114 @@ sap.ui.define([
 					roomInfo[1] = data.floors[selectedFloorKey].rooms[0].name;
 				}
 				if (AddAppointment) {
-					var newAppointment = {
-						start: self._getArrayDate(self.getStartDate()),
-						end: self._getArrayDate(self.getEndDate()),
-						title: self.getMeetingType(),
-						floor: selectedFloor.getText(),
-						room: roomInfo[1],
-						resources: self.getResources(),
-						type: "Type01",
-						tentative: false
-					};
-					self.appointments.push(newAppointment);
+					var startDate = self._getArrayDate(self.getStartDate());
+					var endDate = self._getArrayDate(self.getEndDate());
+					var openDialog = false;
+					for (var i = 0; i < data.floors[selectedFloorKey].rooms[roomInfo[0]].appointments.length; i++) {
+						if (self._inRange(data.floors[selectedFloorKey].rooms[roomInfo[0]].appointments[i].start, startDate, endDate) || self._inRange(
+								data.floors[selectedFloorKey].rooms[roomInfo[0]].appointments[i].end, startDate, endDate)) {
+							openDialog = true;
+						}
+					}
+					if (openDialog) {
+						self.genericDialog({
+							"title": "Verificar Disponibilidade",
+							"body": "Com as datas selecionadas não é possivel executar uma reserva. Por favou selecionar um conjunto de datas diferentes."
+						});
+					} else {
+						// fazer multi reservas
+						var newAppointments = self._createReservationInformation(startDate, endDate, selectedFloor, roomInfo);
+						for (i = 0; i < newAppointments.length; i++) {
+							self.appointments.push(newAppointments[i]);
+						}
+					}
 				}
-				for (var i = 0; i < self.appointments.length; i++) {
+				for (i = 0; i < self.appointments.length; i++) {
 					if (self.appointments[i] && self.appointments[i].floor === selectedFloor.getText()) {
 						data.floors[selectedFloorKey].rooms[roomInfo[0]].appointments.push(self.appointments[i]);
 					}
 				}
-
-				this.setData(data.floors[selectedFloorKey]);
-				planCal.setModel(this);
+				modelPC.setData(data.floors[selectedFloorKey]);
+				planCal.setModel(modelPC);
 			}).loadData("/webapp/mockdata/Reservations.json");
 
+		},
+
+		_createReservationInformation: function(startDate, endDate, selectedFloor, roomInfo) {
+			var arrayAppointments = [];
+			var tempStartDate = this.dateFormatter(startDate);
+			var tempEndDate = this.dateFormatter(endDate);
+			tempStartDate.setHours(0, 0, 0);
+			tempEndDate.setHours(0, 0, 0);
+			if (tempStartDate.getTime() !== tempEndDate.getTime()) {
+				do {
+					var newStartDate = new Date();
+					newStartDate.setFullYear(tempStartDate.getFullYear(), tempStartDate.getMonth(), tempStartDate.getDate());
+					newStartDate.setHours(this.dateFormatter(startDate).getHours(), this.dateFormatter(startDate).getMinutes());
+					var newEndDate = new Date();
+					newEndDate.setFullYear(tempStartDate.getFullYear(), tempStartDate.getMonth(), tempStartDate.getDate());
+					newEndDate.setHours(this.dateFormatter(endDate).getHours(), this.dateFormatter(endDate).getMinutes());
+					arrayAppointments.push({
+						start: this._getArrayDate(newStartDate),
+						end: this._getArrayDate(newEndDate),
+						title: this.getMeetingType(),
+						floor: selectedFloor.getText(),
+						room: roomInfo[1],
+						resources: this.getResources(),
+						type: "Type01",
+						tentative: false
+					});
+					tempStartDate.setDate(tempStartDate.getDate() + 1);
+				} while (tempStartDate.getTime() <= tempEndDate.getTime());
+			} else {
+				arrayAppointments.push({
+					start: startDate,
+					end: endDate,
+					title: this.getMeetingType(),
+					floor: selectedFloor.getText(),
+					room: roomInfo[1],
+					resources: this.getResources(),
+					type: "Type01",
+					tentative: false
+				});
+			}
+			return arrayAppointments;
+		},
+
+		genericDialog: function(dialogData, callback) {
+			var view = this.getView();
+			var dialog = view.byId("genDialog");
+
+			var genericController = {
+				closeDialog: function() {
+					dialog.close();
+				},
+
+				confirmationPress: function() {
+					dialog.close();
+					callback && callback();
+				}
+			};
+			// create dialog lazily
+			if (!dialog) {
+				dialog = sap.ui.xmlfragment(view.getId(), "odkasfactory.reservasalas.view.GenericDialog", genericController);
+				view.addDependent(dialog);
+			}
+
+			//updade dialog information
+			if (dialogData.title) {
+				dialog.setTitle(dialogData.title);
+			}
+			if (dialogData.body) {
+				var text = new Text();
+				text.setText(dialogData.body);
+				text.setWidth("100%");
+				text.setTextAlign("Center");
+				text.addStyleClass("sapMText sapUiSmallMarginTop sapUiSmallMarginBottom");
+				dialog.destroyContent();
+				dialog.insertContent(text, -1);
+			}
+			dialog.open();
 		},
 
 		_getSelectedRoom: function() {
@@ -451,7 +547,7 @@ sap.ui.define([
 		},
 
 		_disableRadioButtons: function() {
-			var radioGroup = this.getView().byId('sb_selection');
+			var radioGroup = this.getView().byId("sb_selection");
 			radioGroup.setSelectedIndex(0);
 			radioGroup.getSelectedButton().setEnabled(false);
 			radioGroup.setSelectedIndex(2);
@@ -460,7 +556,7 @@ sap.ui.define([
 		},
 
 		_enableRadioButtons: function() {
-			var radioGroup = this.getView().byId('sb_selection');
+			var radioGroup = this.getView().byId("sb_selection");
 			radioGroup.setSelectedIndex(0);
 			radioGroup.getSelectedButton().setEnabled(true);
 			radioGroup.setSelectedIndex(2);
@@ -493,7 +589,9 @@ sap.ui.define([
 			}
 
 			date1.setHours(beginning, 0, 0);
-			this.getView().byId("PC1").setMinDate(date1);
+			var actualDate = new Date();
+			actualDate.setHours(0, 0, 0);
+			this.getView().byId("PC1").setMinDate(actualDate);
 			this.startDate.setMinDate(date1);
 			this.startDate.setValue(this.filters.startDate);
 
