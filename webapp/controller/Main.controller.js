@@ -23,6 +23,10 @@ sap.ui.define([
 		dateFormatter: function(sDate) {
 			return new Date(sDate[0], sDate[1], sDate[2], sDate[3], sDate[4]);
 		},
+		
+		mergeTable: function(){
+			
+		},
 
 		onInit: function() {
 			this.appointments = [];
@@ -42,6 +46,12 @@ sap.ui.define([
 				this.setData(this.getData().floors[0]);
 				planCal.setModel(this);
 			}).loadData("/webapp/mockdata/Reservations.json");
+	
+			var modelTable = new JSONModel();
+			modelTable.attachEvent("requestCompleted", function() {
+				var table = self.getView().byId("reservationsTable");
+				table.setModel(this);
+			}).loadData("/webapp/mockdata/MyReservations.json");
 
 			var eventBus = this.getOwnerComponent().getEventBus();
 			eventBus.subscribe("InitialToMainChannel", "onRouteInitialMain", this.onDataReceived, this);
