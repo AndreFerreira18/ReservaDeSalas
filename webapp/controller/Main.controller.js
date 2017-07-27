@@ -23,9 +23,9 @@ sap.ui.define([
 		dateFormatter: function(sDate) {
 			return new Date(sDate[0], sDate[1], sDate[2], sDate[3], sDate[4]);
 		},
-		
-		mergeTable: function(){
-			
+
+		mergeTable: function() {
+
 		},
 
 		onInit: function() {
@@ -46,7 +46,7 @@ sap.ui.define([
 				this.setData(this.getData().floors[0]);
 				planCal.setModel(this);
 			}).loadData("/webapp/mockdata/Reservations.json");
-	
+
 			var modelTable = new JSONModel();
 			modelTable.attachEvent("requestCompleted", function() {
 				var table = self.getView().byId("reservationsTable");
@@ -64,45 +64,46 @@ sap.ui.define([
 
 		onAfterRendering: function() {
 			var self = this;
+			
 			if (window.innerWidth >= 600) {
 				self.getView().byId("sb_panel").setExpandable(false);
 			} else {
 				var cells = document.querySelectorAll(".sapMListTblHighlightCell"),
 					length = cells.length;
 				for (var i = 0; i < length; i++) {
-					if (!this._isEven(i)) {
+					if (cells[i].clientHeight > 1 && cells[i].clientWidth > 0) {
 						cells[i].parentNode.removeChild(cells[i]);
 					}
 				}
-				var cells2 = document.querySelectorAll(".sapMListTblSubRow");
-				length = cells2.length;
+				cells = document.querySelectorAll(".sapMListTblSubRow");
+				length = cells.length;
 				for (var j = 0; j < length; j++) {
-					cells2[j].children[0].colSpan = "2";
-					cells2[j].children[0].style.borderBottom = "1px solid #e5e5e5";
+					if (cells[j].id.indexOf("item") > -1) {
+						cells[j].children[0].colSpan = "2";
+					}
 				}
 			}
+		
 			//this code is used for testing purposes.
 			window.onresize = function() {
-				if (window.innerWidth > 600) {
-					self.getView().byId("sb_panel").setExpandable(false);
-				} else {
-					self.getView().byId("sb_panel").setExpandable(true);
-					self.getView().byId("sb_panel").setExpanded(true);
-					var cells = document.querySelectorAll(".sapMListTblHighlightCell"),
-						length = cells.length;
-					for (var i = 0; i < length; i++) {
-						if (!self._isEven(i)) {
-							cells[i].parentNode.removeChild(cells[i]);
-						}
-					}
-
-					var cells2 = document.querySelectorAll(".sapMListTblSubRow");
-					length = cells2.length;
-					for (j = 0; j < length; j++) {
-						cells2[j].children[0].colSpan = "2";
-						cells2[j].children[0].style.borderBottom = "1px solid #e5e5e5";
+			if (window.innerWidth >= 600) {
+				self.getView().byId("sb_panel").setExpandable(false);
+			} else {
+				var cells2 = document.querySelectorAll(".sapMListTblHighlightCell"),
+					length2 = cells2.length;
+				for (var k = 0; i < length2; i++) {
+					if (cells2[k].clientHeight > 1 && cells2[k].clientWidth > 0) {
+						cells2[k].parentNode.removeChild(cells2[k]);
 					}
 				}
+				cells2 = document.querySelectorAll(".sapMListTblSubRow");
+				length2 = cells2.length;
+				for (var l = 0; l < length; j++) {
+					if (cells2[l].id.indexOf("item") > -1) {
+						cells2[l].children[0].colSpan = "2";
+					}
+				}
+			}
 			};
 		},
 
@@ -114,6 +115,7 @@ sap.ui.define([
 		onClearPress: function() {
 			this.appointments = [];
 			this._changeModelPlanningCalendar(false);
+
 		},
 
 		onReservePress: function(oEvent) {
