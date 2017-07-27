@@ -2,27 +2,27 @@
 	<Dialog id="confDialog" title="Informações da Reserva " class="sapUiResponsiveMargin confDialogContainer">
 		<layout:HorizontalLayout>
 			<layout:VerticalLayout>
-				<HBox width="100%" alignItems="Start" alignContent="SpaceAround" class="sapUiResponsiveMargin">
+				<HBox width="auto" alignItems="Start" alignContent="SpaceAround" class="sapUiResponsiveMargin">
 					<Label class="confirmationLabel sapUiSmallMarginTop sapUiTinyMarginBegin " text="Responsável:"/>
 					<Text class="sapUiSmallMarginTop sapUiTinyMarginBegin" id="txt_responsable" text="Master"/>
 				</HBox>
-				<HBox width="100%" alignItems="Start" alignContent="SpaceAround" class="sapUiResponsiveMargin">
+				<HBox width="auto" alignItems="Start" alignContent="SpaceAround" class="sapUiResponsiveMargin">
 					<Label class="confirmationLabel sapUiSmallMarginTop sapUiTinyMarginBegin " text="Tipo de Reunião:"/>
 					<Text class="sapUiSmallMarginTop sapUiTinyMarginBegin" id="txt_type"/>
 				</HBox>
-				<HBox width="100%" alignItems="Start" alignContent="SpaceAround" class="sapUiResponsiveMargin">
+				<HBox width="auto" alignItems="Start" alignContent="SpaceAround" class="sapUiResponsiveMargin">
 					<Label class="confirmationLabel sapUiSmallMarginTop sapUiTinyMarginBegin" text="Data: "/>
 					<Text class="sapUiSmallMarginTop sapUiTinyMarginBegin" id="txt_date"/>
 				</HBox>
-				<HBox width="100%" alignItems="Start" alignContent="SpaceAround" class="sapUiResponsiveMargin">
+				<HBox width="auto" alignItems="Start" alignContent="SpaceAround" class="sapUiResponsiveMargin">
 					<Label class="confirmationLabel sapUiSmallMarginTop sapUiTinyMarginBegin" text="Sala: "/>
 					<Text class="sapUiSmallMarginTop sapUiTinyMarginBegin" id="txt_room"/>
 				</HBox>
-				<HBox width="100%" alignItems="Start" alignContent="SpaceAround" class="sapUiResponsiveMargin">
+				<HBox width="auto" alignItems="Start" alignContent="SpaceAround" class="sapUiResponsiveMargin">
 					<Label class="confirmationLabel sapUiSmallMarginTop sapUiTinyMarginBegin" text="Participantes previstos: "/>
 					<Text class="sapUiSmallMarginTop sapUiTinyMarginBegin" id="txt_participants"/>
 				</HBox>
-				<HBox width="100%" alignItems="Start" alignContent="SpaceAround" class="sapUiResponsiveMargin">
+				<HBox width="auto" alignItems="Start" alignContent="SpaceAround" class="sapUiResponsiveMargin">
 					<Label class="confirmationLabel sapUiSmallMarginTop sapUiTinyMarginBegin" text="Recursos: "/>
 					<Text class="sapUiSmallMarginTop sapUiTinyMarginBegin" id="txt_resources"/>
 				</HBox>

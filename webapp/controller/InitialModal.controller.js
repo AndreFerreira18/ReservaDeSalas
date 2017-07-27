@@ -88,7 +88,7 @@ sap.ui.define([
 			setTimeout(function() {
 				var eventBus = self.getOwnerComponent().getEventBus();
 				eventBus.publish("InitialToMainChannel", "onRouteInitialMain", data);
-			}, 250);
+			}, 500);
 
 		},
 
@@ -119,7 +119,9 @@ sap.ui.define([
 			//set Start date
 			if (date1.getHours() <= 13) {
 				beginning = 14;
-				this.startingDay = date1.getDate();
+				var aux = date1;
+				aux.setHours(14, 0, 0);
+				this.startingDay = aux;
 				//initial radio buttons correction (event is not triggered)
 				this._disableRadioButtons();
 			} else {
@@ -127,6 +129,7 @@ sap.ui.define([
 				date1.setDate(date1.getDate() + 1); //move to next day
 				date2.setDate(date2.getDate() + 1); //move to next day
 				radioGroup.setSelectedIndex(4);
+				this.startingDay = null;
 			}
 			date1.setHours(beginning, 0, 0);
 			this.startDate.setMinDate(date1);
@@ -151,61 +154,28 @@ sap.ui.define([
 
 			this.startDate.attachChange(function() {
 				self.endDate = self.getView().byId(endDateID);
-				if (parseInt(this.getValue().split("/")[0]) === self.startingDay) {
+				var sDate = this.getDateValue(),
+					eDate = self.endDate.getDateValue();
+
+				if (self.startingDay && sDate.withoutTime().getTime() === self.startingDay.withoutTime().getTime()) {
 					self._disableRadioButtons();
 				} else {
 					self._enableRadioButtons();
 				}
-				var startD = this.getValue().split("/"),
-					endD = self.endDate.getValue().split("/"),
-					startT = this.getValue().split(","),
-					endT = self.endDate.getValue().split(",");
 
-				if ((startD[0] > endD[0] && startD[1] >= endD[1]) || ((startD[0] === endD[0] && startD[1] === endD[1]) && startT[1] > endT[1]) ||
-					startT[1] === endT[1]) {
-					var auxDate, auxTime, aux, infoTime, infoDate, endTime, endDate;
-					aux = this.getValue().split(",");
-					auxTime = aux[1];
-					auxDate = aux[0];
-					infoTime = auxTime.split(":");
-					infoDate = auxDate.split("/");
-					if (infoTime[1] === "30") {
-						var hour = parseInt(infoTime[0]) + 1;
-						endTime = hour < 10 ? " 0" + hour.toString() : " " + hour.toString();
-						endTime += ":00";
-					} else {
-						endTime = infoTime[0] + ":30";
-					}
-					var d = new Date();
-					endDate = infoDate[0] + "/" + infoDate[1] + "/" + d.getFullYear();
-					self.endDate.setValue(endDate + "," + endTime);
+				if (sDate.getTime() >= eDate.getTime()) {
+					self.adjustEndDateValue();
 				}
+
 			});
 
 			this.endDate.attachChange(function() {
-				var startD = self.startDate.getValue().split("/"),
-					endD = this.getValue().split("/"),
-					startT = self.startDate.getValue().split(","),
-					endT = this.getValue().split(",");
+				self.startDate = self.getView().byId(startDateID);
+				var eDate = this.getDateValue(),
+					sDate = self.startDate.getDateValue();
 
-				if (((endD[0] === startD[0] && endD[1] === startD[1]) && startT[1] > endT[1]) ||
-					startT[1] === endT[1] || (endD[0] < startD[0] && endD[1] === startD[1])) {
-					var auxDate, auxTime, aux, infoTime, infoDate, endTime, endDate;
-					aux = self.startDate.getValue().split(",");
-					auxTime = aux[1];
-					auxDate = aux[0];
-					infoTime = auxTime.split(":");
-					infoDate = auxDate.split("/");
-					if (infoTime[1] === "30") {
-						var hour = parseInt(infoTime[0]) + 1;
-						endTime = hour < 10 ? " 0" + hour.toString() : " " + hour.toString();
-						endTime += ":00";
-					} else {
-						endTime = infoTime[0] + ":30";
-					}
-					var d = new Date();
-					endDate = infoDate[0] + "/" + infoDate[1] + "/" + d.getFullYear();
-					this.setValue(endDate + "," + endTime);
+				if (eDate.getTime() <= sDate.getTime()) {
+					self.adjustEndDateValue();
 				}
 			});
 
@@ -223,10 +193,8 @@ sap.ui.define([
 
 				dateA.setFullYear(sDateValue.getFullYear(), sDateValue.getMonth(), sDateValue.getDate());
 				dateB.setFullYear(eDateValue.getFullYear(), eDateValue.getMonth(), eDateValue.getDate());
-				dateA.setMinutes(0);
-				dateA.setSeconds(0);
-				dateB.setMinutes(0);
-				dateB.setSeconds(0);
+				dateA.setMinutes(0, 0);
+				dateB.setMinutes(0, 0);
 				switch (infos) {
 					case "Manhã":
 						dateA.setHours(8);
@@ -254,6 +222,26 @@ sap.ui.define([
 						break;
 				}
 			});
+		},
+
+		adjustEndDateValue: function() {
+			var date = this.startDate.getDateValue(),
+				timeText = "",
+				dateText = "",
+				newDate = new Date();
+			if(date.getMinutes() === 30){
+				var hour = date.getHours() + 1;
+				timeText = hour < 10 ? " 0" + hour.toString() : " " + hour.toString();
+				timeText += ":00";
+				newDate.setHours(hour,0,0);
+			} else {
+				timeText = date.getHours() + ":30";
+				newDate.setHours(date.getHours(),30,0);
+			}
+			dateText = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+			newDate.setFullYear(date.getFullYear(), date.getMonth(), date.getDate());
+			this.endDate.setValue(dateText + "," + timeText);
+			this.endDate.setDateValue(newDate);
 		},
 
 		_disableRadioButtons: function() {
@@ -288,3 +276,9 @@ sap.ui.define([
 
 	});
 });
+
+Date.prototype.withoutTime = function() {
+	var d = new Date(this);
+	d.setHours(0, 0, 0, 0);
+	return d;
+};
