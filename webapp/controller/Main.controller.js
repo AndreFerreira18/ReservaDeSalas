@@ -78,17 +78,17 @@ sap.ui.define([
 				} else {
 					self.getView().byId("sb_panel").setExpandable(true);
 					self.getView().byId("sb_panel").setExpanded(true);
-					var cells = document.querySelectorAll(".sapMListTblHighlightCell"),
-						length = cells.length;
-					for (var i = 0; i < length; i++) {
+					cells = document.querySelectorAll(".sapMListTblHighlightCell");
+					length = cells.length;
+					for (i = 0; i < length; i++) {
 						if (!self._isEven(i)) {
 							cells[i].parentNode.removeChild(cells[i]);
 						}
 					}
 
-					var cells2 = document.querySelectorAll(".sapMListTblSubRow");
+					cells2 = document.querySelectorAll(".sapMListTblSubRow");
 					length = cells2.length;
-					for (var j = 0; j < length; j++) {
+					for (j = 0; j < length; j++) {
 						cells2[j].children[0].colSpan = "2";
 						cells2[j].children[0].style.borderBottom = "1px solid #e5e5e5";
 					}
@@ -101,7 +101,7 @@ sap.ui.define([
 			this.startingDay = null;
 		},
 
-		onClearPress: function(oEvent) {
+		onClearPress: function() {
 			this.appointments = [];
 			this._changeModelPlanningCalendar(false);
 		},
@@ -363,7 +363,7 @@ sap.ui.define([
 			this._changeModelPlanningCalendar(true);
 		},
 
-		onChangeData: function(oEvent) {
+		onChangeData: function() {
 
 			//TODO remove! This is only for testing purposes.
 			var aux = this.getMeetingType();
@@ -411,20 +411,14 @@ sap.ui.define([
 							"body": "Com as datas selecionadas não é possivel executar uma reserva. Por favou selecionar um conjunto de datas diferentes."
 						});
 					} else {
-						var newAppointment = {
-							start: startDate,
-							end: endDate,
-							title: self.getMeetingType(),
-							floor: selectedFloor.getText(),
-							room: roomInfo[1],
-							resources: self.getResources(),
-							type: "Type01",
-							tentative: false
-						};
-						self.appointments.push(newAppointment);
+						// fazer multi reservas
+						var newAppointments = self._createReservationInformation(startDate, endDate, selectedFloor, roomInfo);
+						for (i = 0; i < newAppointments.length; i++) {
+							self.appointments.push(newAppointments[i]);
+						}
 					}
 				}
-				for (var i = 0; i < self.appointments.length; i++) {
+				for (i = 0; i < self.appointments.length; i++) {
 					if (self.appointments[i] && self.appointments[i].floor === selectedFloor.getText()) {
 						data.floors[selectedFloorKey].rooms[roomInfo[0]].appointments.push(self.appointments[i]);
 					}
@@ -433,6 +427,47 @@ sap.ui.define([
 				planCal.setModel(modelPC);
 			}).loadData("/webapp/mockdata/Reservations.json");
 
+		},
+
+		_createReservationInformation: function(startDate, endDate, selectedFloor, roomInfo) {
+			var arrayAppointments = [];
+			var tempStartDate = this.dateFormatter(startDate);
+			var tempEndDate = this.dateFormatter(endDate);
+			tempStartDate.setHours(0, 0, 0);
+			tempEndDate.setHours(0, 0, 0);
+			if (tempStartDate.getTime() !== tempEndDate.getTime()) {
+				do {
+					var newStartDate = new Date();
+					newStartDate.setFullYear(tempStartDate.getFullYear(), tempStartDate.getMonth(), tempStartDate.getDate());
+					newStartDate.setHours(this.dateFormatter(startDate).getHours(), this.dateFormatter(startDate).getMinutes());
+					var newEndDate = new Date();
+					newEndDate.setFullYear(tempStartDate.getFullYear(), tempStartDate.getMonth(), tempStartDate.getDate());
+					newEndDate.setHours(this.dateFormatter(endDate).getHours(), this.dateFormatter(endDate).getMinutes());
+					arrayAppointments.push({
+						start: this._getArrayDate(newStartDate),
+						end: this._getArrayDate(newEndDate),
+						title: this.getMeetingType(),
+						floor: selectedFloor.getText(),
+						room: roomInfo[1],
+						resources: this.getResources(),
+						type: "Type01",
+						tentative: false
+					});
+					tempStartDate.setDate(tempStartDate.getDate() + 1);
+				} while (tempStartDate.getTime() <= tempEndDate.getTime());
+			} else {
+				arrayAppointments.push({
+					start: startDate,
+					end: endDate,
+					title: this.getMeetingType(),
+					floor: selectedFloor.getText(),
+					room: roomInfo[1],
+					resources: this.getResources(),
+					type: "Type01",
+					tentative: false
+				});
+			}
+			return arrayAppointments;
 		},
 
 		genericDialog: function(dialogData, callback) {
@@ -495,7 +530,7 @@ sap.ui.define([
 		},
 
 		_disableRadioButtons: function() {
-			var radioGroup = this.getView().byId('sb_selection');
+			var radioGroup = this.getView().byId("sb_selection");
 			radioGroup.setSelectedIndex(0);
 			radioGroup.getSelectedButton().setEnabled(false);
 			radioGroup.setSelectedIndex(2);
@@ -504,7 +539,7 @@ sap.ui.define([
 		},
 
 		_enableRadioButtons: function() {
-			var radioGroup = this.getView().byId('sb_selection');
+			var radioGroup = this.getView().byId("sb_selection");
 			radioGroup.setSelectedIndex(0);
 			radioGroup.getSelectedButton().setEnabled(true);
 			radioGroup.setSelectedIndex(2);
@@ -535,7 +570,7 @@ sap.ui.define([
 			}
 			date1.setHours(beginning, 0, 0);
 			var actualDate = new Date();
-			actualDate.setHours(0,0,0);
+			actualDate.setHours(0, 0, 0);
 			this.getView().byId("PC1").setMinDate(actualDate);
 			this.startDate.setMinDate(date1);
 			this.startDate.setValue(this.filters.startDate);
