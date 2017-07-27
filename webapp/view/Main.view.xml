@@ -163,40 +163,40 @@
 						<m:layoutData><layout:GridData span="L9 M7 S12"/></m:layoutData>
 					</m:HBox>
 					<!--Reserves Table-->
-					<m:Table id="reservationsTable" width="auto" height="auto" noDataText="Não existem reservas." items="{path: '/' }" growing="true" growingThreshold="5"
+					<m:Table id="reservationsTable" width="auto" height="auto" noDataText="Não existem reservas." items="{path: '/' }" growing="true" growingThreshold="3"
 						growingScrollToLoad="true" class="sapUiResponsiveMargin ">
 						<m:columns>
-							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="true" mergeFunctionName="mergeTable">
+							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false" mergeFunctionName="data#{apointmentId}">
 								<m:header>
 									<m:Text text="Status" width="auto" textAlign="Begin" textDirection="Inherit"/>
 								</m:header>
 								<m:footer/>
 							</m:Column>
-							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="true" mergeFunctionName="mergeTable">
+							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false" mergeFunctionName="data#{apointmentId}">
 								<m:header>
 									<m:Text text="Tipo de Reunião" width="auto" textAlign="Begin" textDirection="Inherit"/>
 								</m:header>
 								<m:footer/>
 							</m:Column>
-							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="true" mergeFunctionName="mergeTable">
+							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false" mergeFunctionName="data#{apointmentId}">
 								<m:header>
 									<m:Text text="Sala" width="auto" textAlign="Begin" textDirection="Inherit"/>
 								</m:header>
 								<m:footer/>
 							</m:Column>
-							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="true" mergeFunctionName="mergeTable">
+							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false" mergeFunctionName="data#{apointmentId}">
 								<m:header>
 									<m:Text text="Data" width="auto" textAlign="Begin" textDirection="Inherit"/>
 								</m:header>
 								<m:footer/>
 							</m:Column>
-							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false" mergeFunctionName="data#{apointmentId}">
 								<m:header>
 									<m:Text text="Hora de Início" width="auto" textAlign="Begin" textDirection="Inherit"/>
 								</m:header>
 								<m:footer/>
 							</m:Column>
-							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+							<m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false" mergeFunctionName="data#{apointmentId}">
 								<m:header>
 									<m:Text text="Hora de Fim" width="auto" textAlign="Begin" textDirection="Inherit"/>
 								</m:header>
