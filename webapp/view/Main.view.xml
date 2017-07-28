@@ -122,8 +122,8 @@
 					</m:VBox>
 					<!--Matrix Week-->
 					<m:PlanningCalendar id="PC1" viewKey="DDD" rows="{path: '/rooms'}" singleSelection="true" showIntervalHeaders="true"
-						class="sapUiResponsiveMargin" showEmptyIntervalHeaders="false" appointmentSelect="handleAppointmentSelect"
-						intervalSelect="handleIntervalSelect">
+						class="sapUiResponsiveMargin" showEmptyIntervalHeaders="false" appointmentSelect="handleAppointmentSelect">
+						<!-- intervalSelect="handleIntervalSelect"-->
 						<m:toolbarContent>
 							<m:Title text="Disponibilidade" titleStyle="H4"/>
 						</m:toolbarContent>
